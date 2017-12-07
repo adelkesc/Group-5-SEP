@@ -21,6 +21,22 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class VIAController {
+	@FXML
+	private TableView<MemberModel> tableViewMember;
+	@FXML
+	private TableColumn<MemberModel, String> tableColumnName;
+	@FXML
+	private TableColumn<MemberModel, String> tableColumnAge;
+	@FXML
+	private TableColumn<MemberModel, String> tableColumnAddress;
+	@FXML
+	private TableColumn<MemberModel, String> tableColumnTel;
+	@FXML
+	private TableColumn<MemberModel, String> tableColumnEmail;
+	@FXML
+	private TableColumn<MemberModel, String> tableColumnCoursePref;
+	@FXML
+	private TableColumn<MemberModel, String> tableColumnMembPay;
 	// Member FXML
 	@FXML
 	private Label txtLabelMemberName;
@@ -226,5 +242,20 @@ public class VIAController {
 		   System.out.println(event1);
 		   el1.addEvent(event1);
 	   }
+	 private final ObservableList<MemberModel> memberObservableList = FXCollections.observableArrayList();
+	 private void initializeTable() {
+			tableViewMember.setItems(memberObservableList);
+			tableColumnName.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("name"));
+			tableColumnAge.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("age"));
+			tableColumnAddress.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("address"));
+			tableColumnTel.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("tel"));
+			tableColumnEmail.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("email"));
+			tableColumnCoursePref.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("coursePref"));
+			tableColumnMembPay.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("membPay"));
+		}
+
+		public ObservableList<MemberModel> getMemberObservableList() {
+			return memberObservableList;
+		}
 
 }
