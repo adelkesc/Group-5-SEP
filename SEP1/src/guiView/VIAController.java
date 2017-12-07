@@ -42,7 +42,7 @@ public class VIAController {
 	@FXML
 	private TextField txtFieldMemberEmail;
 	@FXML
-	private TextField txtFieldMemberCoursePrefs;
+	private TextField txtFieldMemberCoursePref;
 	@FXML
 	private TextField txtFieldMemberMembPay;
 	// main page FXML
