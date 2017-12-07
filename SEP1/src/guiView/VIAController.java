@@ -38,11 +38,16 @@ public class VIAController {
 	private Label txtLabelMemberMembPay;
 	@FXML
 	private TextField txtFieldMemberName;
+	@FXML
 	private TextField txtFieldMemberAge;
+	@FXML
 	private TextField txtFieldMemberAddress;
+	@FXML
 	private TextField txtFieldMemberTel;
+	@FXML
 	private TextField txtFieldMemberEmail;
-	private TextField txtFieldMemberCoursePrefs;
+	@FXML
+	private TextField txtFieldMemberCoursePref;
 	@FXML
 	private TextField txtFieldMemberMembPay;
 //	private TableView<Events> eventsMainTable;
@@ -194,10 +199,11 @@ public class VIAController {
 	}
 
 	public void add() {
+		MyDate membPay = new MyDate();
 		MemberModel newMember = new MemberModel(txtFieldMemberName.getText(),
 				Integer.parseInt(txtFieldMemberAge.getText()), txtFieldMemberAddress.getText(),
 				Integer.parseInt(txtFieldMemberTel.getText()), txtFieldMemberEmail.getText(),
-				txtFieldMemberCoursePrefs.getText(), null);
+				txtFieldMemberCoursePref.getText(), membPay);
 		other.addMember(newMember);
 		JOptionPane.showMessageDialog(null, "New Member has been added");
 	}
