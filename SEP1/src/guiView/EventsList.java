@@ -3,10 +3,10 @@ package guiView;
 import java.util.ArrayList;
 
 public class EventsList {
-ArrayList<Events> eventsArrLi = new ArrayList<>();
+ArrayList<Events> eventsArrLi;
 
 public EventsList() {
-	
+	eventsArrLi = new ArrayList<>();
 }
 public void addEvent(Events event) {
 	eventsArrLi.add(event);
@@ -28,5 +28,12 @@ public Events editEvent(Events event) {
 	tempEvent.setFinalized(event.isFinalized());	
 	return tempEvent;
 }
-
+public Events searchByName(String name) {
+	for (int i = 0; i < eventsArrLi.size(); i++) {
+		if (eventsArrLi.get(i).getName().equals(name)){
+			return eventsArrLi.get(i);
+		}
+	}
+	return null;
+}
 }
