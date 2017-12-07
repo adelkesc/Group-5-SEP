@@ -19,11 +19,17 @@ public class VIAController {
 	// Member FXML
 	@FXML
 	private Label txtLabelMemberName;
+	@FXML
 	private Label txtLabelMemberAge;
+	@FXML
 	private Label txtLabelMemberAddress;
+	@FXML
 	private Label txtLabelMemberTel;
+	@FXML
 	private Label txtLabelMemberEmail;
+	@FXML
 	private Label txtLabelMemberCoursePref;
+	@FXML
 	private Label txtLabelMemberMembPay;
 	@FXML
 	private TextField txtFieldMemberName;
@@ -32,17 +38,16 @@ public class VIAController {
 	private TextField txtFieldMemberTel;
 	private TextField txtFieldMemberEmail;
 	private TextField txtFieldMemberCoursePrefs;
+	@FXML
 	private TextField txtFieldMemberMembPay;
 	// main page FXML
 	@FXML
 	private Button btnMemberAdd;
-	MemberModel other = new MemberModel(null);
+	
 	@FXML
 	private Button btnMainPageEvents;
 	@FXML
 	private AnchorPane mainAnchor;
-	@FXML
-	private AnchorPane secondAnchor;
 	@FXML
 	private Button btnMainPageLect;
 	@FXML
@@ -68,33 +73,33 @@ public class VIAController {
 	@FXML
 	private TextField txtFieldLecturerTelNumber;
 	@FXML
-	private RadioButton radioBtnLecturerYes;
+	private RadioButton radioBtnLecturerYes = new RadioButton();
 	@FXML
-	private RadioButton radioBtnLecturerNo;
+	private RadioButton radioBtnLecturerNo = new RadioButton();
 	@FXML
 	private Button btnLecturerAdd;
 	@FXML
 	private Button btnLecturerBack;
-
+	MemberModel other = new MemberModel(null);
 	private String value = "";
 	private LecturerModel init = new LecturerModel(null, null, null, 0);
 
 	public void initialize() {
-//	      ToggleGroup group = new ToggleGroup();
-//	      radioBtnLecturerYes.setToggleGroup(group);
-//	      radioBtnLecturerNo.setToggleGroup(group);
-//	      group.selectToggle(radioBtnLecturerNo);
-//	      group.selectedToggleProperty().addListener(new ChangeListener<Toggle>()
-//	            {
-//	               @Override
-//	               public void changed(ObservableValue<? extends Toggle> ov,
-//	                     Toggle t1, Toggle t2)
-//	               {
-//	                  RadioButton check = (RadioButton)t1.getToggleGroup().getSelectedToggle();
-//	                  value = check.getText();
-//	                  
-//	               }
-//	            });
+	      ToggleGroup group = new ToggleGroup();
+	      radioBtnLecturerYes.setToggleGroup(group);
+	      radioBtnLecturerNo.setToggleGroup(group);
+	      group.selectToggle(radioBtnLecturerNo);
+	      group.selectedToggleProperty().addListener(new ChangeListener<Toggle>()
+	            {
+	               @Override
+	               public void changed(ObservableValue<? extends Toggle> ov,
+	                     Toggle t1, Toggle t2)
+	               {
+	                  RadioButton check = (RadioButton)t1.getToggleGroup().getSelectedToggle();
+	                  value = check.getText();
+	                  
+	               }
+	            });
 	   }
 	public void toEventsScene() throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("eventsView.fxml"));
