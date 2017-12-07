@@ -113,16 +113,16 @@ public class VIAController {
 
 	public void goBack() throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("viamain.fxml"));
-		secondAnchor.getChildren().setAll(pane);
+		mainAnchor.getChildren().setAll(pane);
 	}
 
 	public void toAddMemberScene() throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("AddMember.fxml"));
-		secondAnchor.getChildren().setAll(pane);
+		mainAnchor.getChildren().setAll(pane);
 	}
 	public void toAddLecturerScene() throws IOException{
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("AddLecturer.fxml"));
-		secondAnchor.getChildren().setAll(pane);
+		mainAnchor.getChildren().setAll(pane);
 	}
 
 	public void add() {
