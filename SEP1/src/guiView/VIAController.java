@@ -141,7 +141,7 @@ public class VIAController {
 		MemberModel newMember = new MemberModel(txtFieldMemberName.getText(),
 				Integer.parseInt(txtFieldMemberAge.getText()), txtFieldMemberAddress.getText(),
 				Integer.parseInt(txtFieldMemberTel.getText()), txtFieldMemberEmail.getText(),
-				txtFieldMemberCoursePrefs.getText(), membPay);
+				txtFieldMemberCoursePref.getText(), membPay);
 		other.addMember(newMember);
 		JOptionPane.showMessageDialog(null, "New Member has been added");
 	}
