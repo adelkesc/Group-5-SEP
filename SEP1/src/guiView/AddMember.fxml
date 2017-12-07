@@ -6,21 +6,20 @@
 
 <AnchorPane fx:id="mainAnchor" fx:controller="guiView.VIAController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label id="txtLabelMemberName" layoutX="104.0" layoutY="48.0" text="Name" />
-      <Label id="txtLabelMemberAge" layoutX="112.0" layoutY="95.0" text="Age" />
-      <Label id="txtLabelMemberAddress" layoutX="96.0" layoutY="146.0" text="Address" />
-      <Label id="txtLabelMemberTel" layoutX="116.0" layoutY="199.0" text="Tel" />
-      <Label id="txtLabelMemberEmail" layoutX="107.0" layoutY="255.0" text="Email" />
-      <Label id="txtLabelMemberCoursePref" layoutX="67.0" layoutY="308.0" text="Course Preferences" />
-      <Label id="txtLabelMemberMembPay" layoutX="61.0" layoutY="360.0" text="Membership Payments" />
-      <Button id="btnMemberAdd" layoutX="243.0" layoutY="408.0" mnemonicParsing="false" text="Add Member" />
-      <TextField id="txtFieldMemberName" layoutX="252.0" layoutY="42.0" />
-      <TextField id="txtFieldMemberAge" layoutX="252.0" layoutY="89.0" />
-      <TextField id="txtFieldMemberAddress" layoutX="252.0" layoutY="140.0" />
-      <TextField id="txtFieldMemberTel" layoutX="252.0" layoutY="193.0" />
-      <TextField id="txtFieldMemberEmail" layoutX="252.0" layoutY="249.0" />
-      <TextField id="txtFieldMemberCoursePref" layoutX="252.0" layoutY="302.0" />
-      <TextField id="txtFieldMemberMembPay" layoutX="252.0" layoutY="354.0" />
-      <Button fx:id="goBack" layoutX="969.0" layoutY="621.0" mnemonicParsing="false" onAction="#toMemberScene" text="Back" />
+      <Label fx:id="txtLabelMemberName" layoutX="104.0" layoutY="48.0" text="Name" />
+      <Label fx:id="txtLabelMemberAge" layoutX="112.0" layoutY="95.0" text="Age" />
+      <Label fx:id="txtLabelMemberAddress" layoutX="96.0" layoutY="146.0" text="Address" />
+      <Label fx:id="txtLabelMemberTel" layoutX="116.0" layoutY="199.0" text="Tel" />
+      <Label fx:id="txtLabelMemberEmail" layoutX="107.0" layoutY="255.0" text="Email" />
+      <Label fx:id="txtLabelMemberCoursePref" layoutX="67.0" layoutY="308.0" text="Course Preferences" />
+      <Label fx:id="txtLabelMemberMembPay" layoutX="61.0" layoutY="360.0" text="Membership Payments" />
+      <Button fx:id="btnMemberAdd" layoutX="243.0" layoutY="408.0" mnemonicParsing="false" onAction="#add" text="Add Member" />
+      <TextField fx:id="txtFieldMemberName" layoutX="252.0" layoutY="42.0" />
+      <TextField fx:id="txtFieldMemberAge" layoutX="252.0" layoutY="89.0" />
+      <TextField fx:id="txtFieldMemberAddress" layoutX="252.0" layoutY="140.0" />
+      <TextField fx:id="txtFieldMemberTel" layoutX="252.0" layoutY="193.0" />
+      <TextField fx:id="txtFieldMemberEmail" layoutX="252.0" layoutY="249.0" />
+      <TextField fx:id="txtFieldMemberCoursePref" layoutX="252.0" layoutY="302.0" />
+      <TextField fx:id="txtFieldMemberMembPay" layoutX="252.0" layoutY="354.0" />
    </children>
 </AnchorPane>
