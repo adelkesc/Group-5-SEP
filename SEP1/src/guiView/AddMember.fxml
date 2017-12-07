@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="guiView.VIAController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label id="txtLabelMemberName" layoutX="104.0" layoutY="48.0" text="Name" />
       <Label id="txtLabelMemberAge" layoutX="112.0" layoutY="95.0" text="Age" />
@@ -22,4 +22,4 @@
       <TextField id="txtFieldMemberCoursePref" layoutX="252.0" layoutY="302.0" />
       <TextField id="txtFieldMemberMembPay" layoutX="252.0" layoutY="354.0" />
    </children>
-</Pane>
+</AnchorPane>

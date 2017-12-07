@@ -18,7 +18,7 @@
             <TableColumn prefWidth="205.0" text="Membership payment" />
         </columns>
       </TableView>
-      <Button layoutX="26.0" layoutY="628.0" mnemonicParsing="false" text="Add New" />
+      <Button onAction="#toAddMemberScene" layoutX="26.0" layoutY="628.0" mnemonicParsing="false" text="Add New" />
       <Button disable="true" layoutX="120.0" layoutY="628.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Edit" />
       <Button disable="true" layoutX="220.0" layoutY="628.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Delete" />
       <Button layoutX="389.0" layoutY="14.0" mnemonicParsing="false" text="Search" />

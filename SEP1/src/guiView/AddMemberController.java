@@ -1,4 +1,4 @@
-package Project;
+package guiView;
 import javax.swing.JOptionPane;
 
 import javafx.fxml.FXML;
