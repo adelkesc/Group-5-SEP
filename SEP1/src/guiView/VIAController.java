@@ -136,7 +136,7 @@ public class VIAController {
 		mainAnchor.getChildren().setAll(pane);
 	}
 
-	public void addMem() {
+	public void add() {
 		MyDate membPay = new MyDate();
 		MemberModel newMember = new MemberModel(txtFieldMemberName.getText(),
 				Integer.parseInt(txtFieldMemberAge.getText()), txtFieldMemberAddress.getText(),
