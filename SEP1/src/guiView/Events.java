@@ -130,5 +130,8 @@ public class Events {
 	// public void addMemToEvent(Members member) {
 	// eventMembList.add(member);
 	// }
+	public String toString() {
+		return this.name + "\n" + 	this.date+ "\n" + this.duration+ "\n" + this.type+ "\n" +	this.location+ "\n" +	this.category+ "\n" + this.price+ "\n" + this.minPartic+ "\n" + this.maxPartic+ "\n" + this.isFinalized;
+	}
 
 }

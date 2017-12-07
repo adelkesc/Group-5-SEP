@@ -4,14 +4,19 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -40,10 +45,53 @@ public class VIAController {
 	private TextField txtFieldMemberCoursePrefs;
 	@FXML
 	private TextField txtFieldMemberMembPay;
+//	private TableView<Events> eventsMainTable;
+	private TableColumn<Events, String> eventTableCol1 = new TableColumn<>();
+//	private ObservableList<Events> data = FXCollections.observableArrayList();
+	@FXML
+	private TableColumn<Events, String> eventTableCol2;
+	@FXML
+	private TableColumn<Events, String> eventTableCol3;
+	@FXML
+	private TableColumn<Events, String> eventTableCol4;
+	@FXML
+	private TableColumn<Events, String> eventTableCol5;
+	@FXML
+	private TableColumn<Events, String> eventTableCol6;
+	@FXML
+	private TableColumn<Events, String> eventTableCol7;
+	@FXML
+	private TableColumn<Events, String> eventTableCol8;
+	@FXML
+	private TableColumn<Events, String> eventTableCol9;
+	@FXML
+	private TableColumn<Events, String> eventTableCol10;
+	@FXML
+	private TableColumn<Events, String> eventTableCol11;
+	@FXML
+	private TableColumn<Events, String> eventTableCol12;
+	@FXML
+	private TextField addEventName;
+	@FXML
+	private TextField addEventDate;
+	@FXML
+	private TextField addEventDuration;
+	@FXML
+	private TextField addEventType;
+	@FXML
+	private TextField addEventLocation;
+	@FXML
+	private TextField addEventCategory;
+	@FXML
+	private TextField addEventPrice;
+	@FXML
+	private TextField addEventMinPartic;
+	@FXML
+	private TextField addEventMaxPartic;
+	
 	// main page FXML
 	@FXML
 	private Button btnMemberAdd;
-	
 	@FXML
 	private Button btnMainPageEvents;
 	@FXML
@@ -85,6 +133,7 @@ public class VIAController {
 	MemberModel other = new MemberModel(null);
 	private String value = "";
 	private LecturerModel init = new LecturerModel(null, null, null, 0);
+	private EventsList el1 = new EventsList();
 
 	public void initialize() {
 	      ToggleGroup group = new ToggleGroup();
@@ -102,6 +151,14 @@ public class VIAController {
 	                  
 	               }
 	            });
+//	      eventsMainTable = new TableView<Events>();
+//	      eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("Random Test"));
+//	      EventsList el1 = new EventsList();
+//	      for (int i = 0; i < 5; i++) {
+//	    	  Events event1 = new Events();
+//	    	  data.add(event1);
+//	      }
+	      
 	   }
 	public void toEventsScene() throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("eventsView.fxml"));
@@ -131,6 +188,10 @@ public class VIAController {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("AddLecturer.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
+	public void toAddEventScene() throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("addNewEvent.fxml"));
+		mainAnchor.getChildren().setAll(pane);
+	}
 
 	public void add() {
 		MemberModel newMember = new MemberModel(txtFieldMemberName.getText(),
@@ -150,6 +211,14 @@ public class VIAController {
 	      LecturerModel newLecturer = new LecturerModel(txtFieldLecturerName.getText(), txtFieldLecturerEmail.getText(), txtFieldLecturerCourseSpec.getText(), Integer.parseInt(txtFieldLecturerTelNumber.getText()), advertReq);
 	      init.addLecturer(newLecturer);
 	      JOptionPane.showMessageDialog(null, "Lecturer added sucessfully!");
+	   }
+	   public void addEvent() {
+		   String temp = addEventDate.getText();
+		   String[] temp2 = temp.split("/");
+		   MyDate date1 = new MyDate(Integer.parseInt(temp2[0]), Integer.parseInt(temp2[1]), Integer.parseInt(temp2[2]));
+		   Events event1 = new Events(addEventName.getText(), date1, Integer.parseInt(addEventDuration.getText()), addEventType.getText(), addEventLocation.getText(), addEventCategory.getText(), Double.parseDouble(addEventPrice.getText()), Integer.parseInt(addEventMinPartic.getText()), Integer.parseInt(addEventMaxPartic.getText()), false);
+		   System.out.println(event1);
+		   el1.addEvent(event1);
 	   }
 
 }
