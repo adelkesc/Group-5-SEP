@@ -47,6 +47,8 @@ public class VIAController {
 	@FXML
 	private Button btnMainPageEvents;
 	@FXML
+	private Button goBack;
+	@FXML
 	private AnchorPane mainAnchor;
 	@FXML
 	private Button btnMainPageLect;
