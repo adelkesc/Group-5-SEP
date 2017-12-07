@@ -33,17 +33,21 @@ public class VIAController {
 	private Label txtLabelMemberMembPay;
 	@FXML
 	private TextField txtFieldMemberName;
+	@FXML
 	private TextField txtFieldMemberAge;
+	@FXML
 	private TextField txtFieldMemberAddress;
+	@FXML
 	private TextField txtFieldMemberTel;
+	@FXML
 	private TextField txtFieldMemberEmail;
+	@FXML
 	private TextField txtFieldMemberCoursePrefs;
 	@FXML
 	private TextField txtFieldMemberMembPay;
 	// main page FXML
 	@FXML
 	private Button btnMemberAdd;
-	
 	@FXML
 	private Button btnMainPageEvents;
 	@FXML
@@ -132,11 +136,12 @@ public class VIAController {
 		mainAnchor.getChildren().setAll(pane);
 	}
 
-	public void add() {
+	public void addMem() {
+		MyDate membPay = new MyDate();
 		MemberModel newMember = new MemberModel(txtFieldMemberName.getText(),
 				Integer.parseInt(txtFieldMemberAge.getText()), txtFieldMemberAddress.getText(),
 				Integer.parseInt(txtFieldMemberTel.getText()), txtFieldMemberEmail.getText(),
-				txtFieldMemberCoursePrefs.getText(), null);
+				txtFieldMemberCoursePrefs.getText(), membPay);
 		other.addMember(newMember);
 		JOptionPane.showMessageDialog(null, "New Member has been added");
 	}
