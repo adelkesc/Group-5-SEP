@@ -20,8 +20,6 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class VIAController {
 	@FXML
@@ -199,6 +197,7 @@ public class VIAController {
 		tableColumnCoursePref.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("coursePref"));
 		tableColumnMembPay.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("membPay"));
 		tableViewMember.setItems(memberObservableList);
+		
 
 	}
 
@@ -219,18 +218,18 @@ public class VIAController {
 	}
 
 	public void toEventsScene() throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("eventsView.fxml"));
-		mainAnchor.getChildren().setAll(pane);
+		AnchorPane paneEvents = FXMLLoader.load(getClass().getResource("eventsView.fxml"));
+		mainAnchor.getChildren().setAll(paneEvents);
 	}
 
 	public void toMemberScene() throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("MemberView.fxml"));
-		mainAnchor.getChildren().setAll(pane);
+		AnchorPane paneMembers = FXMLLoader.load(getClass().getResource("MemberView.fxml"));
+		mainAnchor.getChildren().setAll(paneMembers);
 	}
 
 	public void toLecturerScene() throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("DisplayLecturers.fxml"));
-		mainAnchor.getChildren().setAll(pane);
+		AnchorPane paneLecturers = FXMLLoader.load(getClass().getResource("DisplayLecturers.fxml"));
+		mainAnchor.getChildren().setAll(paneLecturers);
 	}
 
 	public void goBack() throws IOException {
