@@ -51,6 +51,13 @@ public class MemberModel {
 
 	public MemberModel(String name) {
 		this.name = name;
+		this.age = 0;
+		this.address = "";
+		this.tel = 0;
+		this.email = "";
+		this.coursePref = "";
+		this.membPay = new MyDate();
+		this.members = new ArrayList<MemberModel>();
 	}
 
 	public String getName() {
