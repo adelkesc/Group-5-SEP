@@ -209,7 +209,7 @@ public class VIAController {
 	}
 
 	public void toMemberScene() throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("MemberView.fxml"));
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("MemberTableView.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
 
