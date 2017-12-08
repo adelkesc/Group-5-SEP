@@ -1,6 +1,8 @@
 package guiView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +21,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class VIAController {
 	@FXML
@@ -66,31 +69,36 @@ public class VIAController {
 	private TextField txtFieldMemberCoursePref;
 	@FXML
 	private TextField txtFieldMemberMembPay;
-//	private TableView<Events> eventsMainTable;
+	@FXML
+	private TableView<Events> eventsMainTable = new TableView<>();
+	private ObservableList<Events> data = FXCollections.observableArrayList(
+			generateTable()
+			
+			);
+	@FXML
 	private TableColumn<Events, String> eventTableCol1 = new TableColumn<>();
-//	private ObservableList<Events> data = FXCollections.observableArrayList();
 	@FXML
-	private TableColumn<Events, String> eventTableCol2;
+	private TableColumn<Events, String> eventTableCol2 = new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol3;
+	private TableColumn<Events, String> eventTableCol3= new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol4;
+	private TableColumn<Events, String> eventTableCol4= new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol5;
+	private TableColumn<Events, String> eventTableCol5= new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol6;
+	private TableColumn<Events, String> eventTableCol6= new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol7;
+	private TableColumn<Events, String> eventTableCol7= new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol8;
+	private TableColumn<Events, String> eventTableCol8= new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol9;
+	private TableColumn<Events, String> eventTableCol9= new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol10;
+	private TableColumn<Events, String> eventTableCol10= new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol11;
+	private TableColumn<Events, String> eventTableCol11= new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol12;
+	private TableColumn<Events, String> eventTableCol12= new TableColumn<>();
 	@FXML
 	private TextField addEventName;
 	@FXML
@@ -172,15 +180,29 @@ public class VIAController {
 	                  
 	               }
 	            });
-//	      eventsMainTable = new TableView<Events>();
-//	      eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("Random Test"));
-//	      EventsList el1 = new EventsList();
-//	      for (int i = 0; i < 5; i++) {
-//	    	  Events event1 = new Events();
-//	    	  data.add(event1);
-//	      }
+	      eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("name"));
+	      eventTableCol2.setCellValueFactory(new PropertyValueFactory<Events, String>("date"));
+	      eventTableCol3.setCellValueFactory(new PropertyValueFactory<Events, String>("duration"));
+	      eventTableCol4.setCellValueFactory(new PropertyValueFactory<Events, String>("type"));
+	      eventTableCol5.setCellValueFactory(new PropertyValueFactory<Events, String>("location"));
+	      eventTableCol6.setCellValueFactory(new PropertyValueFactory<Events, String>("category"));
+	      eventTableCol7.setCellValueFactory(new PropertyValueFactory<Events, String>("null"));
+	      eventTableCol8.setCellValueFactory(new PropertyValueFactory<Events, String>("null"));
+	      eventTableCol9.setCellValueFactory(new PropertyValueFactory<Events, String>("price"));
+	      eventTableCol10.setCellValueFactory(new PropertyValueFactory<Events, String>("MinPartic"));
+	      eventTableCol11.setCellValueFactory(new PropertyValueFactory<Events, String>("maxPartic"));
+	      eventTableCol12.setCellValueFactory(new PropertyValueFactory<Events, String>("isFinalized"));
+	      eventsMainTable.setItems(data);
 	      
 	   }
+	private ArrayList<Events> generateTable() {
+		MyDate date1 = new MyDate();
+		ArrayList<Events> ar1 = new ArrayList<>();
+		for (int i = 0; i < 10;i++) {
+			ar1.add(new Events());
+		}
+		return ar1;
+	}
 	public void toEventsScene() throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("eventsView.fxml"));
 		mainAnchor.getChildren().setAll(pane);
