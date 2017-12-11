@@ -11,9 +11,10 @@ public EventsList() {
 public void addEvent(Events event) {
 	eventsArrLi.add(event);
 }
-public void removeEvent() {
-	
+public void removeEvent(int i) {
+	eventsArrLi.remove(i);
 }
+
 public Events editEvent(Events event) {
 	Events tempEvent = new Events();
 	tempEvent.setName(event.getName());
@@ -25,7 +26,7 @@ public Events editEvent(Events event) {
 	tempEvent.setPrice(event.getPrice());
 	tempEvent.setMinPartic(event.getMinPartic());
 	tempEvent.setMaxPartic(event.getMaxPartic());
-	tempEvent.setFinalized(event.isFinalized());	
+	tempEvent.setFinalized(event.isFinalized());
 	return tempEvent;
 }
 public Events searchByName(String name) {
