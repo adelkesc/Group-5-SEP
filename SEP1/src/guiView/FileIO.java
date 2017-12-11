@@ -17,7 +17,7 @@ public class FileIO implements Serializable
 
    public void setVIAModel() throws IOException, ClassNotFoundException
    {
-
+      
       FileInputStream fstream = new FileInputStream("viaModel.bin");
       ObjectInputStream inputFile = new ObjectInputStream(fstream);
 
