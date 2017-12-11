@@ -3,22 +3,26 @@ package guiView;
 import java.util.ArrayList;
 
 public class MemberList {
-	private ArrayList<MemberModel> members;
+	private ArrayList<Member> members;
 
 	public MemberList() {
-		this.members = new ArrayList<MemberModel>();
+		this.members = new ArrayList<Member>();
 	}
 
-	public void addMember(MemberModel member) {
+	public void addMember(Member member) {
 		members.add(member);
 	}
 
-	public void removeMember(MemberModel member) {
+	public void removeMember(Member member) {
 		members.remove(member);
 	}
-	public void editMember(MemberModel member) {
+	public void editMember(Member member) {
 		
 	}
+	public ArrayList<Member> getListOfMembers()
+	   {
+	      return members;
+	   }
 
 	/*public void editMember(Member member, String name, int age, String address, int tel, String email,
 			String coursePref) {
@@ -35,9 +39,9 @@ public class MemberList {
 	 * 
 	 * }
 	 */
-	public MemberModel searchMemberByName(String name) {
+	public Member searchMemberByName(String name) {
 		for (int i = 0; i < members.size(); i++) {
-			MemberModel mem = members.get(i);
+			Member mem = members.get(i);
 			if (mem.getName().equals(name)) {
 				return mem;
 			}

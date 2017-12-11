@@ -335,7 +335,7 @@ public class VIAController implements Initializable
 				addEventType.getText(), addEventLocation.getText(), addEventCategory.getText(),
 				Double.parseDouble(addEventPrice.getText()), Integer.parseInt(addEventMinPartic.getText()),
 				Integer.parseInt(addEventMaxPartic.getText()), false);
-		System.out.println(event1);
+		JOptionPane.showMessageDialog(null, "Event Succesfully added");
 		el1.addEvent(event1);
 	}
 
