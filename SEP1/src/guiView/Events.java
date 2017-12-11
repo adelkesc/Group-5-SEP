@@ -3,118 +3,109 @@ package guiView;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleStringProperty;
+
 public class Events implements Serializable {
-	private String name;
-	private MyDate date;
-	private int duration;
-	private String type;
-	private String location;
-	private String category;
+	private SimpleStringProperty name = new SimpleStringProperty("");
+	private SimpleStringProperty date = new SimpleStringProperty("");
+	private SimpleStringProperty  duration = new SimpleStringProperty("");
+	private SimpleStringProperty type = new SimpleStringProperty("");
+	private SimpleStringProperty location = new SimpleStringProperty("");
+	private SimpleStringProperty category = new SimpleStringProperty("");
 	// private Lecturer conductor;
-	private double price;
-	private int minPartic, maxPartic;
-	private boolean isFinalized;
+	private SimpleStringProperty price = new SimpleStringProperty("");
+	private SimpleStringProperty minPartic = new SimpleStringProperty(""), maxPartic = new SimpleStringProperty("");
+	private boolean isFinalized = false;
 	// ArrayList<Members> eventMembList = new ArrayList<>();
 
-	public Events(String name, MyDate date, int duration, String type, String location, String category,
-			/* Lecturer conductor, */ double price, int minPartic, int maxPartic, boolean isFinalized) {
-		this.name = name;
-		this.date = date.copy();
-		this.duration = duration;
-		this.type = type;
-		this.location = location;
-		this.category = category;
-		// this.conductor=conductor;
-		this.price = price;
-		this.minPartic = minPartic;
-		this.maxPartic = maxPartic;
+	public Events(String name, String date, String duration, String type, String location, String category,
+			/* Lecturer conductor, */ String price, String minPartic, String maxPartic, boolean isFinalized) {
+		setName(name);
+		setDate(date);
+		setDuration(duration);
+		setType(type);
+		setLocation(location);
+		setCategory(category);
+		setPrice(price);
+		setMinPartic(minPartic);
+		setMaxPartic(maxPartic);
 		this.isFinalized = isFinalized;
 	}
 
 	public Events() {
-		this.name = "";
-		this.date = null;
-		this.duration = 0;
-		this.type = "";
-		this.location = "";
-		this.category = "";
-		// this.conductor=null;
-		this.price = 0;
-		this.minPartic = 0;
-		this.maxPartic = 0;
-		this.isFinalized = false;
+		this("","","","","","","","","",false);
 	}
 
 	public String getName() {
-		return name;
+		return name.get();
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name.set(name);
 	}
 
-	public MyDate getDate() {
-		return date;
+	public String getDate() {
+		return date.get();
 	}
 
-	public void setDate(MyDate date) {
-		this.date = date;
+	public void setDate(String date) {
+		this.date.set(date);
 	}
 
-	public int getDuration() {
-		return duration;
+	public String getDuration() {
+		return duration.get();
 	}
 
-	public void setDuration(int duration) {
-		this.duration = duration;
+	public void setDuration(String duration) {
+		this.duration.set(duration);
 	}
 
 	public String getType() {
-		return type;
+		return type.get();
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		this.type.set(type);
 	}
 
 	public String getLocation() {
-		return location;
+		return location.get();
 	}
 
 	public void setLocation(String location) {
-		this.location = location;
+		this.location.set(location);
 	}
 
 	public String getCategory() {
-		return category;
+		return category.get();
 	}
 
 	public void setCategory(String category) {
-		this.category = category;
+		this.category.set(category);
 	}
 
-	public double getPrice() {
-		return price;
+	public String getPrice() {
+		return price.get();
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public void setPrice(String price) {
+		this.price.set(price);
 	}
 
-	public int getMinPartic() {
-		return minPartic;
+	public String getMinPartic() {
+		return minPartic.get();
 	}
 
-	public void setMinPartic(int minPartic) {
-		this.minPartic = minPartic;
+	public void setMinPartic(String minPartic) {
+		this.minPartic.set(minPartic);
 	}
 
-	public int getMaxPartic() {
-		return maxPartic;
+	public String getMaxPartic() {
+		return maxPartic.get();
 	}
 
-	public void setMaxPartic(int maxPartic) {
-		this.maxPartic = maxPartic;
+	public void setMaxPartic(String maxPartic) {
+		this.maxPartic.set(maxPartic);
 	}
 
 	public boolean isFinalized() {

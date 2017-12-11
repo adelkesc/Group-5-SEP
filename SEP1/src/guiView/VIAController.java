@@ -74,7 +74,8 @@ public class VIAController implements Initializable, Serializable {
 	private TextField txtFieldMemberMembPay;
 	@FXML
 	private TableView<Events> eventsMainTable = new TableView<>();
-	private ObservableList<Events> data = FXCollections.observableArrayList(generateTable());
+	private EventsList el1 = new EventsList();
+	private ObservableList<Events> data = FXCollections.observableArrayList(el1.getListOfEvents());
 	@FXML
 	private TableColumn<Events, String> eventTableCol1 = new TableColumn<>();
 	@FXML
@@ -185,7 +186,7 @@ public class VIAController implements Initializable, Serializable {
 	private static MemberList list = new MemberList();
 	private static ObservableList<Member> memberObservableList = FXCollections.observableArrayList(list.getListOfMembers());
 
-	private EventsList el1 = new EventsList();
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -232,14 +233,6 @@ public class VIAController implements Initializable, Serializable {
 				value = check.getText();
 			}
 		});
-	}
-
-	private ArrayList<Events> generateTable() {
-		ArrayList<Events> ar1 = new ArrayList<>();
-		for (int i = 0; i < 10; i++) {
-			ar1.add(new Events());
-		}
-		return ar1;
 	}
 
 	public void toEventsScene() throws IOException {
@@ -303,15 +296,15 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void addEvent() {
-		String temp = addEventDate.getText();
-		String[] temp2 = temp.split("/");
-		MyDate date1 = new MyDate(Integer.parseInt(temp2[0]), Integer.parseInt(temp2[1]), Integer.parseInt(temp2[2]));
-		Events event1 = new Events(addEventName.getText(), date1, Integer.parseInt(addEventDuration.getText()),
+//		String temp = addEventDate.getText();
+//		String[] temp2 = temp.split("/");
+//		MyDate date1 = new MyDate(Integer.parseInt(temp2[0]), Integer.parseInt(temp2[1]), Integer.parseInt(temp2[2]));
+		Events event1 = new Events(addEventName.getText(), addEventDate.getText(), addEventDuration.getText(),
 				addEventType.getText(), addEventLocation.getText(), addEventCategory.getText(),
-				Double.parseDouble(addEventPrice.getText()), Integer.parseInt(addEventMinPartic.getText()),
-				Integer.parseInt(addEventMaxPartic.getText()), false);
-		System.out.println(event1);
+				addEventPrice.getText(), addEventMinPartic.getText(),
+				addEventMaxPartic.getText(), false);
 		el1.addEvent(event1);
+		JOptionPane.showMessageDialog(null, "Event added sucessfully!");
 	}
 
 }
