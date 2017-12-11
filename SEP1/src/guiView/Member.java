@@ -16,7 +16,6 @@ public class Member implements Serializable {
 	////sdfsdfsdfsdf
 
 	public Member() {
-		
 		      this("Nadeem", "sdfsdf", "", "", "", "", "");
 	}
 
