@@ -12,5 +12,26 @@ public class VIAModel implements Serializable {
 		this.memberList = member;
 		this.lecturerList = lecturer;
 	}
+	public VIAModel() {
+		
+	}
+	public EventsList getEventList() {
+		return eventList;
+	}
+	public void setEventList(EventsList eventList) {
+		this.eventList = eventList;
+	}
+	public MemberList getMemberList() {
+		return memberList;
+	}
+	public void setMemberList(MemberList memberList) {
+		this.memberList = memberList;
+	}
+	public LecturerList getLecturerList() {
+		return lecturerList;
+	}
+	public void setLecturerList(LecturerList lecturerList) {
+		this.lecturerList = lecturerList;
+	}
 
 }
