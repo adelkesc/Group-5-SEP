@@ -20,7 +20,7 @@
       </TableView>
       <Button fx:id="btnAddNewLecturer" layoutX="26.0" layoutY="628.0" mnemonicParsing="false" onAction="#toAddLecturerScene" text="Add New" />
       <Button fx:id="btnEditLecturer" disable="true" layoutX="120.0" layoutY="628.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Edit" />
-      <Button fx:id="btnDeleteLecturer" disable="true" layoutX="220.0" layoutY="628.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Delete" />
+      <Button fx:id="btnDeleteLecturer" disable="false" layoutX="220.0" layoutY="628.0" mnemonicParsing="false" onAction="#deleteLecturer" prefHeight="31.0" prefWidth="82.0" text="Delete" />
       <Button fx:id="btnSearchLecturer" layoutX="389.0" layoutY="14.0" mnemonicParsing="false" text="Search" />
    </children>
 </AnchorPane>
