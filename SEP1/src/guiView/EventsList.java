@@ -36,4 +36,7 @@ public Events searchByName(String name) {
 	}
 	return null;
 }
+public Events getEvent(int i) {
+	return eventsArrLi.get(i);
+}
 }

@@ -1,10 +1,9 @@
 package guiView;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import javax.swing.JOptionPane;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -24,9 +23,26 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
-public class VIAController implements Initializable {
+public class VIAController implements Initializable 
+{
+	@FXML
+	private TableView<MemberModel> tableViewMember = new TableView<>();
+	@FXML
+	private TableColumn<MemberModel, String> tableMemberColumnName = new TableColumn<>();
+	@FXML
+	private TableColumn<MemberModel, String> tableMemberColumnAge = new TableColumn<>();
+	@FXML
+	private TableColumn<MemberModel, String> tableMemberColumnAddress = new TableColumn<>();
+	@FXML
+	private TableColumn<MemberModel, String> tableMemberColumnTel = new TableColumn<>();
+	@FXML
+	private TableColumn<MemberModel, String> tableMemberColumnEmail = new TableColumn<>();
+	@FXML
+	private TableColumn<MemberModel, String> tableMemberColumnCoursePref = new TableColumn<>();
+	@FXML
+	private TableColumn<MemberModel, String> tableMemberColumnMembPay = new TableColumn<>();
+
 	// Member FXML
 	@FXML
 	private Label txtLabelMemberName;
@@ -56,31 +72,33 @@ public class VIAController implements Initializable {
 	private TextField txtFieldMemberCoursePref;
 	@FXML
 	private TextField txtFieldMemberMembPay;
-//	private TableView<Events> eventsMainTable;
+	@FXML
+	private TableView<Events> eventsMainTable = new TableView<>();
+	private ObservableList<Events> data = FXCollections.observableArrayList(generateTable());
+	@FXML
 	private TableColumn<Events, String> eventTableCol1 = new TableColumn<>();
-//	private ObservableList<Events> data = FXCollections.observableArrayList();
 	@FXML
-	private TableColumn<Events, String> eventTableCol2;
+	private TableColumn<Events, String> eventTableCol2 = new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol3;
+	private TableColumn<Events, String> eventTableCol3 = new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol4;
+	private TableColumn<Events, String> eventTableCol4 = new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol5;
+	private TableColumn<Events, String> eventTableCol5 = new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol6;
+	private TableColumn<Events, String> eventTableCol6 = new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol7;
+	private TableColumn<Events, String> eventTableCol7 = new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol8;
+	private TableColumn<Events, String> eventTableCol8 = new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol9;
+	private TableColumn<Events, String> eventTableCol9 = new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol10;
+	private TableColumn<Events, String> eventTableCol10 = new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol11;
+	private TableColumn<Events, String> eventTableCol11 = new TableColumn<>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol12;
+	private TableColumn<Events, String> eventTableCol12 = new TableColumn<>();
 	@FXML
 	private TextField addEventName;
 	@FXML
@@ -99,7 +117,7 @@ public class VIAController implements Initializable {
 	private TextField addEventMinPartic;
 	@FXML
 	private TextField addEventMaxPartic;
-	
+
 	// main page FXML
 	@FXML
 	private Button btnMemberAdd;
@@ -144,22 +162,20 @@ public class VIAController implements Initializable {
 	@FXML
 	private TableView<Lecturer> tableViewLecturer = new TableView<Lecturer>();
 	@FXML
-	private TableColumn<Lecturer, String> tableColumnName = new TableColumn<Lecturer, String>();
+	private TableColumn<Lecturer, String> tableLecturerColumnName = new TableColumn<Lecturer, String>();
 	@FXML
-   private TableColumn<Lecturer, String> tableColumnEmail = new TableColumn<Lecturer, String>();
+   private TableColumn<Lecturer, String> tableLecturerColumnEmail = new TableColumn<Lecturer, String>();
 	@FXML
-   private TableColumn<Lecturer, String> tableColumnCourseSpecification = new TableColumn<Lecturer, String>();
+   private TableColumn<Lecturer, String> tableLecturerColumnCourseSpecification = new TableColumn<Lecturer, String>();
 	@FXML
-   private TableColumn<Lecturer, String> tableColumnTelNumber = new TableColumn<Lecturer, String>();
+   private TableColumn<Lecturer, String> tableLecturerColumnTelNumber = new TableColumn<Lecturer, String>();
 	@FXML
-   private TableColumn<Lecturer, String> tableColumnAdvertReq = new TableColumn<Lecturer, String>();
+   private TableColumn<Lecturer, String> tableLecturerColumnAdvertReq = new TableColumn<Lecturer, String>();
 	
-	
-	MemberModel other = new MemberModel(null);
+	MemberModel other = new MemberModel("");
 	//Necessary initializations for Lecturer
 	private String value = "";
 	private static LecturerList init = new LecturerList();
-	private static Lecturer l = new Lecturer();
 	private static ObservableList<Lecturer> dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
 	
 	private EventsList el1 = new EventsList();
@@ -168,11 +184,11 @@ public class VIAController implements Initializable {
    public void initialize(URL location, ResourceBundle resources) 
 	{
 	   //Creating and populating Lecturer table
-      tableColumnName.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("name"));
-      tableColumnEmail.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("email"));
-      tableColumnCourseSpecification.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("courseSpec"));
-      tableColumnTelNumber.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("telNumber"));
-      tableColumnAdvertReq.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("advertReq"));
+      tableLecturerColumnName.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("name"));
+      tableLecturerColumnEmail.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("email"));
+      tableLecturerColumnCourseSpecification.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("courseSpec"));
+      tableLecturerColumnTelNumber.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("telNumber"));
+      tableLecturerColumnAdvertReq.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("advertReq"));
       tableViewLecturer.setItems(dataInLecturerTable);
 
 	   //Radio Buttons
@@ -201,19 +217,78 @@ public class VIAController implements Initializable {
 	      
 	   }
 	
+
+	private final ObservableList<MemberModel> memberObservableList = FXCollections
+			.observableArrayList(generateMemberTable());
+
+	public void initialize() {
+		ToggleGroup group = new ToggleGroup();
+		radioBtnLecturerYes.setToggleGroup(group);
+		radioBtnLecturerNo.setToggleGroup(group);
+		group.selectToggle(radioBtnLecturerNo);
+		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			@Override
+			public void changed(ObservableValue<? extends Toggle> ov, Toggle t1, Toggle t2) {
+				RadioButton check = (RadioButton) t1.getToggleGroup().getSelectedToggle();
+				value = check.getText();
+
+			}
+		});
+		eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("name"));
+		eventTableCol2.setCellValueFactory(new PropertyValueFactory<Events, String>("date"));
+		eventTableCol3.setCellValueFactory(new PropertyValueFactory<Events, String>("duration"));
+		eventTableCol4.setCellValueFactory(new PropertyValueFactory<Events, String>("type"));
+		eventTableCol5.setCellValueFactory(new PropertyValueFactory<Events, String>("location"));
+		eventTableCol6.setCellValueFactory(new PropertyValueFactory<Events, String>("category"));
+		eventTableCol7.setCellValueFactory(new PropertyValueFactory<Events, String>("null"));
+		eventTableCol8.setCellValueFactory(new PropertyValueFactory<Events, String>("null"));
+		eventTableCol9.setCellValueFactory(new PropertyValueFactory<Events, String>("price"));
+		eventTableCol10.setCellValueFactory(new PropertyValueFactory<Events, String>("MinPartic"));
+		eventTableCol11.setCellValueFactory(new PropertyValueFactory<Events, String>("maxPartic"));
+		eventTableCol12.setCellValueFactory(new PropertyValueFactory<Events, String>("isFinalized"));
+		eventsMainTable.setItems(data);
+
+		tableMemberColumnName.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("name"));
+		tableMemberColumnAge.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("age"));
+		tableMemberColumnAddress.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("address"));
+		tableMemberColumnTel.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("tel"));
+		tableMemberColumnEmail.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("email"));
+		tableMemberColumnCoursePref.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("coursePref"));
+		tableMemberColumnMembPay.setCellValueFactory(new PropertyValueFactory<MemberModel, String>("membPay"));
+		tableViewMember.setItems(memberObservableList);
+		
+
+	}
+
+	private ArrayList<Events> generateTable() {
+		ArrayList<Events> ar1 = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			ar1.add(new Events());
+		}
+		return ar1;
+	}
+
+	private ArrayList<MemberModel> generateMemberTable() {
+		ArrayList<MemberModel> ar1 = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			ar1.add(new MemberModel("random"));
+		}
+		return ar1;
+	}
+
 	public void toEventsScene() throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("eventsView.fxml"));
-		mainAnchor.getChildren().setAll(pane);
+		AnchorPane paneEvents = FXMLLoader.load(getClass().getResource("eventsView.fxml"));
+		mainAnchor.getChildren().setAll(paneEvents);
 	}
 
 	public void toMemberScene() throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("MemberView.fxml"));
-		mainAnchor.getChildren().setAll(pane);
+		AnchorPane paneMembers = FXMLLoader.load(getClass().getResource("MemberView.fxml"));
+		mainAnchor.getChildren().setAll(paneMembers);
 	}
 
 	public void toLecturerScene() throws IOException {
-		AnchorPane pane = (AnchorPane)FXMLLoader.load(getClass().getResource("DisplayLecturers.fxml"));
-		mainAnchor.getChildren().setAll(pane);
+		AnchorPane paneLecturers = FXMLLoader.load(getClass().getResource("DisplayLecturers.fxml"));
+		mainAnchor.getChildren().setAll(paneLecturers);
 	}
 
 	public void goBack() throws IOException {
@@ -225,10 +300,12 @@ public class VIAController implements Initializable {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("AddMember.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
-	public void toAddLecturerScene() throws IOException{
+
+	public void toAddLecturerScene() throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("AddLecturer.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
+
 	public void toAddEventScene() throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("addNewEvent.fxml"));
 		mainAnchor.getChildren().setAll(pane);
@@ -246,16 +323,24 @@ public class VIAController implements Initializable {
 	   public void addLect(ActionEvent event)
 	   {
 	      Lecturer newLecturer = new Lecturer(txtFieldLecturerName.getText(), txtFieldLecturerEmail.getText(), txtFieldLecturerCourseSpec.getText(), txtFieldLecturerTelNumber.getText(), value);
-	      dataInLecturerTable.add(newLecturer);
-	      JOptionPane.showMessageDialog(null, "Lecturer added sucessfully!");
+         dataInLecturerTable.add(newLecturer);
+         JOptionPane.showMessageDialog(null, "Lecturer added sucessfully!");
 	   }
-	   public void addEvent() {
-		   String temp = addEventDate.getText();
-		   String[] temp2 = temp.split("/");
-		   MyDate date1 = new MyDate(Integer.parseInt(temp2[0]), Integer.parseInt(temp2[1]), Integer.parseInt(temp2[2]));
-		   Events event1 = new Events(addEventName.getText(), date1, Integer.parseInt(addEventDuration.getText()), addEventType.getText(), addEventLocation.getText(), addEventCategory.getText(), Double.parseDouble(addEventPrice.getText()), Integer.parseInt(addEventMinPartic.getText()), Integer.parseInt(addEventMaxPartic.getText()), false);
-		   System.out.println(event1);
-		   el1.addEvent(event1);
-	   }
+
+	public void addEvent() {
+		String temp = addEventDate.getText();
+		String[] temp2 = temp.split("/");
+		MyDate date1 = new MyDate(Integer.parseInt(temp2[0]), Integer.parseInt(temp2[1]), Integer.parseInt(temp2[2]));
+		Events event1 = new Events(addEventName.getText(), date1, Integer.parseInt(addEventDuration.getText()),
+				addEventType.getText(), addEventLocation.getText(), addEventCategory.getText(),
+				Double.parseDouble(addEventPrice.getText()), Integer.parseInt(addEventMinPartic.getText()),
+				Integer.parseInt(addEventMaxPartic.getText()), false);
+		System.out.println(event1);
+		el1.addEvent(event1);
+	}
+
+	public ObservableList<MemberModel> getMemberObservableList() {
+		return memberObservableList;
+	}
 
 }
