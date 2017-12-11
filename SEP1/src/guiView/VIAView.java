@@ -9,13 +9,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class VIAView extends Application {
-	private FileIO file = new FileIO();
-	private VIAModel viaModel;
-	private VIAController viaContr = new VIAController();
+	private static FileIO file = new FileIO();
+	private static VIAModel viaModel;
+	private static VIAController viaContr = new VIAController();
 
 	public void start(Stage stage) throws Exception {
 		file.setVIAModelFromFile();
 		viaModel = file.getVIAModel();
+		System.out.println(viaContr.getVIAMod().getEventList().getListOfEvents());
 		//invoke fxml loader
 		FXMLLoader load = new FXMLLoader();
 		//set location of the FXML doc
@@ -31,6 +32,18 @@ public class VIAView extends Application {
 	}
 	public static void main(String[] args) {
 		launch(args);
+	    Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+	        public void run() {
+	        	file.setVIAModel(viaModel);
+	        	viaContr.saveToFile();
+	        	System.out.println(viaContr.getVIAMod().getEventList().getListOfEvents());
+					try {
+						file.setToFile();
+					} catch (IOException e) {
+						System.out.println("Unable to save to file.");
+					}
+	        }
+	    }));
 	}
 	
 }

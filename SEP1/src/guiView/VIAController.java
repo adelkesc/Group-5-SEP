@@ -479,7 +479,12 @@ public class VIAController implements Initializable, Serializable {
 		return viaModel;
 	}
 	public void saveToFile() {
-		System.out.println(viaModel.getEventList());
+		EventsList eventsList1 = new EventsList();
+		for (int j = 0; j < data.size(); j++) {
+			eventsList1.addEvent(data.get(j));
+		}
+		viaModel.setEventList(eventsList1);
+//		System.out.println(eventsList1.getListOfEvents());
 	}
 	
 
