@@ -123,6 +123,8 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private Button btnMemberAdd;
 	@FXML
+	private Button btnDeleteMember;
+	@FXML
 	private Button btnMainPageEvents;
 	@FXML
 	private Button goBack;
@@ -161,6 +163,8 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private Button btnLecturerBack;
 	@FXML
+	private Button btnDeleteLecturer;
+	@FXML
 	private TableView<Lecturer> tableViewLecturer = new TableView<Lecturer>();
 	@FXML
 	private TableColumn<Lecturer, String> tableColumnLecturerName = new TableColumn<Lecturer, String>();
@@ -176,12 +180,11 @@ public class VIAController implements Initializable, Serializable {
 	// Necessary initializations for Lecturer
 	private String value = "";
 	private static LecturerList init = new LecturerList();
-	private static ObservableList<Lecturer> dataInLecturerTable = FXCollections
-			.observableList(init.getListOfLecturers());
+	private static ObservableList<Lecturer> dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
+	
 	// Necessary initializations for Member
 	private static MemberList list = new MemberList();
-	private static ObservableList<Member> memberObservableList = FXCollections
-			.observableArrayList(list.getListOfMembers());
+	private static ObservableList<Member> memberObservableList = FXCollections.observableArrayList(list.getListOfMembers());
 
 
 
@@ -200,7 +203,7 @@ public class VIAController implements Initializable, Serializable {
 		eventTableCol11.setCellValueFactory(new PropertyValueFactory<Events, String>("maxPartic"));
 		eventTableCol12.setCellValueFactory(new PropertyValueFactory<Events, String>("isFinalized"));
 		eventsMainTable.setItems(data);
-
+		
 		tableColumnMemberName.setCellValueFactory(new PropertyValueFactory<Member, String>("name"));
 		tableColumnMemberAge.setCellValueFactory(new PropertyValueFactory<Member, String>("age"));
 		tableColumnMemberAddress.setCellValueFactory(new PropertyValueFactory<Member, String>("address"));
@@ -272,12 +275,22 @@ public class VIAController implements Initializable, Serializable {
 		memberObservableList.add(newMember);
 		JOptionPane.showMessageDialog(null, "New Member has been added");
 	}
+	public void deleteMember(ActionEvent event) {
+		
+	}
 
 	public void addLect(ActionEvent event) 
 	{
 		Lecturer newLecturer = new Lecturer(txtFieldLecturerName.getText(), txtFieldLecturerEmail.getText(),txtFieldLecturerCourseSpec.getText(), txtFieldLecturerTelNumber.getText(), value);
 		dataInLecturerTable.add(newLecturer);
 		JOptionPane.showMessageDialog(null, "Lecturer added sucessfully!");
+	}
+	
+	public void deleteLecturer(ActionEvent event)
+	{
+		ObservableList <Lecturer> selectedLecturer = tableViewLecturer.getSelectionModel().getSelectedItems();
+		ObservableList <Lecturer> allLecturers = tableViewLecturer.getItems();
+		selectedLecturer.forEach(allLecturers::remove);
 	}
 
 	public void addEvent() {

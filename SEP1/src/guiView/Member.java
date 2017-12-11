@@ -12,11 +12,9 @@ public class Member implements Serializable {
 	private SimpleStringProperty email = new SimpleStringProperty("");
 	private SimpleStringProperty coursePref = new SimpleStringProperty("");
 	private SimpleStringProperty membPay = new SimpleStringProperty("");
-	
-	////sdfsdfsdfsdf
 
 	public Member() {
-		      this("Nadeem", "sdfsdf", "", "", "", "", "");
+		      this("", "", "", "", "", "", "");
 	}
 
 	public Member(String name, String age, String address, String tel, String email, String coursePref, String membPay) {
