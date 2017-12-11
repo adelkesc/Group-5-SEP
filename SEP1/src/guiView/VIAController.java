@@ -283,7 +283,9 @@ public class VIAController implements Initializable, Serializable {
 		JOptionPane.showMessageDialog(null, "New Member has been added");
 	}
 	public void deleteMember(ActionEvent event) {
-		
+		ObservableList <Member> selectedMember = tableMemberView.getSelectionModel().getSelectedItems();
+		ObservableList <Member> allMembers = tableMemberView.getItems();
+		selectedMember.forEach(allMembers::remove);
 	}
 
 	public void addLect(ActionEvent event) 
