@@ -32,6 +32,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
 public class VIAController implements Initializable, Serializable {
+	
+	
 	@FXML
 	private TableView<Member> tableMemberView = new TableView<Member>();
 	@FXML
@@ -183,6 +185,8 @@ public class VIAController implements Initializable, Serializable {
 	private TableColumn<Lecturer, String> tableColumnLecturerTelNumber = new TableColumn<Lecturer, String>();
 	@FXML
 	private TableColumn<Lecturer, String> tableColumnLecturerAdvertReq = new TableColumn<Lecturer, String>();
+	
+	
 
 	// Necessary initializations for Lecturer
 	private String value = "";
@@ -192,9 +196,8 @@ public class VIAController implements Initializable, Serializable {
 
 	// Necessary initializations for Member
 	private static MemberList list = new MemberList();
-	private static ObservableList<Member> memberObservableList = FXCollections
-			.observableArrayList(list.getListOfMembers());
-
+	private static ObservableList<Member> memberObservableList = FXCollections.observableArrayList(list.getListOfMembers());
+	private VIAModel viaModel = new VIAModel(el1, list, init);
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("name"));
@@ -299,6 +302,10 @@ public class VIAController implements Initializable, Serializable {
 				value = check.getText();
 			}
 		});
+		el1 = viaModel.getEventList();
+		list = viaModel.getMemberList();
+		init = viaModel.getLecturerList();
+
 	}
 
 	public void toEventsScene() throws IOException {
@@ -366,6 +373,7 @@ public class VIAController implements Initializable, Serializable {
 		ObservableList<Lecturer> selectedLecturer = tableViewLecturer.getSelectionModel().getSelectedItems();
 		ObservableList<Lecturer> allLecturers = tableViewLecturer.getItems();
 		selectedLecturer.forEach(allLecturers::remove);
+		
 	}
 
 	public void addEvent(ActionEvent event) {
@@ -378,6 +386,14 @@ public class VIAController implements Initializable, Serializable {
 				addEventMinPartic.getText(), addEventMaxPartic.getText(), false);
 		data.add(event1);
 		JOptionPane.showMessageDialog(null, "Event added sucessfully!");
+		
 	}
+	public VIAModel getVIAMod() {
+		return viaModel;
+	}
+	public void saveToFile() {
+		System.out.println(viaModel.getEventList());
+	}
+	
 
 }

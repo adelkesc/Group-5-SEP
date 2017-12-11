@@ -11,44 +11,53 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class FileIO implements Serializable
-{
-   private VIAModel viaModel1 = new VIAModel();
+public class FileIO implements Serializable {
+	private VIAModel viaModel1 = new VIAModel();
+	private VIAController viaContr = new VIAController();
 
-   public void setVIAModel() throws IOException, ClassNotFoundException
-   {
-      
-      FileInputStream fstream = new FileInputStream("viaModel.bin");
-      ObjectInputStream inputFile = new ObjectInputStream(fstream);
+	public void setVIAModelFromFile() throws IOException, ClassNotFoundException, EOFException {
+		boolean endOfFile = false;
+		FileInputStream fstream = new FileInputStream("viaModel.bin");
+		ObjectInputStream inputFile = new ObjectInputStream(fstream);
+		
+		
+		while (!endOfFile) {
+			try {
+				viaModel1 = (VIAModel) inputFile.readObject();
+			} catch (EOFException eof) {
+				endOfFile = true;
+		}
+		}
+		inputFile.close();
 
-      viaModel1 = (VIAModel) inputFile.readObject();
-      inputFile.close();
-      System.out.println("Done!");
-   }
+	}
 
-   public void setToFile() throws IOException
-   {
+	public void setToFile() throws IOException {
+		
+		FileOutputStream fstream = new FileOutputStream("viaModel.bin");
+		ObjectOutputStream outputFile = new ObjectOutputStream(fstream);
+		viaModel1 = viaContr.getVIAMod();
 
-      FileOutputStream fstream = new FileOutputStream("viaModel.bin");
-      ObjectOutputStream outputFile = new ObjectOutputStream(fstream);
+		try {
+			outputFile.writeObject(viaModel1);
+			outputFile.close();
+		}
 
-      try
-      {
-         outputFile.writeObject(viaModel1);
-         outputFile.close();
-         System.out.println("Done!");
-      }
+		catch (FileNotFoundException e) {
+			System.out.println("File not found.");
+		}
 
-      catch (FileNotFoundException e)
-      {
-         System.out.println("File not found.");
-      }
+		catch (IOException ioe) {
+			System.out.println("Error.");
+		}
 
-      catch (IOException ioe)
-      {
-         System.out.println("Error.");
-      }
+	}
 
-   }
+	public VIAModel getVIAModel() {
+		return viaModel1;
+	}
+	public void setVIAModel(VIAModel viamod) {
+		this.viaModel1 = viamod;
+	}
 
 }
