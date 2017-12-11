@@ -40,4 +40,7 @@ public Events searchByName(String name) {
 public Events getEvent(int i) {
 	return eventsArrLi.get(i);
 }
+public ArrayList<Events> getListOfEvents() {
+	return eventsArrLi;
+}
 }

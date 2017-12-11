@@ -21,12 +21,9 @@ public class FileIO implements Serializable
       FileInputStream fstream = new FileInputStream("viaModel.bin");
       ObjectInputStream inputFile = new ObjectInputStream(fstream);
 
-      System.out.println("Reading from file...");
 
       viaModel1 = (VIAModel) inputFile.readObject();
       inputFile.close();
-
-      // viaModel1 = FILE IO RECEIVED OBJECT HERE
    }
 
    public void setToFile() throws IOException
