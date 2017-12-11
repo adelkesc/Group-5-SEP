@@ -8,13 +8,14 @@ import javafx.beans.property.SimpleStringProperty;
 public class Events implements Serializable {
 	private SimpleStringProperty name = new SimpleStringProperty("");
 	private SimpleStringProperty date = new SimpleStringProperty("");
-	private SimpleStringProperty  duration = new SimpleStringProperty("");
+	private SimpleStringProperty duration = new SimpleStringProperty("");
 	private SimpleStringProperty type = new SimpleStringProperty("");
 	private SimpleStringProperty location = new SimpleStringProperty("");
 	private SimpleStringProperty category = new SimpleStringProperty("");
 	// private Lecturer conductor;
 	private SimpleStringProperty price = new SimpleStringProperty("");
-	private SimpleStringProperty minPartic = new SimpleStringProperty(""), maxPartic = new SimpleStringProperty("");
+	private SimpleStringProperty minPartic = new SimpleStringProperty("");
+	private SimpleStringProperty maxPartic = new SimpleStringProperty("");
 	private boolean isFinalized = false;
 	// ArrayList<Members> eventMembList = new ArrayList<>();
 

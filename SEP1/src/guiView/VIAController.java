@@ -73,33 +73,33 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private TextField txtFieldMemberMembPay;
 	@FXML
-	private TableView<Events> eventsMainTable = new TableView<>();
-	private EventsList el1 = new EventsList();
-	private ObservableList<Events> data = FXCollections.observableArrayList(el1.getListOfEvents());
+	private TableView<Events> eventsMainTable = new TableView<Events>();
+	private static EventsList el1 = new EventsList();
+	private static ObservableList<Events> data = FXCollections.observableArrayList(el1.getListOfEvents());
 	@FXML
-	private TableColumn<Events, String> eventTableCol1 = new TableColumn<>();
+	private TableColumn<Events, String> eventTableCol1 = new TableColumn<Events, String>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol2 = new TableColumn<>();
+	private TableColumn<Events, String> eventTableCol2 = new TableColumn<Events, String>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol3 = new TableColumn<>();
+	private TableColumn<Events, String> eventTableCol3 = new TableColumn<Events, String>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol4 = new TableColumn<>();
+	private TableColumn<Events, String> eventTableCol4 = new TableColumn<Events, String>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol5 = new TableColumn<>();
+	private TableColumn<Events, String> eventTableCol5 = new TableColumn<Events, String>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol6 = new TableColumn<>();
+	private TableColumn<Events, String> eventTableCol6 = new TableColumn<Events, String>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol7 = new TableColumn<>();
+	private TableColumn<Events, String> eventTableCol7 = new TableColumn<Events, String>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol8 = new TableColumn<>();
+	private TableColumn<Events, String> eventTableCol8 = new TableColumn<Events, String>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol9 = new TableColumn<>();
+	private TableColumn<Events, String> eventTableCol9 = new TableColumn<Events, String>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol10 = new TableColumn<>();
+	private TableColumn<Events, String> eventTableCol10 = new TableColumn<Events, String>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol11 = new TableColumn<>();
+	private TableColumn<Events, String> eventTableCol11 = new TableColumn<Events, String>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol12 = new TableColumn<>();
+	private TableColumn<Events, String> eventTableCol12 = new TableColumn<Events, String>();
 	@FXML
 	private TextField addEventName;
 	@FXML
@@ -293,7 +293,7 @@ public class VIAController implements Initializable, Serializable {
 		selectedLecturer.forEach(allLecturers::remove);
 	}
 
-	public void addEvent() {
+	public void addEvent(ActionEvent event) {
 //		String temp = addEventDate.getText();
 //		String[] temp2 = temp.split("/");
 //		MyDate date1 = new MyDate(Integer.parseInt(temp2[0]), Integer.parseInt(temp2[1]), Integer.parseInt(temp2[2]));
@@ -301,7 +301,7 @@ public class VIAController implements Initializable, Serializable {
 				addEventType.getText(), addEventLocation.getText(), addEventCategory.getText(),
 				addEventPrice.getText(), addEventMinPartic.getText(),
 				addEventMaxPartic.getText(), false);
-		el1.addEvent(event1);
+		data.add(event1);
 		JOptionPane.showMessageDialog(null, "Event added sucessfully!");
 	}
 
