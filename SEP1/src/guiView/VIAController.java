@@ -122,6 +122,8 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private Button btnMemberAdd;
 	@FXML
+	private Button btnDeleteMember;
+	@FXML
 	private Button btnMainPageEvents;
 	@FXML
 	private Button goBack;
@@ -278,6 +280,9 @@ public class VIAController implements Initializable, Serializable {
 		Member newMember = new Member(txtFieldMemberName.getText(), txtFieldMemberAge.getText(),txtFieldMemberAddress.getText(), txtFieldMemberTel.getText(), txtFieldMemberEmail.getText(),txtFieldMemberCoursePref.getText(), txtFieldMemberMembPay.getText());
 		memberObservableList.add(newMember);
 		JOptionPane.showMessageDialog(null, "New Member has been added");
+	}
+	public void deleteMember(ActionEvent event) {
+		
 	}
 
 	public void addLect(ActionEvent event) 
