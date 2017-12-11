@@ -6,8 +6,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class VIAView extends Application {
+	FileIO file = new FileIO();
+	private VIAModel viaModel = new VIAModel();
 
 	public void start(Stage stage) throws Exception {
+		file.setVIAModelFromFile();
+		viaModel = file.getVIAModel();
 		//invoke fxml loader
 		FXMLLoader load = new FXMLLoader();
 		//set location of the FXML doc

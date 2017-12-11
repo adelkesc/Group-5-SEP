@@ -27,4 +27,7 @@ public class LecturerList implements Serializable
    {
       return lecturerList;
    }
+   public int lectListSize() {
+	   return lecturerList.size();
+   }
 }

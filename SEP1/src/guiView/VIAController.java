@@ -27,6 +27,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 public class VIAController implements Initializable, Serializable {
+	
+	
 	@FXML
 	private TableView<Member> tableMemberView = new TableView<Member>();
 	@FXML
@@ -186,8 +188,6 @@ public class VIAController implements Initializable, Serializable {
 	private static MemberList list = new MemberList();
 	private static ObservableList<Member> memberObservableList = FXCollections.observableArrayList(list.getListOfMembers());
 
-
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("name"));
@@ -233,6 +233,7 @@ public class VIAController implements Initializable, Serializable {
 				value = check.getText();
 			}
 		});
+
 	}
 
 	public void toEventsScene() throws IOException {
@@ -293,6 +294,7 @@ public class VIAController implements Initializable, Serializable {
 		ObservableList <Lecturer> selectedLecturer = tableViewLecturer.getSelectionModel().getSelectedItems();
 		ObservableList <Lecturer> allLecturers = tableViewLecturer.getItems();
 		selectedLecturer.forEach(allLecturers::remove);
+		
 	}
 
 	public void addEvent(ActionEvent event) {
@@ -305,6 +307,7 @@ public class VIAController implements Initializable, Serializable {
 				addEventMaxPartic.getText(), false);
 		data.add(event1);
 		JOptionPane.showMessageDialog(null, "Event added sucessfully!");
+		
 	}
 
 }
