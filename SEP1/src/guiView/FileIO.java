@@ -12,6 +12,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class FileIO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private VIAModel viaModel1 = new VIAModel();
 	private VIAController viaContr = new VIAController();
 

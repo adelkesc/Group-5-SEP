@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class EventsList implements Serializable {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8858421447502020577l;
 ArrayList<Events> eventsArrLi;
 
 public EventsList() {
@@ -42,5 +46,12 @@ public Events getEvent(int i) {
 }
 public ArrayList<Events> getListOfEvents() {
 	return eventsArrLi;
+}
+public String toString() {
+	String temp = "text: ";
+	for (int i = 0; i < eventsArrLi.size(); i++) {
+		temp += eventsArrLi.get(i).getName();
+	}
+	return temp;
 }
 }
