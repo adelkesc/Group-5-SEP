@@ -47,6 +47,9 @@ public Events getEvent(int i) {
 public ArrayList<Events> getListOfEvents() {
 	return eventsArrLi;
 }
+public int getEventListSize() {
+	return eventsArrLi.size();
+}
 //public String toString() {
 //	String temp = "text: ";
 //	for (int i = 0; i < eventsArrLi.size(); i++) {
