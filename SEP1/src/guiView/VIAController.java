@@ -3,7 +3,6 @@ package guiView;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -12,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,11 +19,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 
 public class VIAController implements Initializable, Serializable {
@@ -137,33 +139,35 @@ public class VIAController implements Initializable, Serializable {
 
 	// Lecturer FXML
 	@FXML
-	private Label txtLabelLecturerName;
+	private Label txtLabelAddLecturerName;
 	@FXML
-	private Label txtLabelLecturerEmail;
+	private Label txtLabelAddLecturerEmail;
 	@FXML
-	private Label txtLabelLecturerCourseSpec;
+	private Label txtLabelAddLecturerCourseSpec;
 	@FXML
-	private Label txtLabelLecturerTelNumber;
+	private Label txtLabelAddLecturerTelNumber;
 	@FXML
-	private Label txtLabelLecturerAdvertReq;
+	private Label txtLabelAddLecturerAdvertReq;
 	@FXML
-	private TextField txtFieldLecturerName;
+	private TextField txtFieldAddLecturerName;
 	@FXML
-	private TextField txtFieldLecturerEmail;
+	private TextField txtFieldAddLecturerEmail;
 	@FXML
-	private TextField txtFieldLecturerCourseSpec;
+	private TextField txtFieldAddLecturerCourseSpec;
 	@FXML
-	private TextField txtFieldLecturerTelNumber;
+	private TextField txtFieldAddLecturerTelNumber;
 	@FXML
-	private RadioButton radioBtnLecturerYes = new RadioButton();
+	private RadioButton radioBtnAddLecturerYes = new RadioButton();
 	@FXML
-	private RadioButton radioBtnLecturerNo = new RadioButton();
+	private RadioButton radioBtnAddLecturerNo = new RadioButton();
 	@FXML
 	private Button btnAddNewLecturer;
 	@FXML
 	private Button btnLecturerBack;
 	@FXML
 	private Button btnDeleteLecturer;
+	@FXML
+	private Button btnLecturerAdd;
 	@FXML
 	private TableView<Lecturer> tableViewLecturer = new TableView<Lecturer>();
 	@FXML
@@ -176,6 +180,28 @@ public class VIAController implements Initializable, Serializable {
 	private TableColumn<Lecturer, String> tableColumnLecturerTelNumber = new TableColumn<Lecturer, String>();
 	@FXML
 	private TableColumn<Lecturer, String> tableColumnLecturerAdvertReq = new TableColumn<Lecturer, String>();
+	@FXML
+	private Label txtLabelEditLecturerName;
+	@FXML
+	private Label txtLabelEditLecturerEmail;
+	@FXML
+	private Label txtLabelEditLecturerCourseSpec;
+	@FXML
+	private Label txtLabelEditLecturerTelNumber;
+	@FXML
+	private Label txtLabelEditLecturerAvertReq;
+	@FXML
+	private TextField txtFieldEditLecturerName;
+	@FXML
+	private TextField txtFieldEditLecturerEmail;
+	@FXML
+	private TextField txtFieldEditLecturerCourseSpec;
+	@FXML
+	private TextField txtFieldEditLecturerTelNumber;
+	@FXML
+	private RadioButton radioBtnEditLecturerYes = new RadioButton();
+	@FXML
+	private RadioButton radioBtnEditLecturerNo = new RadioButton();
 
 	// Necessary initializations for Lecturer
 	private String value = "";
@@ -220,19 +246,94 @@ public class VIAController implements Initializable, Serializable {
 		tableColumnLecturerTelNumber.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("telNumber"));
 		tableColumnLecturerAdvertReq.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("advertReq"));
 		tableViewLecturer.setItems(dataInLecturerTable);
-
-		// Radio Buttons
-		ToggleGroup group = new ToggleGroup();
-		radioBtnLecturerYes.setToggleGroup(group);
-		radioBtnLecturerNo.setToggleGroup(group);
-		group.selectToggle(radioBtnLecturerNo);
-		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+		tableViewLecturer.setEditable(true);
+		
+		//Making table cells editable
+		tableColumnLecturerName.setCellFactory(TextFieldTableCell.forTableColumn());
+		tableColumnLecturerName.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>()
+				{
+			@Override
+			public void handle(CellEditEvent<Lecturer, String> t)
+			{
+				((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
+			}
+				}
+			
+				);
+		
+		tableColumnLecturerEmail.setCellFactory(TextFieldTableCell.forTableColumn());
+		tableColumnLecturerEmail.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>()
+				{
+			@Override
+			public void handle(CellEditEvent<Lecturer, String> t)
+			{
+				((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow())).setEmail(t.getNewValue());
+			}
+				}
+			
+				);
+		
+		tableColumnLecturerCourseSpecification.setCellFactory(TextFieldTableCell.forTableColumn());
+		tableColumnLecturerCourseSpecification.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>()
+				{
+			@Override
+			public void handle(CellEditEvent<Lecturer, String> t)
+			{
+				((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow())).setCourseSpec(t.getNewValue());
+			}
+				}
+			
+				);
+		
+		tableColumnLecturerTelNumber.setCellFactory(TextFieldTableCell.forTableColumn());
+		tableColumnLecturerTelNumber.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>()
+				{
+			@Override
+			public void handle(CellEditEvent<Lecturer, String> t)
+			{
+				((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow())).setTelNumber(t.getNewValue());
+			}
+				}
+			
+				);
+		
+		tableColumnLecturerAdvertReq.setCellFactory(TextFieldTableCell.forTableColumn());
+		tableColumnLecturerAdvertReq.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>()
+				{
+			@Override
+			public void handle(CellEditEvent<Lecturer, String> t)
+			{
+				((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow())).setAdvertReq(t.getNewValue());
+			}
+				}
+			
+				);
+		
+		// Radio Buttons for add lecturer UI
+		ToggleGroup addLecturergroup = new ToggleGroup();
+		radioBtnAddLecturerYes.setToggleGroup(addLecturergroup);
+		radioBtnAddLecturerNo.setToggleGroup(addLecturergroup);
+		addLecturergroup.selectToggle(radioBtnAddLecturerNo);
+		addLecturergroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle t1, Toggle t2) {
 				RadioButton check = (RadioButton) t1.getToggleGroup().getSelectedToggle();
 				value = check.getText();
 			}
 		});
+		
+		/*// Radio Buttons for edit lecturer UI
+		ToggleGroup editLecturergroup = new ToggleGroup();
+		radioBtnEditLecturerYes.setToggleGroup(editLecturergroup);
+		radioBtnEditLecturerNo.setToggleGroup(editLecturergroup);
+		editLecturergroup.selectToggle(radioBtnEditLecturerNo);
+		editLecturergroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			@Override
+			public void changed(ObservableValue<? extends Toggle> ov2, Toggle t3, Toggle t4) {
+				RadioButton check = (RadioButton) t3.getToggleGroup().getSelectedToggle();
+				value = check.getText();
+			}
+		});*/
 	}
 
 	public void toEventsScene() throws IOException {
@@ -261,6 +362,7 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void toAddLecturerScene() throws IOException {
+		System.out.println(init.getListOfLecturers());
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("AddLecturer.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
@@ -283,7 +385,7 @@ public class VIAController implements Initializable, Serializable {
 
 	public void addLect(ActionEvent event) 
 	{
-		Lecturer newLecturer = new Lecturer(txtFieldLecturerName.getText(), txtFieldLecturerEmail.getText(),txtFieldLecturerCourseSpec.getText(), txtFieldLecturerTelNumber.getText(), value);
+		Lecturer newLecturer = new Lecturer(txtFieldAddLecturerName.getText(), txtFieldAddLecturerEmail.getText(),txtFieldAddLecturerCourseSpec.getText(), txtFieldAddLecturerTelNumber.getText(), value);
 		dataInLecturerTable.add(newLecturer);
 		JOptionPane.showMessageDialog(null, "Lecturer added sucessfully!");
 	}
