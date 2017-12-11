@@ -12,6 +12,8 @@ public class Member implements Serializable {
 	private SimpleStringProperty email = new SimpleStringProperty("");
 	private SimpleStringProperty coursePref = new SimpleStringProperty("");
 	private SimpleStringProperty membPay = new SimpleStringProperty("");
+	
+	////sdfsdfsdfsdf
 
 	public Member() {
 		
