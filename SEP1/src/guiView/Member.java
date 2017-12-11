@@ -17,7 +17,7 @@ public class Member implements Serializable {
 
 	public Member() {
 		
-		      this("", "", "", "", "", "", "");
+		      this("lukas", "", "", "", "", "", "");
 	}
 
 	public Member(String name, String age, String address, String tel, String email, String coursePref, String membPay) {
