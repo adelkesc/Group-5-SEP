@@ -1,4 +1,7 @@
 package guiView;
+import java.beans.EventHandler;
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,7 +27,10 @@ public class VIAView extends Application {
 		stage.setTitle("VIA");
 		stage.setScene(scene);
 		stage.show();
-		
+	}
+	@Override
+	public void stop() throws IOException {
+		file.setToFile();
 	}
 	public static void main(String[] args) {
 		launch(args);

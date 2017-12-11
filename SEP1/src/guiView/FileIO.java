@@ -28,7 +28,6 @@ public class FileIO implements Serializable {
 		}
 		}
 		inputFile.close();
-		System.out.println("Done!");
 
 	}
 
@@ -40,7 +39,6 @@ public class FileIO implements Serializable {
 		try {
 			outputFile.writeObject(viaModel1);
 			outputFile.close();
-			System.out.println("Done!");
 		}
 
 		catch (FileNotFoundException e) {
