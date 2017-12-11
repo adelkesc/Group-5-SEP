@@ -1,6 +1,7 @@
 package guiView;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -25,7 +26,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-public class VIAController implements Initializable {
+public class VIAController implements Initializable, Serializable {
 	@FXML
 	private TableView<Member> tableMemberView = new TableView<Member>();
 	@FXML

@@ -1,8 +1,9 @@
 package guiView;
 
+import java.io.Serializable;
 import java.util.ArrayList; 
 
-public class LecturerList
+public class LecturerList implements Serializable 
 {
    private ArrayList<Lecturer> lecturerList;
    

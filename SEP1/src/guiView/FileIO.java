@@ -1,5 +1,7 @@
 package guiView;
 
-public class FileIO {
+import java.io.Serializable;
+
+public class FileIO implements Serializable {
 
 }

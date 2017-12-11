@@ -1,8 +1,9 @@
 package guiView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MemberList {
+public class MemberList implements Serializable {
 	private ArrayList<Member> members;
 
 	public MemberList() {

@@ -1,8 +1,10 @@
 package guiView;
 
+import java.io.Serializable;
+
 import javafx.beans.property.SimpleStringProperty;
 
-public class Lecturer
+public class Lecturer implements Serializable 
 {
    private SimpleStringProperty name = new SimpleStringProperty("");
    private SimpleStringProperty email = new SimpleStringProperty("");

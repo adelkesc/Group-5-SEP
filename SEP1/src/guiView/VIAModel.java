@@ -1,25 +1,16 @@
 package guiView;
 
-public class VIAModel {
-//	public VIAModel(Events event, Members member, Lecturer lecturer) {
-//		
-//	}
-//   public void writeBinaryFile() throws IOException
-//   {
-//      
-//   }
-//   
-//   public EventsList readBinaryFile() throws IOException, ClassNotFoundException
-//   {
-//      
-//   }
-//   public LecturerList readBinaryFile() throws IOException, ClassNotFoundException
-//   {
-//      
-//   }
-//   public MemberList readBinaryFile() throws IOException, ClassNotFoundException
-//   {
-//      
-//   }
+import java.io.Serializable;
+
+public class VIAModel implements Serializable {
+	private EventsList eventList;
+	private MemberList memberList;
+	private LecturerList lecturerList;
+	
+	public VIAModel(EventsList event, MemberList member, LecturerList lecturer) {
+		this.eventList = event;
+		this.memberList = member;
+		this.lecturerList = lecturer;
+	}
 
 }

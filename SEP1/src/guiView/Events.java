@@ -1,8 +1,9 @@
 package guiView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Events {
+public class Events implements Serializable {
 	private String name;
 	private MyDate date;
 	private int duration;
