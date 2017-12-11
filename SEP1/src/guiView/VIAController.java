@@ -178,6 +178,8 @@ public class VIAController implements Initializable, Serializable {
 	private TableColumn<Lecturer, String> tableColumnLecturerTelNumber = new TableColumn<Lecturer, String>();
 	@FXML
 	private TableColumn<Lecturer, String> tableColumnLecturerAdvertReq = new TableColumn<Lecturer, String>();
+	
+	
 
 	// Necessary initializations for Lecturer
 	private String value = "";
@@ -187,7 +189,7 @@ public class VIAController implements Initializable, Serializable {
 	// Necessary initializations for Member
 	private static MemberList list = new MemberList();
 	private static ObservableList<Member> memberObservableList = FXCollections.observableArrayList(list.getListOfMembers());
-
+	private VIAModel viaModel = new VIAModel(el1, list, init);
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("name"));
@@ -233,6 +235,9 @@ public class VIAController implements Initializable, Serializable {
 				value = check.getText();
 			}
 		});
+		el1 = viaModel.getEventList();
+		list = viaModel.getMemberList();
+		init = viaModel.getLecturerList();
 
 	}
 
@@ -309,5 +314,12 @@ public class VIAController implements Initializable, Serializable {
 		JOptionPane.showMessageDialog(null, "Event added sucessfully!");
 		
 	}
+	public VIAModel getVIAMod() {
+		return viaModel;
+	}
+	public void saveToFile() {
+		System.out.println(viaModel.getEventList());
+	}
+	
 
 }

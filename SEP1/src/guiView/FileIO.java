@@ -13,6 +13,7 @@ import java.io.Serializable;
 
 public class FileIO implements Serializable {
 	private VIAModel viaModel1 = new VIAModel();
+	private VIAController viaContr = new VIAController();
 
 	public void setVIAModelFromFile() throws IOException, ClassNotFoundException, EOFException {
 		boolean endOfFile = false;
@@ -35,6 +36,7 @@ public class FileIO implements Serializable {
 		
 		FileOutputStream fstream = new FileOutputStream("viaModel.bin");
 		ObjectOutputStream outputFile = new ObjectOutputStream(fstream);
+		viaModel1 = viaContr.getVIAMod();
 
 		try {
 			outputFile.writeObject(viaModel1);

@@ -9,8 +9,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class VIAView extends Application {
-	FileIO file = new FileIO();
-	private VIAModel viaModel = new VIAModel();
+	private FileIO file = new FileIO();
+	private VIAModel viaModel;
+	private VIAController viaContr = new VIAController();
 
 	public void start(Stage stage) throws Exception {
 		file.setVIAModelFromFile();
@@ -28,11 +29,8 @@ public class VIAView extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-	@Override
-	public void stop() throws IOException {
-		file.setToFile();
-	}
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
 }
