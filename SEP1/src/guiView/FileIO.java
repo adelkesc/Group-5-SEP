@@ -16,7 +16,8 @@ public class FileIO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private VIAModel viaModel1 = new VIAModel();
+	private VIAModel viaModel1;
+	private VIAView viaView1 = new VIAView();
 	private VIAController viaContr = new VIAController();
 
 	public void setVIAModelFromFile() throws IOException, ClassNotFoundException, EOFException {
@@ -37,10 +38,12 @@ public class FileIO implements Serializable {
 	}
 
 	public void setToFile() throws IOException {
-		
+		viaContr = viaView1.getController();
+		viaModel1 = viaContr.getVIAMod();
+		System.out.println(viaContr.getVIAMod().getEventList().getListOfEvents());
 		FileOutputStream fstream = new FileOutputStream("viaModel.bin");
 		ObjectOutputStream outputFile = new ObjectOutputStream(fstream);
-		viaModel1 = viaContr.getVIAMod();
+		
 
 		try {
 			outputFile.writeObject(viaModel1);
