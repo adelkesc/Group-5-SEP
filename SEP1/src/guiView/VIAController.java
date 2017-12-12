@@ -38,6 +38,7 @@ public class VIAController implements Initializable, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	// Member FXML
 	@FXML
 	private TableView<Member> tableMemberView = new TableView<Member>();
 	@FXML
@@ -54,8 +55,6 @@ public class VIAController implements Initializable, Serializable {
 	private TableColumn<Member, String> tableColumnMemberCoursePref = new TableColumn<Member, String>();
 	@FXML
 	private TableColumn<Member, String> tableColumnMemberMembPay = new TableColumn<Member, String>();
-	
-	// Member FXML
 	@FXML
 	private Label txtLabelMemberName;
 	@FXML
@@ -71,8 +70,6 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private Label txtLabelMemberMembPay;
 	@FXML
-	private TextField txtFilter;
-	@FXML
 	private TextField txtFieldAddMemberName;
 	@FXML
 	private TextField txtFieldAddMemberAge;
@@ -87,9 +84,14 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private TextField txtFieldAddMemberMembPay;
 	@FXML
+	private TextField txtFieldSearchMember;
+	
+	// Necessary initialisations for Event
 	private TableView<Events> eventsMainTable = new TableView<Events>();
-	private static EventsList el1 = new EventsList();
-	private static ObservableList<Events> data = FXCollections.observableList(el1.getListOfEvents());
+	private static EventsList el1;
+	private static ObservableList<Events> data;
+	
+	// Event FXML
 	@FXML
 	private TableColumn<Events, String> eventTableCol1 = new TableColumn<Events, String>();
 	@FXML
@@ -132,6 +134,8 @@ public class VIAController implements Initializable, Serializable {
 	private TextField addEventMinPartic;
 	@FXML
 	private TextField addEventMaxPartic;
+	@FXML
+	private TextField txtFieldSearchEvent;
 	@FXML
 	private Button eventsDeleteButton = new Button();
 
@@ -207,28 +211,16 @@ public class VIAController implements Initializable, Serializable {
 	private TableColumn<Lecturer, String> tableColumnLecturerAdvertReq = new TableColumn<Lecturer, String>();
 	@FXML
 	private ChoiceBox<String> choiceBoxSearchLecturer = new ChoiceBox<String>(choices);
-	private ChoiceBox<String> choiceBoxMemberSearch = new ChoiceBox<String>();
-	//TODO implement Observable list of choices
-	
+
 	// Necessary initializations for Member
-	private static String selectedChoicesForMemberSearch = "";
 	private static MemberList list = new MemberList();
 	private static ObservableList<Member> memberObservableList = FXCollections
-			.observableList(list.getListOfMembers());
+			.observableArrayList(list.getListOfMembers());
 	private VIAModel viaModel = new VIAModel(el1, list, init);
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		choiceBoxSearchLecturer.getItems().addAll("None", "Name", "Email", "Course Specification",
-				"Advertisement Requirement");
-		choiceBoxSearchLecturer.getSelectionModel().selectFirst();
-		choiceBoxSearchLecturer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String previousChoice,
-					String currentChoice) {
-				selectedChoiceForSearchLecturer = currentChoice;
-			}
-		});
+		
 
 
 		eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("name"));
@@ -404,7 +396,6 @@ public class VIAController implements Initializable, Serializable {
 		tableViewLecturer.setEditable(true);
 
 		// Making Lecturer table cells editable
-
 		tableColumnLecturerName.setCellFactory(TextFieldTableCell.forTableColumn());
 		tableColumnLecturerName.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>() {
 			@Override
@@ -470,44 +461,9 @@ public class VIAController implements Initializable, Serializable {
 				selectedRadioButton = check.getText();
 			}
 		});
-		// Search Member ChioceBox
-		choiceBoxMemberSearch.getItems().addAll("None","Name", "Address", "Email", "Age", "Membership Date");
-		choiceBoxMemberSearch.getSelectionModel().selectFirst();
-		choiceBoxMemberSearch.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
-				{
-					@Override
-			public void changed(ObservableValue<? extends String> observable, String previousChoice, String currentChoice)
-			{
-				selectedChoicesForMemberSearch = currentChoice;
-				switch(selectedChoicesForMemberSearch)
-				{
-				case "Name": FilteredList<Member> filteredMemberName = new FilteredList<>(memberObservableList, p -> true);
-				txtFilter.textProperty().addListener((observable2, oldValue, newValue) ->
-							 {
-								 filteredMemberName.setPredicate(member ->
-								 {
-									 if (newValue == null || newValue.isEmpty())
-									 {
-										 return true;
-									 }
-									 String lowerCaseFilter = newValue.toLowerCase();
-									 if (member.getName().toLowerCase().contains(lowerCaseFilter))
-									 {
-										 return true;
-									 }
-									 return false;
-								 });
-							 });
-							 SortedList<Member> sortedMemberName = new SortedList<>(filteredMemberName);
-							 sortedMemberName.comparatorProperty().bind(tableMemberView.comparatorProperty());
-							 tableMemberView.setItems(sortedMemberName); break;
-				}
-				}
-					});
 		
-		
-		//Listener for Search Lecturer ChoiceBox
-		choiceBoxSearchLecturer.getItems().addAll("None", "Name", "Email", "Course Specification", "Advertisement Requirement");
+		//Listeners for Search Lecturer ChoiceBox
+		choiceBoxSearchLecturer.getItems().addAll("Search By", "Name", "Email", "Course Specification", "Advertisement Requirement");
 		choiceBoxSearchLecturer.getSelectionModel().selectFirst();
 		choiceBoxSearchLecturer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
 				{
@@ -599,8 +555,7 @@ public class VIAController implements Initializable, Serializable {
 			 											  });
 			 											  SortedList<Lecturer> sortedDataByAdvertisementRequirement = new SortedList<>(filteredLecturerListByAdvertisementRequirement);
 			 											  sortedDataByAdvertisementRequirement.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
-			 											  tableViewLecturer.setItems(sortedDataByAdvertisementRequirement); break;							 
-						default: System.out.println("It is not working!");			 
+			 											  tableViewLecturer.setItems(sortedDataByAdvertisementRequirement); break;			 
 						}
 					}
 				});
@@ -616,21 +571,15 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void toMemberScene() throws IOException {
-		VIAView viaView1 = new VIAView();
-		viaModel = viaView1.viaModFromFile();
-		list = viaModel.getMemberList();
-		memberObservableList = FXCollections.observableList(list.getListOfMembers());
 		AnchorPane paneMembers = FXMLLoader.load(getClass().getResource("MemberView.fxml"));
 		mainAnchor.getChildren().setAll(paneMembers);
+		list = viaModel.getMemberList();
 	}
 
 	public void toLecturerScene() throws IOException {
-		VIAView viaView1 = new VIAView();
-		viaModel = viaView1.viaModFromFile();
-		init = viaModel.getLecturerList();
-		dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
 		AnchorPane paneLecturers = FXMLLoader.load(getClass().getResource("DisplayLecturers.fxml"));
 		mainAnchor.getChildren().setAll(paneLecturers);
+		init = viaModel.getLecturerList();
 	}
 
 	public void goBack() throws IOException {
@@ -672,7 +621,9 @@ public class VIAController implements Initializable, Serializable {
 		selectedMember.forEach(allMembers::remove);
 	}
 
-	public void addLect(ActionEvent event) {
+	public void addLect(ActionEvent event) 
+	{	
+		if(!(selectedRadioButton.equals("Yes"))) selectedRadioButton = "No";
 		Lecturer newLecturer = new Lecturer(txtFieldAddLecturerName.getText(), txtFieldAddLecturerEmail.getText(),
 				txtFieldAddLecturerCourseSpec.getText(), txtFieldAddLecturerTelNumber.getText(), selectedRadioButton);
 		dataInLecturerTable.add(newLecturer);
@@ -718,5 +669,20 @@ public class VIAController implements Initializable, Serializable {
 			}
 		}
 		viaModel.setEventList(eventsList1);
+	}
+	
+	public void deletetheTextInsideOfTheSearchEventTextField()
+	{
+		txtFieldSearchEvent.setText("");
+	}
+	
+	public void deletetheTextInsideOfTheSearchLecturerTextField()
+	{
+		txtFieldSearchLecturer.setText("");
+	}
+	
+	public void deletetheTextInsideOfTheSearchMemberTextField()
+	{
+		txtFieldSearchMember.setText("");
 	}
 }
