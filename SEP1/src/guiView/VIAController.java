@@ -84,8 +84,8 @@ public class VIAController implements Initializable, Serializable {
 	private TextField txtFieldAddMemberMembPay;
 	@FXML
 	private TableView<Events> eventsMainTable = new TableView<Events>();
-	private static EventsList el1 = new EventsList();
-	private static ObservableList<Events> data = FXCollections.observableArrayList(el1.getListOfEvents());
+	private static EventsList el1;
+	private static ObservableList<Events> data;
 	@FXML
 	private TableColumn<Events, String> eventTableCol1 = new TableColumn<Events, String>();
 	@FXML
@@ -390,15 +390,17 @@ public class VIAController implements Initializable, Serializable {
 				value = check.getText();
 			}
 		});
+		
 
 	}
 
 	public void toEventsScene() throws IOException {
-		AnchorPane paneEvents = FXMLLoader.load(getClass().getResource("eventsView.fxml"));
-		mainAnchor.getChildren().setAll(paneEvents);
 		VIAView viaView1 = new VIAView();
 		viaModel = viaView1.viaModFromFile();
 		el1 = viaModel.getEventList();
+		data = FXCollections.observableList(el1.getListOfEvents());
+		AnchorPane paneEvents = FXMLLoader.load(getClass().getResource("eventsView.fxml"));
+		mainAnchor.getChildren().setAll(paneEvents);
 	}
 
 	public void toMemberScene() throws IOException {
@@ -490,6 +492,4 @@ public class VIAController implements Initializable, Serializable {
 		}
 		viaModel.setEventList(eventsList1);
 	}
-	
-
 }

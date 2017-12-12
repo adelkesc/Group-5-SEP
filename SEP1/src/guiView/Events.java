@@ -1,11 +1,5 @@
 package guiView;
 
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Events implements Serializable {
@@ -14,29 +8,29 @@ public class Events implements Serializable {
 	 */
 	private static final long serialVersionUID = 5596571541918537611L;
 	private String name;
-	private String date = new String("");
-	private String duration = new String("");
-	private String type = new String("");
-	private String location = new String("");
-	private String category = new String("");
+	private String date;
+	private String duration;
+	private String type;
+	private String location;
+	private String category;
 	// private Lecturer conductor;
-	private String price = new String("");
-	private String minPartic = new String("");
-	private String maxPartic = new String("");
+	private String price;
+	private String minPartic;
+	private String maxPartic;
 	private boolean isFinalized = false;
 	// ArrayList<Members> eventMembList = new ArrayList<>();
 
 	public Events(String name, String date, String duration, String type, String location, String category,
 			/* Lecturer conductor, */ String price, String minPartic, String maxPartic, boolean isFinalized) {
 		this.name = name;
-		setDate(date);
-		setDuration(duration);
-		setType(type);
-		setLocation(location);
-		setCategory(category);
-		setPrice(price);
-		setMinPartic(minPartic);
-		setMaxPartic(maxPartic);
+		this.date = date;
+		this.duration = duration;
+		this.type = type;
+		this.location = location;
+		this.category = category;
+		this.price = price;
+		this.minPartic = minPartic;
+		this.maxPartic = maxPartic;
 		this.isFinalized = isFinalized;
 	}
 

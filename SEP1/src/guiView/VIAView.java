@@ -16,6 +16,7 @@ public class VIAView extends Application {
 	public void start(Stage stage) throws Exception {
 		file.setVIAModelFromFile();
 		viaModel = file.getVIAModel();
+		
 		System.out.println(file.getVIAModel().getEventList().getListOfEvents());
 		//invoke fxml loader
 		FXMLLoader load = new FXMLLoader();
