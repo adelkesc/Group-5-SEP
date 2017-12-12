@@ -71,6 +71,8 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private Label txtLabelMemberMembPay;
 	@FXML
+	private TextField txtFilter;
+	@FXML
 	private TextField txtFieldAddMemberName;
 	@FXML
 	private TextField txtFieldAddMemberAge;
@@ -205,8 +207,11 @@ public class VIAController implements Initializable, Serializable {
 	private TableColumn<Lecturer, String> tableColumnLecturerAdvertReq = new TableColumn<Lecturer, String>();
 	@FXML
 	private ChoiceBox<String> choiceBoxSearchLecturer = new ChoiceBox<String>(choices);
-
+	private ChoiceBox<String> choiceBoxMemberSearch = new ChoiceBox<String>();
+	//TODO implement Observable list of choices
+	
 	// Necessary initializations for Member
+	private static String selectedChoicesForMemberSearch = "";
 	private static MemberList list = new MemberList();
 	private static ObservableList<Member> memberObservableList = FXCollections
 			.observableArrayList(list.getListOfMembers());
@@ -465,6 +470,41 @@ public class VIAController implements Initializable, Serializable {
 				selectedRadioButton = check.getText();
 			}
 		});
+		// Search Member ChioceBox
+		choiceBoxMemberSearch.getItems().addAll("None","Name", "Address", "Email", "Age", "Membership Date");
+		choiceBoxMemberSearch.getSelectionModel().selectFirst();
+		choiceBoxMemberSearch.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
+				{
+					@Override
+			public void changed(ObservableValue<? extends String> observable, String previousChoice, String currentChoice)
+			{
+				selectedChoicesForMemberSearch = currentChoice;
+				switch(selectedChoicesForMemberSearch)
+				{
+				case "Name": FilteredList<Member> filteredMemberName = new FilteredList<>(memberObservableList, p -> true);
+				txtFilter.textProperty().addListener((observable2, oldValue, newValue) ->
+							 {
+								 filteredMemberName.setPredicate(member ->
+								 {
+									 if (newValue == null || newValue.isEmpty())
+									 {
+										 return true;
+									 }
+									 String lowerCaseFilter = newValue.toLowerCase();
+									 if (member.getName().toLowerCase().contains(lowerCaseFilter))
+									 {
+										 return true;
+									 }
+									 return false;
+								 });
+							 });
+							 SortedList<Member> sortedMemberName = new SortedList<>(filteredMemberName);
+							 sortedMemberName.comparatorProperty().bind(tableMemberView.comparatorProperty());
+							 tableMemberView.setItems(sortedMemberName); break;
+				}
+				}
+					});
+		
 		
 		//Listener for Search Lecturer ChoiceBox
 		choiceBoxSearchLecturer.getItems().addAll("None", "Name", "Email", "Course Specification", "Advertisement Requirement");
