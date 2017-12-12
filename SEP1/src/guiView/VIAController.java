@@ -1,5 +1,6 @@
 package guiView;
 
+import java.awt.Choice;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
@@ -16,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableCell;
@@ -190,35 +192,19 @@ public class VIAController implements Initializable, Serializable {
 	private TableColumn<Lecturer, String> tableColumnLecturerTelNumber = new TableColumn<Lecturer, String>();
 	@FXML
 	private TableColumn<Lecturer, String> tableColumnLecturerAdvertReq = new TableColumn<Lecturer, String>();
+	
 
+	private static ObservableList<String> choices = FXCollections.observableArrayList();
+	
 	@FXML
-	private Label txtLabelEditLecturerName;
-	@FXML
-	private Label txtLabelEditLecturerEmail;
-	@FXML
-	private Label txtLabelEditLecturerCourseSpec;
-	@FXML
-	private Label txtLabelEditLecturerTelNumber;
-	@FXML
-	private Label txtLabelEditLecturerAvertReq;
-	@FXML
-	private TextField txtFieldEditLecturerName;
-	@FXML
-	private TextField txtFieldEditLecturerEmail;
-	@FXML
-	private TextField txtFieldEditLecturerCourseSpec;
-	@FXML
-	private TextField txtFieldEditLecturerTelNumber;
-	@FXML
-	private RadioButton radioBtnEditLecturerYes = new RadioButton();
-	@FXML
-	private RadioButton radioBtnEditLecturerNo = new RadioButton();
+	private ChoiceBox<String> choiceBoxSearchLecturer = new ChoiceBox<String>(choices);
+
 
 	// Necessary initializations for Lecturer
-	private String value = "";
+	private String selectedRadioButton = "";
+	private static String selectedChoiceForSearchLecturer = "";
 	private static LecturerList init = new LecturerList();
-	private static ObservableList<Lecturer> dataInLecturerTable = FXCollections
-			.observableList(init.getListOfLecturers());
+	private static ObservableList<Lecturer> dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
 
 	// Necessary initializations for Member
 	private static MemberList list = new MemberList();
@@ -226,6 +212,19 @@ public class VIAController implements Initializable, Serializable {
 	private VIAModel viaModel = new VIAModel(el1, list, init);
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		choiceBoxSearchLecturer.getItems().addAll("None", "Name", "Email", "Course Specification", "Advertisement Requirement");
+		choiceBoxSearchLecturer.getSelectionModel().selectFirst();
+		choiceBoxSearchLecturer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
+				{
+					@Override
+					public void changed(ObservableValue<? extends String> observable, String previousChoice, String currentChoice)
+					{
+						selectedChoiceForSearchLecturer = currentChoice;
+						System.out.println("Inside the listener(currentChoice): " + currentChoice);
+						System.out.println("Inside the listener(selectedChoiceForSearchLecturer): " + selectedChoiceForSearchLecturer);
+					}
+				});
+		
 		eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("name"));
 		eventTableCol2.setCellValueFactory(new PropertyValueFactory<Events, String>("date"));
 		eventTableCol3.setCellValueFactory(new PropertyValueFactory<Events, String>("duration"));
@@ -310,8 +309,7 @@ public class VIAController implements Initializable, Serializable {
 		// Creating and populating Lecturer table
 		tableColumnLecturerName.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("name"));
 		tableColumnLecturerEmail.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("email"));
-		tableColumnLecturerCourseSpecification
-				.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("courseSpec"));
+		tableColumnLecturerCourseSpecification.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("courseSpec"));
 		tableColumnLecturerTelNumber.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("telNumber"));
 		tableColumnLecturerAdvertReq.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("advertReq"));
 		tableViewLecturer.setItems(dataInLecturerTable);
@@ -387,7 +385,7 @@ public class VIAController implements Initializable, Serializable {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle t1, Toggle t2) {
 				RadioButton check = (RadioButton) t1.getToggleGroup().getSelectedToggle();
-				value = check.getText();
+				selectedRadioButton = check.getText();
 			}
 		});
 
@@ -428,7 +426,6 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void toAddLecturerScene() throws IOException {
-		System.out.println(init.getListOfLecturers());
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("AddLecturer.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
@@ -455,7 +452,7 @@ public class VIAController implements Initializable, Serializable {
 
 	public void addLect(ActionEvent event) 
 	{
-		Lecturer newLecturer = new Lecturer(txtFieldAddLecturerName.getText(), txtFieldAddLecturerEmail.getText(),txtFieldAddLecturerCourseSpec.getText(), txtFieldAddLecturerTelNumber.getText(), value);
+		Lecturer newLecturer = new Lecturer(txtFieldAddLecturerName.getText(), txtFieldAddLecturerEmail.getText(),txtFieldAddLecturerCourseSpec.getText(), txtFieldAddLecturerTelNumber.getText(), selectedRadioButton);
 		dataInLecturerTable.add(newLecturer);
 		JOptionPane.showMessageDialog(null, "Lecturer added sucessfully!");
 	}
