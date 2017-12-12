@@ -149,6 +149,13 @@ public class VIAController implements Initializable, Serializable {
 	private Button btnMainPageLect;
 	@FXML
 	private Button btnMainPageMemb;
+	
+	// Necessary initializations for Lecturer
+		private String selectedRadioButton = "";
+		private static String selectedChoiceForSearchLecturer = "";
+		private static LecturerList init = new LecturerList();
+		private static ObservableList<Lecturer> dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
+		private static ObservableList<String> choices = FXCollections.observableArrayList();
 
 	// Lecturer FXML
 	@FXML
@@ -193,18 +200,8 @@ public class VIAController implements Initializable, Serializable {
 	private TableColumn<Lecturer, String> tableColumnLecturerTelNumber = new TableColumn<Lecturer, String>();
 	@FXML
 	private TableColumn<Lecturer, String> tableColumnLecturerAdvertReq = new TableColumn<Lecturer, String>();
-
-	private static ObservableList<String> choices = FXCollections.observableArrayList();
-
 	@FXML
 	private ChoiceBox<String> choiceBoxSearchLecturer = new ChoiceBox<String>(choices);
-
-	// Necessary initializations for Lecturer
-	private String selectedRadioButton = "";
-	private static String selectedChoiceForSearchLecturer = "";
-	private static LecturerList init = new LecturerList();
-	private static ObservableList<Lecturer> dataInLecturerTable = FXCollections
-			.observableList(init.getListOfLecturers());
 
 	// Necessary initializations for Member
 	private static MemberList list = new MemberList();
@@ -214,32 +211,6 @@ public class VIAController implements Initializable, Serializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		choiceBoxSearchLecturer.getItems().addAll("None", "Name", "Email", "Course Specification", "Advertisement Requirement");
-		choiceBoxSearchLecturer.getSelectionModel().selectFirst();
-		choiceBoxSearchLecturer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
-				{
-					@Override
-					public void changed(ObservableValue<? extends String> observable, String previousChoice, String currentChoice)
-					{
-						selectedChoiceForSearchLecturer = currentChoice;
-					}
-				});
-		
-		System.out.println(selectedChoiceForSearchLecturer);
-		
-/*=======
-		choiceBoxSearchLecturer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String previousChoice,
-					String currentChoice) {
-				selectedChoiceForSearchLecturer = currentChoice;
-				System.out.println("Inside the listener(currentChoice): " + currentChoice);
-				System.out.println(
-						"Inside the listener(selectedChoiceForSearchLecturer): " + selectedChoiceForSearchLecturer);
-			}
-		});
-
->>>>>>> d1e25ba6280bdcb629b858ad10baa824a07c2959*/
 		eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("name"));
 		eventTableCol2.setCellValueFactory(new PropertyValueFactory<Events, String>("date"));
 		eventTableCol3.setCellValueFactory(new PropertyValueFactory<Events, String>("duration"));
@@ -345,7 +316,6 @@ public class VIAController implements Initializable, Serializable {
 		tableViewLecturer.setEditable(true);
 
 		//Making Lecturer table cells editable
-
 		tableColumnLecturerName.setCellFactory(TextFieldTableCell.forTableColumn());
 		tableColumnLecturerName.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>() {
 			@Override
@@ -399,7 +369,7 @@ public class VIAController implements Initializable, Serializable {
 
 		);
 
-		// Radio Buttons for add lecturer UI
+		// Listener for radio buttons for add lecturer UI
 		ToggleGroup addLecturergroup = new ToggleGroup();
 		radioBtnAddLecturerYes.setToggleGroup(addLecturergroup);
 		radioBtnAddLecturerNo.setToggleGroup(addLecturergroup);
@@ -411,6 +381,18 @@ public class VIAController implements Initializable, Serializable {
 				selectedRadioButton = check.getText();
 			}
 		});
+		
+		//Listener for Search Lecturer ChoiceBox
+		choiceBoxSearchLecturer.getItems().addAll("None", "Name", "Email", "Course Specification", "Advertisement Requirement");
+		choiceBoxSearchLecturer.getSelectionModel().selectFirst();
+		choiceBoxSearchLecturer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
+				{
+					@Override
+					public void changed(ObservableValue<? extends String> observable, String previousChoice, String currentChoice)
+					{
+						selectedChoiceForSearchLecturer = currentChoice;
+					}
+				});
 
 	}
 
