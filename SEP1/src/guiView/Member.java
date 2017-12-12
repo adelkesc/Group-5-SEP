@@ -1,17 +1,20 @@
 package guiView;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import javafx.beans.property.SimpleStringProperty;
 
 public class Member implements Serializable {
-	private SimpleStringProperty name = new SimpleStringProperty("");
-	private SimpleStringProperty age = new SimpleStringProperty("");
-	private SimpleStringProperty address = new SimpleStringProperty("");
-	private SimpleStringProperty tel = new SimpleStringProperty("");
-	private SimpleStringProperty email = new SimpleStringProperty("");
-	private SimpleStringProperty coursePref = new SimpleStringProperty("");
-	private SimpleStringProperty membPay = new SimpleStringProperty("");
+	private transient SimpleStringProperty name = new SimpleStringProperty("");
+	private transient SimpleStringProperty age = new SimpleStringProperty("");
+	private transient SimpleStringProperty address = new SimpleStringProperty("");
+	private transient SimpleStringProperty tel = new SimpleStringProperty("");
+	private transient SimpleStringProperty email = new SimpleStringProperty("");
+	private transient SimpleStringProperty coursePref = new SimpleStringProperty("");
+	private transient SimpleStringProperty membPay = new SimpleStringProperty("");
 
 	public Member() {
 		      this("", "", "", "", "", "", "");
@@ -88,6 +91,29 @@ public class Member implements Serializable {
 
 	public void setMembPay(String newMembPay) {
 		membPay.set(newMembPay);
+	}
+	public void readExternal(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		name = new SimpleStringProperty((String) in.readObject());
+		age = new SimpleStringProperty((String) in.readObject());
+		address = new SimpleStringProperty((String) in.readObject());
+		tel = new SimpleStringProperty((String) in.readObject());
+		email = new SimpleStringProperty((String) in.readObject());
+		coursePref = new SimpleStringProperty((String) in.readObject());
+		membPay = new SimpleStringProperty((String) in.readObject());
+
+	}
+
+	public void writeExternal(ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
+		out.writeObject(name.get());
+		out.writeObject(age.get());
+		out.writeObject(address.get());
+		out.writeObject(tel.get());
+		out.writeObject(email.get());
+		out.writeObject(coursePref.get());
+		out.writeObject(membPay.get());
+		
 	}
 
 }

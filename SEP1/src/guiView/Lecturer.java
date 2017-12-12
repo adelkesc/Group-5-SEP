@@ -1,16 +1,19 @@
 package guiView;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import javafx.beans.property.SimpleStringProperty;
 
 public class Lecturer implements Serializable 
 {
-   private SimpleStringProperty name = new SimpleStringProperty("");
-   private SimpleStringProperty email = new SimpleStringProperty("");
-   private SimpleStringProperty courseSpec = new SimpleStringProperty("");
-   private SimpleStringProperty telNumber = new SimpleStringProperty("");
-   private SimpleStringProperty advertReq = new SimpleStringProperty("");
+   private transient SimpleStringProperty name = new SimpleStringProperty("");
+   private transient SimpleStringProperty email = new SimpleStringProperty("");
+   private transient SimpleStringProperty courseSpec = new SimpleStringProperty("");
+   private transient SimpleStringProperty telNumber = new SimpleStringProperty("");
+   private transient SimpleStringProperty advertReq = new SimpleStringProperty("");
    
    public Lecturer()
    {
@@ -80,5 +83,23 @@ public class Lecturer implements Serializable
    {
       return "Name: " + name + " E-Mail: " + email + " Course Specification: " + courseSpec + " Tel. Number: " + telNumber + " Advertisement Requirement: " + advertReq + "\n";
    }
+	public void readExternal(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		name = new SimpleStringProperty((String) in.readObject());
+		email = new SimpleStringProperty((String) in.readObject());
+		courseSpec = new SimpleStringProperty((String) in.readObject());
+		telNumber = new SimpleStringProperty((String) in.readObject());
+		advertReq = new SimpleStringProperty((String) in.readObject());
+
+	}
+
+	public void writeExternal(ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
+		out.writeObject(name.get());
+		out.writeObject(email.get());
+		out.writeObject(courseSpec.get());
+		out.writeObject(telNumber.get());
+		out.writeObject(advertReq.get());		
+	}
    
 }
