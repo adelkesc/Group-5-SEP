@@ -39,8 +39,8 @@ public class FileIO implements Serializable {
 
 	public void setToFile() throws IOException {
 		viaContr = viaView1.getController();
-		viaModel1 = viaContr.getVIAMod();
-		System.out.println(viaContr.getVIAMod().getEventList().getListOfEvents());
+		viaModel1.setEventList(viaContr.getVIAMod().getEventList());
+		System.out.println(viaModel1);
 		FileOutputStream fstream = new FileOutputStream("viaModel.bin");
 		ObjectOutputStream outputFile = new ObjectOutputStream(fstream);
 		

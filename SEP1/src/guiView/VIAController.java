@@ -33,6 +33,10 @@ import javafx.util.Callback;
 public class VIAController implements Initializable, Serializable {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@FXML
 	private TableView<Member> tableMemberView = new TableView<Member>();
 	@FXML
@@ -484,7 +488,6 @@ public class VIAController implements Initializable, Serializable {
 			eventsList1.addEvent(data.get(j));
 		}
 		viaModel.setEventList(eventsList1);
-//		System.out.println(eventsList1.getListOfEvents());
 	}
 	
 

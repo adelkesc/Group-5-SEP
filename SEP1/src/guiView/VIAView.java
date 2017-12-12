@@ -36,7 +36,6 @@ public class VIAView extends Application {
 	        public void run() {
 	        	file.setVIAModel(viaModel);
 	        	viaContr.saveToFile();
-//	        	System.out.println(viaContr.getVIAMod().getEventList().getListOfEvents());
 					try {
 						file.setToFile();
 					} catch (IOException e) {
