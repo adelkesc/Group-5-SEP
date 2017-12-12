@@ -391,25 +391,26 @@ public class VIAController implements Initializable, Serializable {
 			}
 		});
 
-		el1 = viaModel.getEventList();
-		list = viaModel.getMemberList();
-		init = viaModel.getLecturerList();
-
 	}
 
 	public void toEventsScene() throws IOException {
 		AnchorPane paneEvents = FXMLLoader.load(getClass().getResource("eventsView.fxml"));
 		mainAnchor.getChildren().setAll(paneEvents);
+		VIAView viaView1 = new VIAView();
+		viaModel = viaView1.viaModFromFile();
+		el1 = viaModel.getEventList();
 	}
 
 	public void toMemberScene() throws IOException {
 		AnchorPane paneMembers = FXMLLoader.load(getClass().getResource("MemberView.fxml"));
 		mainAnchor.getChildren().setAll(paneMembers);
+		list = viaModel.getMemberList();
 	}
 
 	public void toLecturerScene() throws IOException {
 		AnchorPane paneLecturers = FXMLLoader.load(getClass().getResource("DisplayLecturers.fxml"));
 		mainAnchor.getChildren().setAll(paneLecturers);
+		init = viaModel.getLecturerList();
 	}
 
 	public void goBack() throws IOException {

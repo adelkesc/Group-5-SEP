@@ -1,32 +1,34 @@
 package guiView;
 
+import java.io.Externalizable;
 import java.io.IOException;
+import java.io.ObjectInput;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import javafx.beans.property.SimpleStringProperty;
 
 public class Events implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5596571541918537611L;
-	private transient SimpleStringProperty name = new SimpleStringProperty("");
-	private transient SimpleStringProperty date = new SimpleStringProperty("");
-	private transient SimpleStringProperty duration = new SimpleStringProperty("");
-	private transient SimpleStringProperty type = new SimpleStringProperty("");
-	private transient SimpleStringProperty location = new SimpleStringProperty("");
-	private transient SimpleStringProperty category = new SimpleStringProperty("");
+	private String name;
+	private String date = new String("");
+	private String duration = new String("");
+	private String type = new String("");
+	private String location = new String("");
+	private String category = new String("");
 	// private Lecturer conductor;
-	private transient SimpleStringProperty price = new SimpleStringProperty("");
-	private transient SimpleStringProperty minPartic = new SimpleStringProperty("");
-	private transient SimpleStringProperty maxPartic = new SimpleStringProperty("");
+	private String price = new String("");
+	private String minPartic = new String("");
+	private String maxPartic = new String("");
 	private boolean isFinalized = false;
 	// ArrayList<Members> eventMembList = new ArrayList<>();
 
 	public Events(String name, String date, String duration, String type, String location, String category,
 			/* Lecturer conductor, */ String price, String minPartic, String maxPartic, boolean isFinalized) {
-		setName(name);
+		this.name = name;
 		setDate(date);
 		setDuration(duration);
 		setType(type);
@@ -39,79 +41,79 @@ public class Events implements Serializable {
 	}
 
 	public Events() {
-		this("","","","","","","","","",false);
+		this("", "", "", "", "", "", "", "", "", false);
 	}
 
 	public String getName() {
-		return name.get();
+		return name;
 	}
 
 	public void setName(String name) {
-		this.name.set(name);
+		this.name = name;
 	}
 
 	public String getDate() {
-		return date.get();
+		return date;
 	}
 
 	public void setDate(String date) {
-		this.date.set(date);
+		this.date=date;
 	}
 
 	public String getDuration() {
-		return duration.get();
+		return duration;
 	}
 
 	public void setDuration(String duration) {
-		this.duration.set(duration);
+		this.duration=duration;
 	}
 
 	public String getType() {
-		return type.get();
+		return type;
 	}
 
 	public void setType(String type) {
-		this.type.set(type);
+		this.type=type;
 	}
 
 	public String getLocation() {
-		return location.get();
+		return location;
 	}
 
 	public void setLocation(String location) {
-		this.location.set(location);
+		this.location=location;
 	}
 
 	public String getCategory() {
-		return category.get();
+		return category;
 	}
 
 	public void setCategory(String category) {
-		this.category.set(category);
+		this.category=category;
 	}
 
 	public String getPrice() {
-		return price.get();
+		return price;
 	}
 
 	public void setPrice(String price) {
-		this.price.set(price);
+		this.price=price;
 	}
 
 	public String getMinPartic() {
-		return minPartic.get();
+		return minPartic;
 	}
 
 	public void setMinPartic(String minPartic) {
-		this.minPartic.set(minPartic);
+		this.minPartic=minPartic;
 	}
 
 	public String getMaxPartic() {
-		return maxPartic.get();
+		return maxPartic;
 	}
 
 	public void setMaxPartic(String maxPartic) {
-		this.maxPartic.set(maxPartic);
+		this.maxPartic=(maxPartic);
 	}
 
 	public boolean isFinalized() {
@@ -125,38 +127,14 @@ public class Events implements Serializable {
 	public void finalizeEvent() {
 		this.isFinalized = true;
 	}
+
 	// public void addMemToEvent(Members member) {
 	// eventMembList.add(member);
 	// }
 	public String toString() {
-		return this.name + "\n" + 	this.date+ "\n" + this.duration+ "\n" + this.type+ "\n" +	this.location+ "\n" +	this.category+ "\n" + this.price+ "\n" + this.minPartic+ "\n" + this.maxPartic+ "\n" + this.isFinalized;
-	}
-
-	public void readExternal(ObjectInputStream in) throws IOException, ClassNotFoundException {
-		in.defaultReadObject();
-		name = new SimpleStringProperty((String) in.readObject());
-		date = new SimpleStringProperty((String) in.readObject());
-		duration = new SimpleStringProperty((String) in.readObject());
-		type = new SimpleStringProperty((String) in.readObject());
-		location = new SimpleStringProperty((String) in.readObject());
-		category = new SimpleStringProperty((String) in.readObject());
-		price = new SimpleStringProperty((String) in.readObject());
-		minPartic = new SimpleStringProperty((String) in.readObject());
-		maxPartic = new SimpleStringProperty((String) in.readObject());
-	}
-
-	public void writeExternal(ObjectOutputStream out) throws IOException {
-		out.defaultWriteObject();
-		out.writeObject(name.get());
-		out.writeObject(date.get());
-		out.writeObject(duration.get());
-		out.writeObject(type.get());
-		out.writeObject(location.get());
-		out.writeObject(category.get());
-		out.writeObject(price.get());
-		out.writeObject(minPartic.get());
-		out.writeObject(maxPartic.get());
-		
+		return this.name + "\n" + this.date + "\n" + this.duration + "\n" + this.type + "\n" + this.location + "\n"
+				+ this.category + "\n" + this.price + "\n" + this.minPartic + "\n" + this.maxPartic + "\n"
+				+ this.isFinalized;
 	}
 
 }
