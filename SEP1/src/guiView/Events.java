@@ -1,20 +1,30 @@
 package guiView;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import javafx.beans.property.SimpleStringProperty;
 
 public class Events implements Serializable {
-	private SimpleStringProperty name = new SimpleStringProperty("");
-	private SimpleStringProperty date = new SimpleStringProperty("");
-	private SimpleStringProperty duration = new SimpleStringProperty("");
-	private SimpleStringProperty type = new SimpleStringProperty("");
-	private SimpleStringProperty location = new SimpleStringProperty("");
-	private SimpleStringProperty category = new SimpleStringProperty("");
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5596571541918537611L;
+	private transient SimpleStringProperty name = new SimpleStringProperty("");
+	private transient SimpleStringProperty date = new SimpleStringProperty("");
+	private transient SimpleStringProperty duration = new SimpleStringProperty("");
+	private transient SimpleStringProperty type = new SimpleStringProperty("");
+	private transient SimpleStringProperty location = new SimpleStringProperty("");
+	private transient SimpleStringProperty category = new SimpleStringProperty("");
 	// private Lecturer conductor;
-	private SimpleStringProperty price = new SimpleStringProperty("");
-	private SimpleStringProperty minPartic = new SimpleStringProperty("");
-	private SimpleStringProperty maxPartic = new SimpleStringProperty("");
+	private transient SimpleStringProperty price = new SimpleStringProperty("");
+	private transient SimpleStringProperty minPartic = new SimpleStringProperty("");
+	private transient SimpleStringProperty maxPartic = new SimpleStringProperty("");
 	private boolean isFinalized = false;
 	// ArrayList<Members> eventMembList = new ArrayList<>();
 
@@ -124,6 +134,34 @@ public class Events implements Serializable {
 	// }
 	public String toString() {
 		return this.name + "\n" + 	this.date+ "\n" + this.duration+ "\n" + this.type+ "\n" +	this.location+ "\n" +	this.category+ "\n" + this.price+ "\n" + this.minPartic+ "\n" + this.maxPartic+ "\n" + this.isFinalized;
+	}
+
+	public void readExternal(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		name = new SimpleStringProperty((String) in.readObject());
+		date = new SimpleStringProperty((String) in.readObject());
+		duration = new SimpleStringProperty((String) in.readObject());
+		type = new SimpleStringProperty((String) in.readObject());
+		location = new SimpleStringProperty((String) in.readObject());
+		category = new SimpleStringProperty((String) in.readObject());
+		price = new SimpleStringProperty((String) in.readObject());
+		minPartic = new SimpleStringProperty((String) in.readObject());
+		maxPartic = new SimpleStringProperty((String) in.readObject());
+		
+	}
+
+	public void writeExternal(ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
+		out.writeObject(name.get());
+		out.writeObject(date.get());
+		out.writeObject(duration.get());
+		out.writeObject(type.get());
+		out.writeObject(location.get());
+		out.writeObject(category.get());
+		out.writeObject(price.get());
+		out.writeObject(minPartic.get());
+		out.writeObject(maxPartic.get());
+		
 	}
 
 }
