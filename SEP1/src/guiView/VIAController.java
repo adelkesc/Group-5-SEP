@@ -33,8 +33,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
 public class VIAController implements Initializable, Serializable {
-	
-	
+
 	/**
 	 * 
 	 */
@@ -130,6 +129,8 @@ public class VIAController implements Initializable, Serializable {
 	private TextField addEventMinPartic;
 	@FXML
 	private TextField addEventMaxPartic;
+	@FXML
+	private Button eventsDeleteButton;
 
 	// main page FXML
 	@FXML
@@ -192,24 +193,25 @@ public class VIAController implements Initializable, Serializable {
 	private TableColumn<Lecturer, String> tableColumnLecturerTelNumber = new TableColumn<Lecturer, String>();
 	@FXML
 	private TableColumn<Lecturer, String> tableColumnLecturerAdvertReq = new TableColumn<Lecturer, String>();
-	
 
 	private static ObservableList<String> choices = FXCollections.observableArrayList();
-	
+
 	@FXML
 	private ChoiceBox<String> choiceBoxSearchLecturer = new ChoiceBox<String>(choices);
-
 
 	// Necessary initializations for Lecturer
 	private String selectedRadioButton = "";
 	private static String selectedChoiceForSearchLecturer = "";
 	private static LecturerList init = new LecturerList();
-	private static ObservableList<Lecturer> dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
+	private static ObservableList<Lecturer> dataInLecturerTable = FXCollections
+			.observableList(init.getListOfLecturers());
 
 	// Necessary initializations for Member
 	private static MemberList list = new MemberList();
-	private static ObservableList<Member> memberObservableList = FXCollections.observableArrayList(list.getListOfMembers());
+	private static ObservableList<Member> memberObservableList = FXCollections
+			.observableArrayList(list.getListOfMembers());
 	private VIAModel viaModel = new VIAModel(el1, list, init);
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		choiceBoxSearchLecturer.getItems().addAll("None", "Name", "Email", "Course Specification", "Advertisement Requirement");
@@ -225,6 +227,19 @@ public class VIAController implements Initializable, Serializable {
 		
 		System.out.println(selectedChoiceForSearchLecturer);
 		
+/*=======
+		choiceBoxSearchLecturer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String previousChoice,
+					String currentChoice) {
+				selectedChoiceForSearchLecturer = currentChoice;
+				System.out.println("Inside the listener(currentChoice): " + currentChoice);
+				System.out.println(
+						"Inside the listener(selectedChoiceForSearchLecturer): " + selectedChoiceForSearchLecturer);
+			}
+		});
+
+>>>>>>> d1e25ba6280bdcb629b858ad10baa824a07c2959*/
 		eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("name"));
 		eventTableCol2.setCellValueFactory(new PropertyValueFactory<Events, String>("date"));
 		eventTableCol3.setCellValueFactory(new PropertyValueFactory<Events, String>("duration"));
@@ -261,18 +276,17 @@ public class VIAController implements Initializable, Serializable {
 		tableColumnMemberMembPay.setCellValueFactory(new PropertyValueFactory<Member, String>("membPay"));
 		tableMemberView.setItems(memberObservableList);
 		tableMemberView.setEditable(true);
-		
+
 		// Editing Members cells
-		tableColumnMemberName.setCellValueFactory(new PropertyValueFactory<Member,String>("Name"));
+		tableColumnMemberName.setCellValueFactory(new PropertyValueFactory<Member, String>("Name"));
 		tableColumnMemberName.setCellFactory(TextFieldTableCell.forTableColumn());
 		tableColumnMemberName.setOnEditCommit(new EventHandler<CellEditEvent<Member, String>>() {
 			@Override
-			public void handle(CellEditEvent<Member, String> t) 
-			{
+			public void handle(CellEditEvent<Member, String> t) {
 				((Member) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
 			}
 		});
-		
+
 		tableColumnMemberAge.setCellFactory(TextFieldTableCell.forTableColumn());
 		tableColumnMemberAge.setOnEditCommit(new EventHandler<CellEditEvent<Member, String>>() {
 			@Override
@@ -294,7 +308,7 @@ public class VIAController implements Initializable, Serializable {
 				((Member) t.getTableView().getItems().get(t.getTablePosition().getRow())).setAddress(t.getNewValue());
 			}
 		});
-		
+
 		tableColumnMemberEmail.setCellFactory(TextFieldTableCell.forTableColumn());
 		tableColumnMemberEmail.setOnEditCommit(new EventHandler<CellEditEvent<Member, String>>() {
 			@Override
@@ -307,10 +321,11 @@ public class VIAController implements Initializable, Serializable {
 		tableColumnMemberCoursePref.setOnEditCommit(new EventHandler<CellEditEvent<Member, String>>() {
 			@Override
 			public void handle(CellEditEvent<Member, String> t) {
-				((Member) t.getTableView().getItems().get(t.getTablePosition().getRow())).setCoursePref(t.getNewValue());
+				((Member) t.getTableView().getItems().get(t.getTablePosition().getRow()))
+						.setCoursePref(t.getNewValue());
 			}
 		});
-		
+
 		tableColumnMemberMembPay.setCellFactory(TextFieldTableCell.forTableColumn());
 		tableColumnMemberMembPay.setOnEditCommit(new EventHandler<CellEditEvent<Member, String>>() {
 			@Override
@@ -322,73 +337,68 @@ public class VIAController implements Initializable, Serializable {
 		// Creating and populating Lecturer table
 		tableColumnLecturerName.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("name"));
 		tableColumnLecturerEmail.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("email"));
-		tableColumnLecturerCourseSpecification.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("courseSpec"));
+		tableColumnLecturerCourseSpecification
+				.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("courseSpec"));
 		tableColumnLecturerTelNumber.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("telNumber"));
 		tableColumnLecturerAdvertReq.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("advertReq"));
 		tableViewLecturer.setItems(dataInLecturerTable);
 		tableViewLecturer.setEditable(true);
-		
+
 		//Making Lecturer table cells editable
+
 		tableColumnLecturerName.setCellFactory(TextFieldTableCell.forTableColumn());
-		tableColumnLecturerName.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>()
-				{
+		tableColumnLecturerName.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>() {
 			@Override
-			public void handle(CellEditEvent<Lecturer, String> t)
-			{
+			public void handle(CellEditEvent<Lecturer, String> t) {
 				((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
 			}
-				}
-			
-				);
-		
+		}
+
+		);
+
 		tableColumnLecturerEmail.setCellFactory(TextFieldTableCell.forTableColumn());
-		tableColumnLecturerEmail.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>()
-				{
+		tableColumnLecturerEmail.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>() {
 			@Override
-			public void handle(CellEditEvent<Lecturer, String> t)
-			{
+			public void handle(CellEditEvent<Lecturer, String> t) {
 				((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow())).setEmail(t.getNewValue());
 			}
-				}
-			
-				);
-		
+		}
+
+		);
+
 		tableColumnLecturerCourseSpecification.setCellFactory(TextFieldTableCell.forTableColumn());
-		tableColumnLecturerCourseSpecification.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>()
-				{
+		tableColumnLecturerCourseSpecification.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>() {
 			@Override
-			public void handle(CellEditEvent<Lecturer, String> t)
-			{
-				((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow())).setCourseSpec(t.getNewValue());
+			public void handle(CellEditEvent<Lecturer, String> t) {
+				((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow()))
+						.setCourseSpec(t.getNewValue());
 			}
-				}
-			
-				);
-		
+		}
+
+		);
+
 		tableColumnLecturerTelNumber.setCellFactory(TextFieldTableCell.forTableColumn());
-		tableColumnLecturerTelNumber.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>()
-				{
+		tableColumnLecturerTelNumber.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>() {
 			@Override
-			public void handle(CellEditEvent<Lecturer, String> t)
-			{
-				((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow())).setTelNumber(t.getNewValue());
+			public void handle(CellEditEvent<Lecturer, String> t) {
+				((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow()))
+						.setTelNumber(t.getNewValue());
 			}
-				}
-			
-				);
-		
+		}
+
+		);
+
 		tableColumnLecturerAdvertReq.setCellFactory(TextFieldTableCell.forTableColumn());
-		tableColumnLecturerAdvertReq.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>()
-				{
+		tableColumnLecturerAdvertReq.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>() {
 			@Override
-			public void handle(CellEditEvent<Lecturer, String> t)
-			{
-				((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow())).setAdvertReq(t.getNewValue());
+			public void handle(CellEditEvent<Lecturer, String> t) {
+				((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow()))
+						.setAdvertReq(t.getNewValue());
 			}
-				}
-			
-				);
-		
+		}
+
+		);
+
 		// Radio Buttons for add lecturer UI
 		ToggleGroup addLecturergroup = new ToggleGroup();
 		radioBtnAddLecturerYes.setToggleGroup(addLecturergroup);
@@ -401,7 +411,6 @@ public class VIAController implements Initializable, Serializable {
 				selectedRadioButton = check.getText();
 			}
 		});
-		
 
 	}
 
@@ -465,10 +474,9 @@ public class VIAController implements Initializable, Serializable {
 		selectedMember.forEach(memberObservableList::remove);
 	}
 
-
-	public void addLect(ActionEvent event) 
-	{
-		Lecturer newLecturer = new Lecturer(txtFieldAddLecturerName.getText(), txtFieldAddLecturerEmail.getText(),txtFieldAddLecturerCourseSpec.getText(), txtFieldAddLecturerTelNumber.getText(), selectedRadioButton);
+	public void addLect(ActionEvent event) {
+		Lecturer newLecturer = new Lecturer(txtFieldAddLecturerName.getText(), txtFieldAddLecturerEmail.getText(),
+				txtFieldAddLecturerCourseSpec.getText(), txtFieldAddLecturerTelNumber.getText(), selectedRadioButton);
 		dataInLecturerTable.add(newLecturer);
 		JOptionPane.showMessageDialog(null, "Lecturer added sucessfully!");
 	}
@@ -477,7 +485,7 @@ public class VIAController implements Initializable, Serializable {
 		ObservableList<Lecturer> selectedLecturer = tableViewLecturer.getSelectionModel().getSelectedItems();
 		ObservableList<Lecturer> allLecturers = tableViewLecturer.getItems();
 		selectedLecturer.forEach(allLecturers::remove);
-		
+
 	}
 
 	public void addEvent(ActionEvent event) {
@@ -490,15 +498,26 @@ public class VIAController implements Initializable, Serializable {
 				addEventMinPartic.getText(), addEventMaxPartic.getText(), false);
 		data.add(event1);
 		JOptionPane.showMessageDialog(null, "Event added sucessfully!");
-		
+
 	}
+	public void deleteEvent(ActionEvent event) {
+		ObservableList<Events> selectedMembers = eventsMainTable.getSelectionModel().getSelectedItems();
+		ObservableList<Events> allMembers = eventsMainTable.getItems();
+		selectedMembers.forEach(allMembers::remove);
+
+	}
+
 	public VIAModel getVIAMod() {
 		return viaModel;
 	}
+
 	public void saveToFile() {
 		EventsList eventsList1 = new EventsList();
-		for (int j = 0; j < data.size(); j++) {
-			eventsList1.addEvent(data.get(j));
+
+		if (data.size() != 0) {
+			for (int j = 0; j < data.size(); j++) {
+				eventsList1.addEvent(data.get(j));
+			}
 		}
 		viaModel.setEventList(eventsList1);
 	}
