@@ -1,15 +1,10 @@
 package guiView;
 
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import javafx.beans.property.SimpleStringProperty;
 
-public class Events implements Serializable, Externalizable {
+public class Events implements Serializable {
 	private SimpleStringProperty name = new SimpleStringProperty("");
 	private SimpleStringProperty date = new SimpleStringProperty("");
 	private SimpleStringProperty duration = new SimpleStringProperty("");
@@ -129,18 +124,6 @@ public class Events implements Serializable, Externalizable {
 	// }
 	public String toString() {
 		return this.name + "\n" + 	this.date+ "\n" + this.duration+ "\n" + this.type+ "\n" +	this.location+ "\n" +	this.category+ "\n" + this.price+ "\n" + this.minPartic+ "\n" + this.maxPartic+ "\n" + this.isFinalized;
-	}
-
-	@Override
-	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void writeExternal(ObjectOutput out) throws IOException {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

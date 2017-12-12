@@ -56,6 +56,7 @@ public class FileIO implements Serializable {
 
 		catch (IOException ioe) {
 			System.out.println("Error.");
+			ioe.printStackTrace();
 		}
 
 	}
