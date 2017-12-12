@@ -22,7 +22,7 @@ public class FileIO implements Serializable {
 
 	public void setVIAModelFromFile() throws IOException, ClassNotFoundException, EOFException {
 		boolean endOfFile = false;
-		FileInputStream fstream = new FileInputStream("viaModel.bin");
+		FileInputStream fstream = new FileInputStream("viaModel.ser");
 		ObjectInputStream inputFile = new ObjectInputStream(fstream);
 		
 		
@@ -40,8 +40,8 @@ public class FileIO implements Serializable {
 	public void setToFile() throws IOException {
 		viaContr = viaView1.getController();
 		viaModel1.setEventList(viaContr.getVIAMod().getEventList());
-		System.out.println(viaModel1);
-		FileOutputStream fstream = new FileOutputStream("viaModel.bin");
+		System.out.println(viaModel1.getEventList().getListOfEvents());
+		FileOutputStream fstream = new FileOutputStream("viaModel.ser");
 		ObjectOutputStream outputFile = new ObjectOutputStream(fstream);
 		
 
