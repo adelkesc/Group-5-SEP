@@ -575,7 +575,6 @@ public class VIAController implements Initializable, Serializable {
 
 	public void saveToFile() {
 		EventsList eventsList1 = new EventsList();
-
 		if (data.size() != 0) {
 			for (int j = 0; j < data.size(); j++) {
 				eventsList1.addEvent(data.get(j));
