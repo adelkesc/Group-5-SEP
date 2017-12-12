@@ -7,7 +7,7 @@
 <AnchorPane fx:id="mainAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="696.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiView.VIAController">
    <children>
       <Button fx:id="goBack" layoutX="969.0" layoutY="621.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
-      <TextField fx:id="txtFieldSearchLecturer" layoutX="26.0" layoutY="14.0" text="Search" />
+      <TextField fx:id="txtFieldSearchLecturer" layoutX="26.0" layoutY="14.0" onMouseClicked="#deletetheTextInsideOfTheSearchLecturerTextField" text="Search" />
       <ChoiceBox fx:id="choiceBoxSearchLecturer" layoutX="227.0" layoutY="14.0" prefWidth="150.0" />
       <TableView fx:id="tableViewLecturer" layoutX="26.0" layoutY="60.0" prefHeight="548.0" prefWidth="985.0">
         <columns>
@@ -18,9 +18,7 @@
             <TableColumn fx:id="tableColumnLecturerAdvertReq" prefWidth="167.0" text="Advertisement Requirement" />
         </columns>
       </TableView>
-      <Button fx:id="btnAddNewLecturer" layoutX="26.0" layoutY="628.0" mnemonicParsing="false" onAction="#toAddLecturerScene" text="Add New" />
-      <Button fx:id="btnEditLecturer" disable="true" layoutX="120.0" layoutY="628.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Edit" />
-      <Button fx:id="btnDeleteLecturer" disable="false" layoutX="220.0" layoutY="628.0" mnemonicParsing="false" onAction="#deleteLecturer" prefHeight="31.0" prefWidth="82.0" text="Delete" />
-      <Button fx:id="btnSearchLecturer" layoutX="389.0" layoutY="14.0" mnemonicParsing="false" text="Search" />
+      <Button fx:id="btnAddNewLecturer" layoutX="26.0" layoutY="628.0" mnemonicParsing="false" onAction="#toAddLecturerScene" text="Add" />
+      <Button fx:id="btnDeleteLecturer" disable="false" layoutX="81.0" layoutY="628.0" mnemonicParsing="false" onAction="#deleteLecturer" prefHeight="25.0" prefWidth="82.0" text="Delete" />
    </children>
 </AnchorPane>
