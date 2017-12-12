@@ -5,15 +5,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import javafx.beans.property.SimpleStringProperty;
-
 public class Lecturer implements Serializable 
 {
-   private transient SimpleStringProperty name = new SimpleStringProperty("");
-   private transient SimpleStringProperty email = new SimpleStringProperty("");
-   private transient SimpleStringProperty courseSpec = new SimpleStringProperty("");
-   private transient SimpleStringProperty telNumber = new SimpleStringProperty("");
-   private transient SimpleStringProperty advertReq = new SimpleStringProperty("");
+   private  String name;
+   private  String email;
+   private  String courseSpec;
+   private  String telNumber;
+   private  String advertReq;
    
    public Lecturer()
    {
@@ -22,84 +20,66 @@ public class Lecturer implements Serializable
    
    public Lecturer(String name, String email, String courseSpec, String telNumber, String advertReq)
    {
-      setName(name);
-      setEmail(email);
-      setCourseSpec(courseSpec);
-      setTelNumber(telNumber);
-      setAdvertReq(advertReq);
+	   this.name=name;
+	   this.email=email;
+	   this.courseSpec=courseSpec;
+	   this.telNumber=telNumber;
+	   this.advertReq=advertReq;
    }
    
    public void setName(String newName)
    {
-      name.set(newName);
+      name=newName;
    }
    
    public String getName()
    {
-      return name.get();
+      return name;
    }
 
    public void setEmail(String newEmail)
    {
-      email.set(newEmail);
+      email=newEmail;
    }
    
    public String getEmail()
    {
-      return email.get();
+      return email;
    }
    
    public void setCourseSpec(String newCourseSpec)
    {
-      courseSpec.set(newCourseSpec);
+      courseSpec=newCourseSpec;
    }
 
    public String getCourseSpec()
    {
-      return courseSpec.get();
+      return courseSpec;
    }
    
    public void setTelNumber(String newTelNumber)
    {
-      telNumber.set(newTelNumber);
+      telNumber=newTelNumber;
    }
 
    public String getTelNumber()
    {
-      return telNumber.get();
+      return telNumber;
    }
 
    public void setAdvertReq(String newAdvertReq)
    {
-      advertReq.set(newAdvertReq);
+      advertReq=newAdvertReq;
    }
    
    public String isAdvertReq()
    {
-      return advertReq.get();
+      return advertReq;
    }
    
    public String toString()
    {
       return "Name: " + name + " E-Mail: " + email + " Course Specification: " + courseSpec + " Tel. Number: " + telNumber + " Advertisement Requirement: " + advertReq + "\n";
    }
-	public void readExternal(ObjectInputStream in) throws IOException, ClassNotFoundException {
-		in.defaultReadObject();
-		name = new SimpleStringProperty((String) in.readObject());
-		email = new SimpleStringProperty((String) in.readObject());
-		courseSpec = new SimpleStringProperty((String) in.readObject());
-		telNumber = new SimpleStringProperty((String) in.readObject());
-		advertReq = new SimpleStringProperty((String) in.readObject());
-
-	}
-
-	public void writeExternal(ObjectOutputStream out) throws IOException {
-		out.defaultWriteObject();
-		out.writeObject(name.get());
-		out.writeObject(email.get());
-		out.writeObject(courseSpec.get());
-		out.writeObject(telNumber.get());
-		out.writeObject(advertReq.get());		
-	}
    
 }
