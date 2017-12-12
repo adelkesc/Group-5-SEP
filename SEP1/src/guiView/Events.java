@@ -1,13 +1,9 @@
 package guiView;
 
-import java.io.Externalizable;
 import java.io.IOException;
-import java.io.ObjectInput;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
 import javafx.beans.property.SimpleStringProperty;
 
 public class Events implements Serializable {
@@ -147,7 +143,6 @@ public class Events implements Serializable {
 		price = new SimpleStringProperty((String) in.readObject());
 		minPartic = new SimpleStringProperty((String) in.readObject());
 		maxPartic = new SimpleStringProperty((String) in.readObject());
-		
 	}
 
 	public void writeExternal(ObjectOutputStream out) throws IOException {
