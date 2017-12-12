@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
+
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -126,7 +128,7 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private TextField addEventMaxPartic;
 	@FXML
-	private Button eventsDeleteButton;
+	private Button eventsDeleteButton = new Button();
 
 	// main page FXML
 	@FXML
@@ -233,6 +235,8 @@ public class VIAController implements Initializable, Serializable {
 		eventTableCol12.setCellValueFactory(new PropertyValueFactory<Events, String>("isFinalized"));
 		eventsMainTable.setItems(data);
 		eventsMainTable.setEditable(true);
+		eventsDeleteButton.disableProperty()
+				.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
 
 		eventTableCol1.setCellFactory(TextFieldTableCell.forTableColumn());
 		eventTableCol1.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
