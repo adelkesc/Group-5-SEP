@@ -88,8 +88,8 @@ public class VIAController implements Initializable, Serializable {
 	private TextField txtFieldAddMemberMembPay;
 	@FXML
 	private TableView<Events> eventsMainTable = new TableView<Events>();
-	private static EventsList el1;
-	private static ObservableList<Events> data;
+	private static EventsList el1 = new EventsList();
+	private static ObservableList<Events> data = FXCollections.observableList(el1.getListOfEvents());
 	@FXML
 	private TableColumn<Events, String> eventTableCol1 = new TableColumn<Events, String>();
 	@FXML
@@ -214,7 +214,7 @@ public class VIAController implements Initializable, Serializable {
 	private static String selectedChoicesForMemberSearch = "";
 	private static MemberList list = new MemberList();
 	private static ObservableList<Member> memberObservableList = FXCollections
-			.observableArrayList(list.getListOfMembers());
+			.observableList(list.getListOfMembers());
 	private VIAModel viaModel = new VIAModel(el1, list, init);
 
 	@Override
@@ -616,15 +616,21 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void toMemberScene() throws IOException {
+		VIAView viaView1 = new VIAView();
+		viaModel = viaView1.viaModFromFile();
+		list = viaModel.getMemberList();
+		memberObservableList = FXCollections.observableList(list.getListOfMembers());
 		AnchorPane paneMembers = FXMLLoader.load(getClass().getResource("MemberView.fxml"));
 		mainAnchor.getChildren().setAll(paneMembers);
-		list = viaModel.getMemberList();
 	}
 
 	public void toLecturerScene() throws IOException {
+		VIAView viaView1 = new VIAView();
+		viaModel = viaView1.viaModFromFile();
+		init = viaModel.getLecturerList();
+		dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
 		AnchorPane paneLecturers = FXMLLoader.load(getClass().getResource("DisplayLecturers.fxml"));
 		mainAnchor.getChildren().setAll(paneLecturers);
-		init = viaModel.getLecturerList();
 	}
 
 	public void goBack() throws IOException {

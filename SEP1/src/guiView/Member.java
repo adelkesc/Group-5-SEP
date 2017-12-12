@@ -1,119 +1,89 @@
 package guiView;
-
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import javafx.beans.property.SimpleStringProperty;
-
 public class Member implements Serializable {
-	private transient SimpleStringProperty name = new SimpleStringProperty("");
-	private transient SimpleStringProperty age = new SimpleStringProperty("");
-	private transient SimpleStringProperty address = new SimpleStringProperty("");
-	private transient SimpleStringProperty tel = new SimpleStringProperty("");
-	private transient SimpleStringProperty email = new SimpleStringProperty("");
-	private transient SimpleStringProperty coursePref = new SimpleStringProperty("");
-	private transient SimpleStringProperty membPay = new SimpleStringProperty("");
+	private  String name ;
+	private  String age ;
+	private  String address ;
+	private  String tel ;
+	private  String email ;
+	private  String coursePref ;
+	private  String membPay ;
 
 	public Member() {
 		      this("", "", "", "", "", "", "");
 	}
 
 	public Member(String name, String age, String address, String tel, String email, String coursePref, String membPay) {
-		setName(name);
-		setAge(age);
-		setAddress(address);
-		setTel(tel);
-		setEmail(email);
-		setCoursePref(coursePref);
-		setMembPay(membPay);
+		this.name=name;
+		this.age=age;
+		this.address=address;
+		this.tel=tel;
+		this.email=email;
+		this.coursePref=coursePref;
+		this.membPay=membPay;
 	}
 
 	 public String getName()
 	   {
-	      return name.get();
+	      return name;
 	   }
 
 	public void setName(String newName) {
-		name.set(newName);
+		name=newName;
 	}
 
 	public String getAge() {
-		return age.get();
+		return age;
 	}
 
 	public void setAge(String newAge) {
-		age.set(newAge);
+		age=newAge;
 	}
 
 	public String getAddress() {
-		return address.get();
+		return address;
 	}
 
 	public void setAddress(String newAddress) {
-		address.set(newAddress);
+		address=newAddress;
 	}
 
 	public void setTel(String newTel)
 	   {
-	      tel.set(newTel);
+	      tel=newTel;
 	   }
 
 	   public String getTel()
 	   {
-	      return tel.get();
+	      return tel;
 	   }
 
 	public void setEmail(String newEmail)
 	   {
-	      email.set(newEmail);
+	      email=newEmail;
 	   }
 	   
 	   public String getEmail()
 	   {
-	      return email.get();
+	      return email;
 	   }
 
 	   public void setCoursePref(String newCoursePref)
 	   {
-	      coursePref.set(newCoursePref);
+	      coursePref=newCoursePref;
 	   }
 
 	   public String getCoursePref()
 	   {
-	      return coursePref.get();
+	      return coursePref;
 	   }
 
 	public String getMembPay() {
-		return membPay.get();
+		return membPay;
 	}
 
 	public void setMembPay(String newMembPay) {
-		membPay.set(newMembPay);
+		membPay=newMembPay;
 	}
-	public void readExternal(ObjectInputStream in) throws IOException, ClassNotFoundException {
-		in.defaultReadObject();
-		name = new SimpleStringProperty((String) in.readObject());
-		age = new SimpleStringProperty((String) in.readObject());
-		address = new SimpleStringProperty((String) in.readObject());
-		tel = new SimpleStringProperty((String) in.readObject());
-		email = new SimpleStringProperty((String) in.readObject());
-		coursePref = new SimpleStringProperty((String) in.readObject());
-		membPay = new SimpleStringProperty((String) in.readObject());
-
-	}
-
-	public void writeExternal(ObjectOutputStream out) throws IOException {
-		out.defaultWriteObject();
-		out.writeObject(name.get());
-		out.writeObject(age.get());
-		out.writeObject(address.get());
-		out.writeObject(tel.get());
-		out.writeObject(email.get());
-		out.writeObject(coursePref.get());
-		out.writeObject(membPay.get());
-		
-	}
-
 }
