@@ -496,7 +496,7 @@ public class VIAController implements Initializable, Serializable {
 									 });
 									 SortedList<Lecturer> sortedDataByName = new SortedList<>(filteredLecturerListByName);
 									 sortedDataByName.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
-									 tableViewLecturer.setItems(sortedDataByName);
+									 tableViewLecturer.setItems(sortedDataByName); break;
 									 
 						case "Email":FilteredList<Lecturer> filteredLecturerListByEmail = new FilteredList<>(dataInLecturerTable, p -> true);
 						 			txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
@@ -517,7 +517,7 @@ public class VIAController implements Initializable, Serializable {
 						 			});
 						 SortedList<Lecturer> sortedDataByEmail = new SortedList<>(filteredLecturerListByEmail);
 						 sortedDataByEmail.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
-						 tableViewLecturer.setItems(sortedDataByEmail);
+						 tableViewLecturer.setItems(sortedDataByEmail); break;
 						 
 						case "Course Specification": FilteredList<Lecturer> filteredLecturerListByCourseSpecification = new FilteredList<>(dataInLecturerTable, p -> true);
 			 										 txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
@@ -538,7 +538,7 @@ public class VIAController implements Initializable, Serializable {
 			 										 });
 			 										 SortedList<Lecturer> sortedDataByCourseSpecification = new SortedList<>(filteredLecturerListByCourseSpecification);
 			 										 sortedDataByCourseSpecification.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
-			 										 tableViewLecturer.setItems(sortedDataByCourseSpecification);	
+			 										 tableViewLecturer.setItems(sortedDataByCourseSpecification); break;	
 			 										 
 						case "Advertisement Requirement": FilteredList<Lecturer> filteredLecturerListByAdvertisementRequirement = new FilteredList<>(dataInLecturerTable, p -> true);
 			 											  txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
