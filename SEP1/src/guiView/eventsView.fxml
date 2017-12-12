@@ -7,7 +7,7 @@
 <AnchorPane fx:id="mainAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="696.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiView.VIAController">
    <children>
       <Button fx:id="goBack" layoutX="974.0" layoutY="628.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
-      <TextField fx:id="txtFieldSearchEvent" layoutX="26.0" layoutY="14.0" onMouseClicked="#deletetheTextInsideOfTheSearchEventTextField" text="Search" />
+      <TextField fx:id="txtFieldSearchEvent" layoutX="26.0" layoutY="14.0" text="Search" />
       <ChoiceBox layoutX="227.0" layoutY="14.0" prefWidth="150.0" />
       <TableView fx:id="eventsMainTable" layoutX="26.0" layoutY="60.0" prefHeight="548.0" prefWidth="989.0">
         <columns>
