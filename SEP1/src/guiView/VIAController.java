@@ -11,6 +11,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -54,6 +56,7 @@ public class VIAController implements Initializable, Serializable {
 	private TableColumn<Member, String> tableColumnMemberCoursePref = new TableColumn<Member, String>();
 	@FXML
 	private TableColumn<Member, String> tableColumnMemberMembPay = new TableColumn<Member, String>();
+	
 	// Member FXML
 	@FXML
 	private Label txtLabelMemberName;
@@ -176,6 +179,8 @@ public class VIAController implements Initializable, Serializable {
 	private TextField txtFieldAddLecturerCourseSpec;
 	@FXML
 	private TextField txtFieldAddLecturerTelNumber;
+	@FXML
+	private TextField txtFieldSearchLecturer;
 	@FXML
 	private RadioButton radioBtnAddLecturerYes = new RadioButton();
 	@FXML
@@ -391,9 +396,32 @@ public class VIAController implements Initializable, Serializable {
 					public void changed(ObservableValue<? extends String> observable, String previousChoice, String currentChoice)
 					{
 						selectedChoiceForSearchLecturer = currentChoice;
+						switch(selectedChoiceForSearchLecturer)
+						{
+						case "Name": FilteredList<Lecturer> filteredLecturerList = new FilteredList<>(dataInLecturerTable, p -> true);
+									 txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
+									 {
+										 filteredLecturerList.setPredicate(lecturer ->
+										 {
+											 if (newValue == null || newValue.isEmpty())
+											 {
+												 return true;
+											 }
+											 String lowerCaseFilter = newValue.toLowerCase();
+											 if (lecturer.getName().toLowerCase().contains(lowerCaseFilter))
+											 {
+												 return true;
+											 }
+											 return false;
+										 });
+									 });
+									 SortedList<Lecturer> sortedData = new SortedList<>(filteredLecturerList);
+									 sortedData.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
+									 tableViewLecturer.setItems(sortedData);
+						default: System.out.println("It is not working!");			 
+						}
 					}
 				});
-
 	}
 
 	public void toEventsScene() throws IOException {
