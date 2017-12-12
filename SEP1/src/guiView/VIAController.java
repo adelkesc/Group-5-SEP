@@ -477,10 +477,10 @@ public class VIAController implements Initializable, Serializable {
 						selectedChoiceForSearchLecturer = currentChoice;
 						switch(selectedChoiceForSearchLecturer)
 						{
-						case "Name": FilteredList<Lecturer> filteredLecturerList = new FilteredList<>(dataInLecturerTable, p -> true);
+						case "Name": FilteredList<Lecturer> filteredLecturerListByName = new FilteredList<>(dataInLecturerTable, p -> true);
 									 txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
 									 {
-										 filteredLecturerList.setPredicate(lecturer ->
+										 filteredLecturerListByName.setPredicate(lecturer ->
 										 {
 											 if (newValue == null || newValue.isEmpty())
 											 {
@@ -494,9 +494,72 @@ public class VIAController implements Initializable, Serializable {
 											 return false;
 										 });
 									 });
-									 SortedList<Lecturer> sortedData = new SortedList<>(filteredLecturerList);
-									 sortedData.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
-									 tableViewLecturer.setItems(sortedData);
+									 SortedList<Lecturer> sortedDataByName = new SortedList<>(filteredLecturerListByName);
+									 sortedDataByName.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
+									 tableViewLecturer.setItems(sortedDataByName);
+									 
+						case "Email":FilteredList<Lecturer> filteredLecturerListByEmail = new FilteredList<>(dataInLecturerTable, p -> true);
+						 			txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
+						 			{
+						 				filteredLecturerListByEmail.setPredicate(lecturer ->
+						 				{
+						 					if (newValue == null || newValue.isEmpty())
+						 					{
+						 						return true;
+						 					}
+						 					String lowerCaseFilter = newValue.toLowerCase();
+						 					if (lecturer.getEmail().toLowerCase().contains(lowerCaseFilter))
+						 					{
+						 						return true;
+						 					}
+						 					return false;
+						 				});
+						 			});
+						 SortedList<Lecturer> sortedDataByEmail = new SortedList<>(filteredLecturerListByEmail);
+						 sortedDataByEmail.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
+						 tableViewLecturer.setItems(sortedDataByEmail);
+						 
+						case "Course Specification": FilteredList<Lecturer> filteredLecturerListByCourseSpecification = new FilteredList<>(dataInLecturerTable, p -> true);
+			 										 txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
+			 										 {
+			 											 filteredLecturerListByCourseSpecification.setPredicate(lecturer ->
+			 											 {
+			 												 if (newValue == null || newValue.isEmpty())
+			 												 {
+			 													 return true;
+			 												 }
+			 												 String lowerCaseFilter = newValue.toLowerCase();
+			 												 if (lecturer.getCourseSpec().toLowerCase().contains(lowerCaseFilter))
+			 												 {
+			 													 return true;
+			 												 }
+			 												 return false;
+			 											 });
+			 										 });
+			 										 SortedList<Lecturer> sortedDataByCourseSpecification = new SortedList<>(filteredLecturerListByCourseSpecification);
+			 										 sortedDataByCourseSpecification.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
+			 										 tableViewLecturer.setItems(sortedDataByCourseSpecification);	
+			 										 
+						case "Advertisement Requirement": FilteredList<Lecturer> filteredLecturerListByAdvertisementRequirement = new FilteredList<>(dataInLecturerTable, p -> true);
+			 											  txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
+			 											  {
+			 												  filteredLecturerListByAdvertisementRequirement.setPredicate(lecturer ->
+			 												  {
+			 													  if (newValue == null || newValue.isEmpty())
+			 													  {
+			 														  return true;
+			 													  }
+			 													  String lowerCaseFilter = newValue.toLowerCase();
+			 													  if (lecturer.getAdvertReq().toLowerCase().contains(lowerCaseFilter))
+			 													  {
+			 														  return true;
+			 													  }
+			 													  return false;
+			 												  });
+			 											  });
+			 											  SortedList<Lecturer> sortedDataByAdvertisementRequirement = new SortedList<>(filteredLecturerListByAdvertisementRequirement);
+			 											  sortedDataByAdvertisementRequirement.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
+			 											  tableViewLecturer.setItems(sortedDataByAdvertisementRequirement); break;							 
 						default: System.out.println("It is not working!");			 
 						}
 					}

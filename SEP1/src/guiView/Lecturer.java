@@ -74,7 +74,7 @@ public class Lecturer implements Serializable
       advertReq.set(newAdvertReq);
    }
    
-   public String isAdvertReq()
+   public String getAdvertReq()
    {
       return advertReq.get();
    }
