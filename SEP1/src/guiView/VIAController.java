@@ -220,10 +220,10 @@ public class VIAController implements Initializable, Serializable {
 					public void changed(ObservableValue<? extends String> observable, String previousChoice, String currentChoice)
 					{
 						selectedChoiceForSearchLecturer = currentChoice;
-						System.out.println("Inside the listener(currentChoice): " + currentChoice);
-						System.out.println("Inside the listener(selectedChoiceForSearchLecturer): " + selectedChoiceForSearchLecturer);
 					}
 				});
+		
+		System.out.println(selectedChoiceForSearchLecturer);
 		
 		eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("name"));
 		eventTableCol2.setCellValueFactory(new PropertyValueFactory<Events, String>("date"));
@@ -238,6 +238,19 @@ public class VIAController implements Initializable, Serializable {
 		eventTableCol11.setCellValueFactory(new PropertyValueFactory<Events, String>("maxPartic"));
 		eventTableCol12.setCellValueFactory(new PropertyValueFactory<Events, String>("isFinalized"));
 		eventsMainTable.setItems(data);
+		eventsMainTable.setEditable(true);
+		
+		eventTableCol1.setCellFactory(TextFieldTableCell.forTableColumn());
+		eventTableCol1.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>()
+				{
+			@Override
+			public void handle(CellEditEvent<Events, String> t)
+			{
+				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
+			}
+				}
+			
+				);
 
 		tableColumnMemberName.setCellValueFactory(new PropertyValueFactory<Member, String>("name"));
 		tableColumnMemberAge.setCellValueFactory(new PropertyValueFactory<Member, String>("age"));
@@ -315,7 +328,7 @@ public class VIAController implements Initializable, Serializable {
 		tableViewLecturer.setItems(dataInLecturerTable);
 		tableViewLecturer.setEditable(true);
 		
-		//Making table cells editable
+		//Making Lecturer table cells editable
 		tableColumnLecturerName.setCellFactory(TextFieldTableCell.forTableColumn());
 		tableColumnLecturerName.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>()
 				{
