@@ -27,7 +27,7 @@
       </TableView>
       <Button onAction="#toAddEventScene" layoutX="26.0" layoutY="628.0" mnemonicParsing="false" text="Add New" />
       <Button fx:id ="saveButtonTest" disable="false" layoutX="120.0" layoutY="628.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Save" onAction="#saveToFile"/>
-      <Button fx:id = "eventsDeleteButton" onAction = "#deleteEvent" disable="false" layoutX="220.0" layoutY="628.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Delete" />
+      <Button fx:id = "eventsDeleteButton" onAction = "#deleteEvent" disable="true" layoutX="220.0" layoutY="628.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" text="Delete" />
       <Button layoutX="389.0" layoutY="14.0" mnemonicParsing="false" text="Search" />
    </children>
 </AnchorPane>

@@ -1,5 +1,4 @@
 package guiView;
-import java.beans.EventHandler;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -16,9 +15,7 @@ public class VIAView extends Application {
 	public void start(Stage stage) throws Exception {
 		file.setVIAModelFromFile();
 		viaModel = file.getVIAModel();
-		
-		System.out.println(file.getVIAModel().getEventList().getListOfEvents());
-		//invoke fxml loader
+		// invoke fxml loader
 		FXMLLoader load = new FXMLLoader();
 		//set location of the FXML doc
 		load.setLocation(getClass().getResource("viamain.fxml"));
@@ -41,9 +38,6 @@ public class VIAView extends Application {
 						file.setToFile();
 					} catch (IOException e) {
 						System.out.println("Unable to save to file.");
-					}
-					if (viaModel.getEventList().getEventListSize() != 0) {
-					System.out.println(viaModel.getEventList().getEvent(0).getDate());
 					}
 	        }
 	    }));

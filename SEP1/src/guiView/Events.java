@@ -51,7 +51,7 @@ public class Events implements Serializable {
 	}
 
 	public void setDate(String date) {
-		this.date=date;
+		this.date = date;
 	}
 
 	public String getDuration() {
@@ -59,7 +59,7 @@ public class Events implements Serializable {
 	}
 
 	public void setDuration(String duration) {
-		this.duration=duration;
+		this.duration = duration;
 	}
 
 	public String getType() {
@@ -67,7 +67,7 @@ public class Events implements Serializable {
 	}
 
 	public void setType(String type) {
-		this.type=type;
+		this.type = type;
 	}
 
 	public String getLocation() {
@@ -75,7 +75,7 @@ public class Events implements Serializable {
 	}
 
 	public void setLocation(String location) {
-		this.location=location;
+		this.location = location;
 	}
 
 	public String getCategory() {
@@ -83,7 +83,7 @@ public class Events implements Serializable {
 	}
 
 	public void setCategory(String category) {
-		this.category=category;
+		this.category = category;
 	}
 
 	public String getPrice() {
@@ -91,7 +91,7 @@ public class Events implements Serializable {
 	}
 
 	public void setPrice(String price) {
-		this.price=price;
+		this.price = price;
 	}
 
 	public String getMinPartic() {
@@ -99,7 +99,7 @@ public class Events implements Serializable {
 	}
 
 	public void setMinPartic(String minPartic) {
-		this.minPartic=minPartic;
+		this.minPartic = minPartic;
 	}
 
 	public String getMaxPartic() {
@@ -107,7 +107,7 @@ public class Events implements Serializable {
 	}
 
 	public void setMaxPartic(String maxPartic) {
-		this.maxPartic=(maxPartic);
+		this.maxPartic = (maxPartic);
 	}
 
 	public boolean isFinalized() {
