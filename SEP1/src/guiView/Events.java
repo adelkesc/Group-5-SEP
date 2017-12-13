@@ -17,11 +17,11 @@ public class Events implements Serializable {
 	private String price;
 	private String minPartic;
 	private String maxPartic;
-	private boolean isFinalized = false;
+	private String isFinalized = "false";
 	// ArrayList<Members> eventMembList = new ArrayList<>();
 
 	public Events(String name, String date, String duration, String type, String location, String category,
-			/* Lecturer conductor, */ String price, String minPartic, String maxPartic, boolean isFinalized) {
+			/* Lecturer conductor, */ String price, String minPartic, String maxPartic, String isFinalized) {
 		this.name = name;
 		this.date = date;
 		this.duration = duration;
@@ -35,7 +35,7 @@ public class Events implements Serializable {
 	}
 
 	public Events() {
-		this("", "", "", "", "", "", "", "", "", false);
+		this("", "", "", "", "", "", "", "", "", "false");
 	}
 
 	public String getName() {
@@ -110,16 +110,16 @@ public class Events implements Serializable {
 		this.maxPartic = (maxPartic);
 	}
 
-	public boolean isFinalized() {
+	public String isFinalized() {
 		return isFinalized;
 	}
 
-	public void setFinalized(boolean isFinalized) {
+	public void setFinalized(String isFinalized) {
 		this.isFinalized = isFinalized;
 	}
 
 	public void finalizeEvent() {
-		this.isFinalized = true;
+		this.isFinalized = "true";
 	}
 
 	// public void addMemToEvent(Members member) {
