@@ -8,7 +8,7 @@
    <children>
       <Button fx:id="goBack" layoutX="974.0" layoutY="628.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
       <TextField fx:id="txtFieldSearchEvent" layoutX="26.0" layoutY="14.0" onMouseClicked="#deletetheTextInsideOfTheSearchEventTextField" text="Search" />
-      <ChoiceBox layoutX="227.0" layoutY="14.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="choiceBoxSearchEvent" layoutX="227.0" layoutY="14.0" prefWidth="150.0" />
       <TableView fx:id="eventsMainTable" layoutX="26.0" layoutY="60.0" prefHeight="548.0" prefWidth="989.0">
         <columns>
           <TableColumn fx:id="eventTableCol1" prefWidth="115.0" text="Name" />

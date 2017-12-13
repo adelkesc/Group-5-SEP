@@ -91,6 +91,7 @@ public class VIAController implements Initializable, Serializable {
 	private TableView<Events> eventsMainTable = new TableView<Events>();
 	private static EventsList el1 = new EventsList();
 	private static ObservableList<Events> data = FXCollections.observableList(el1.getListOfEvents());
+	private static ObservableList<String> searchEventChoices = FXCollections.observableArrayList();
 	@FXML
 	private TableColumn<Events, String> eventTableCol1 = new TableColumn<Events, String>();
 	@FXML
@@ -135,6 +136,8 @@ public class VIAController implements Initializable, Serializable {
 	private TextField txtFieldSearchEvent;
 	@FXML
 	private Button eventsDeleteButton = new Button();
+	@FXML
+	private ChoiceBox<String> choiceBoxSearchEvent = new ChoiceBox<String>(searchEventChoices);
 
 	// main page FXML
 	@FXML
@@ -156,7 +159,6 @@ public class VIAController implements Initializable, Serializable {
 
 	// Necessary initializations for Lecturer
 	private String selectedRadioButton = "";
-	private static String selectedChoiceForSearchLecturer = "";
 	private static LecturerList init = new LecturerList();
 	private static ObservableList<Lecturer> dataInLecturerTable = FXCollections
 			.observableList(init.getListOfLecturers());
@@ -216,6 +218,7 @@ public class VIAController implements Initializable, Serializable {
 	private static ObservableList<Member> memberObservableList = FXCollections.observableList(list.getListOfMembers());
 
 	private VIAModel viaModel = new VIAModel(el1, list, init);
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -559,6 +562,96 @@ public class VIAController implements Initializable, Serializable {
 				}
 			}
 		});
+		// Search Event ChioceBox
+		choiceBoxSearchEvent.getItems().addAll("Search By", "Name", "Type", "Catogory", "is-Finalized");
+		choiceBoxSearchEvent.getSelectionModel().selectFirst();
+		choiceBoxSearchEvent.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observableEvent, String previousChoiceEvent,
+					String currentChoiceEvent) {
+				switch (currentChoiceEvent) {
+				case "Name":
+					FilteredList<Events> filteredEventListByName = new FilteredList<>(data, p -> true);
+					txtFieldSearchEvent.textProperty()
+							.addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
+								filteredEventListByName.setPredicate(events -> {
+									if (newValueEvent == null || newValueEvent.isEmpty()) {
+										return true;
+									}
+									String lowerCaseEventFilter = newValueEvent.toLowerCase();
+									if (events.getName().toLowerCase().contains(lowerCaseEventFilter)) {
+										return true;
+									}
+									return false;
+								});
+							});
+					SortedList<Events> sortedEventListByName = new SortedList<>(filteredEventListByName);
+					sortedEventListByName.comparatorProperty().bind(eventsMainTable.comparatorProperty());
+					eventsMainTable.setItems(sortedEventListByName);
+					break;
+					
+				case "Type":
+					FilteredList<Events> filteredEventListByType = new FilteredList<>(data, p -> true);
+					txtFieldSearchEvent.textProperty()
+							.addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
+								filteredEventListByType.setPredicate(events -> {
+									if (newValueEvent == null || newValueEvent.isEmpty()) {
+										return true;
+									}
+									String lowerCaseEventFilter = newValueEvent.toLowerCase();
+									if (events.getType().toLowerCase().contains(lowerCaseEventFilter)) {
+										return true;
+									}
+									return false;
+								});
+							});
+					SortedList<Events> sortedEventListByType = new SortedList<>(filteredEventListByType);
+					sortedEventListByType.comparatorProperty().bind(eventsMainTable.comparatorProperty());
+					eventsMainTable.setItems(sortedEventListByType);
+					break;
+					
+				case "Catagory":
+					FilteredList<Events> filteredEventListByCatagory = new FilteredList<>(data, p -> true);
+					txtFieldSearchEvent.textProperty()
+							.addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
+								filteredEventListByCatagory.setPredicate(events -> {
+									if (newValueEvent == null || newValueEvent.isEmpty()) {
+										return true;
+									}
+									String lowerCaseEventFilter = newValueEvent.toLowerCase();
+									if (events.getCategory().toLowerCase().contains(lowerCaseEventFilter)) {
+										return true;
+									}
+									return false;
+								});
+							});
+					SortedList<Events> sortedEventListByCatagory = new SortedList<>(filteredEventListByCatagory);
+					sortedEventListByCatagory.comparatorProperty().bind(eventsMainTable.comparatorProperty());
+					eventsMainTable.setItems(sortedEventListByCatagory);
+					break;
+	
+				case "is-Finalized":
+					FilteredList<Events> filteredEventListByIsFinalized = new FilteredList<>(data, p -> true);
+					txtFieldSearchEvent.textProperty()
+							.addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
+								filteredEventListByIsFinalized.setPredicate(events -> {
+									if (newValueEvent == null || newValueEvent.isEmpty()) {
+										return true;
+									}
+									String lowerCaseEventFilter = newValueEvent.toLowerCase();
+									if (events.isFinalized().toLowerCase().contains(lowerCaseEventFilter)) {
+										return true;
+									}
+									return false;
+								});
+							});
+					SortedList<Events> sortedEventListByIsFinalized = new SortedList<>(filteredEventListByIsFinalized);
+					sortedEventListByIsFinalized.comparatorProperty().bind(eventsMainTable.comparatorProperty());
+					eventsMainTable.setItems(sortedEventListByIsFinalized);
+					break;
+				}
+				}
+			});
 
 		// Listener for Search Lecturer ChoiceBox
 		choiceBoxSearchLecturer.getItems().addAll("Search By", "Name", "Email", "Course Specification",
