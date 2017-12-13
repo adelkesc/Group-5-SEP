@@ -53,7 +53,7 @@ public class VIAController implements Initializable, Serializable {
 	private TableColumn<Member, String> tableColumnMemberCoursePref = new TableColumn<Member, String>();
 	@FXML
 	private TableColumn<Member, String> tableColumnMemberMembPay = new TableColumn<Member, String>();
-	
+
 	// Member FXML
 	@FXML
 	private Label txtLabelMemberName;
@@ -168,7 +168,6 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private Button btnMainPageMemb;
 
-	
 	// Necessary initializations for Lecturer
 		private String nameOfTheChosenLecturer = "";
 		private String selectedRadioButton = "";
@@ -176,6 +175,7 @@ public class VIAController implements Initializable, Serializable {
 		private static ObservableList<Lecturer> dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
 		private static ObservableList<String> searchLecturerChoices = FXCollections.observableArrayList();
 		private static boolean setEditable = true;
+
 
 	// Lecturer FXML
 		@FXML
@@ -226,14 +226,12 @@ public class VIAController implements Initializable, Serializable {
 	private TableColumn<Lecturer, String> tableColumnLecturerAdvertReq = new TableColumn<Lecturer, String>();
 	@FXML
 	private ChoiceBox<String> choiceBoxSearchLecturer = new ChoiceBox<String>(searchLecturerChoices);
-	
-    
-    // Necessary initializations for Member
-    private static ObservableList<String> searchMemberChoices = FXCollections.observableArrayList();
+
+	// Necessary initializations for Member
+	private static ObservableList<String> searchMemberChoices = FXCollections.observableArrayList();
 	private static MemberList list = new MemberList();
-	private static ObservableList<Member> memberObservableList = FXCollections
-			.observableList(list.getListOfMembers());
-	
+	private static ObservableList<Member> memberObservableList = FXCollections.observableList(list.getListOfMembers());
+
 	private VIAModel viaModel = new VIAModel(el1, list, init);
 
 	@Override
@@ -465,135 +463,217 @@ public class VIAController implements Initializable, Serializable {
 			}
 		});
 		// Search Member ChioceBox
-				choiceBoxSearchMember.getItems().addAll("Search By","Name", "Address", "Email", "Age", "Membership Date");
-				choiceBoxSearchMember.getSelectionModel().selectFirst();
-				choiceBoxSearchMember.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
-						{
-							@Override
-					public void changed(ObservableValue<? extends String> observableMember, String previousChoiceMember, String currentChoiceMember)
-					{
-						switch(currentChoiceMember)
-						{
-						case "Name": FilteredList<Member> filteredMemberListByName = new FilteredList<>(memberObservableList, p -> true);
-						txtFieldSearchMember.textProperty().addListener((observableMember2, oldValueMember, newValueMember) ->
-									 {
-										 filteredMemberListByName.setPredicate(member ->
-										 {
-											 if (newValueMember == null || newValueMember.isEmpty())
-											 {
-												 return true;
-											 }
-											 String lowerCaseMemberFilter = newValueMember.toLowerCase();
-											 if (member.getName().toLowerCase().contains(lowerCaseMemberFilter))
-											 {
-												 return true;
-											 }
-											 return false;
-										 });
-									 });
-									 SortedList<Member> sortedMemberListByName = new SortedList<>(filteredMemberListByName);
-									 sortedMemberListByName.comparatorProperty().bind(tableMemberView.comparatorProperty());
-									 tableMemberView.setItems(sortedMemberListByName); break;
-						}
-						}
+		choiceBoxSearchMember.getItems().addAll("Search By", "Name", "Address", "Email", "Age", "Membership Payment");
+		choiceBoxSearchMember.getSelectionModel().selectFirst();
+		choiceBoxSearchMember.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observableMember, String previousChoiceMember,
+					String currentChoiceMember) {
+				switch (currentChoiceMember) {
+				case "Name":
+					FilteredList<Member> filteredMemberListByName = new FilteredList<>(memberObservableList, p -> true);
+					txtFieldSearchMember.textProperty()
+							.addListener((observableMember2, oldValueMember, newValueMember) -> {
+								filteredMemberListByName.setPredicate(member -> {
+									if (newValueMember == null || newValueMember.isEmpty()) {
+										return true;
+									}
+									String lowerCaseMemberFilter = newValueMember.toLowerCase();
+									if (member.getName().toLowerCase().contains(lowerCaseMemberFilter)) {
+										return true;
+									}
+									return false;
+								});
 							});
-		
-		//Listener for Search Lecturer ChoiceBox
-				choiceBoxSearchLecturer.getItems().addAll("Search By", "Name", "Email", "Course Specification", "Advertisement Requirement");
-				choiceBoxSearchLecturer.getSelectionModel().selectFirst();
-				choiceBoxSearchLecturer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
-						{
-							@Override
-							public void changed(ObservableValue<? extends String> observable, String previousChoice, String currentChoice)
-							{
-								switch(currentChoice)
-								{
-								case "Name": FilteredList<Lecturer> filteredLecturerListByName = new FilteredList<>(dataInLecturerTable, p -> true);
-											 txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
-											 {
-												 filteredLecturerListByName.setPredicate(lecturer ->
-												 {
-													 if (newValue == null || newValue.isEmpty())
-													 {
-														 return true;
-													 }
-													 String lowerCaseFilter = newValue.toLowerCase();
-													 if (lecturer.getName().toLowerCase().contains(lowerCaseFilter))
-													 {
-														 return true;
-													 }
-													 return false;
-												 });
-											 });
-											 SortedList<Lecturer> sortedDataByName = new SortedList<>(filteredLecturerListByName);
-											 sortedDataByName.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
-											 tableViewLecturer.setItems(sortedDataByName); break;
-											 
-								case "Email":FilteredList<Lecturer> filteredLecturerListByEmail = new FilteredList<>(dataInLecturerTable, p -> true);
-								 			txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
-								 			{
-								 				filteredLecturerListByEmail.setPredicate(lecturer ->
-								 				{
-								 					if (newValue == null || newValue.isEmpty())
-								 					{
-								 						return true;
-								 					}
-								 					String lowerCaseFilter = newValue.toLowerCase();
-								 					if (lecturer.getEmail().toLowerCase().contains(lowerCaseFilter))
-								 					{
-								 						return true;
-								 					}
-								 					return false;
-								 				});
-								 			});
-								 SortedList<Lecturer> sortedDataByEmail = new SortedList<>(filteredLecturerListByEmail);
-								 sortedDataByEmail.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
-								 tableViewLecturer.setItems(sortedDataByEmail); break;
-								 
-								case "Course Specification": FilteredList<Lecturer> filteredLecturerListByCourseSpecification = new FilteredList<>(dataInLecturerTable, p -> true);
-					 										 txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
-					 										 {
-					 											 filteredLecturerListByCourseSpecification.setPredicate(lecturer ->
-					 											 {
-					 												 if (newValue == null || newValue.isEmpty())
-					 												 {
-					 													 return true;
-					 												 }
-					 												 String lowerCaseFilter = newValue.toLowerCase();
-					 												 if (lecturer.getCourseSpec().toLowerCase().contains(lowerCaseFilter))
-					 												 {
-					 													 return true;
-					 												 }
-					 												 return false;
-					 											 });
-					 										 });
-					 										 SortedList<Lecturer> sortedDataByCourseSpecification = new SortedList<>(filteredLecturerListByCourseSpecification);
-					 										 sortedDataByCourseSpecification.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
-					 										 tableViewLecturer.setItems(sortedDataByCourseSpecification); break;	
-					 										 
-								case "Advertisement Requirement": FilteredList<Lecturer> filteredLecturerListByAdvertisementRequirement = new FilteredList<>(dataInLecturerTable, p -> true);
-					 											  txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
-					 											  {
-					 												  filteredLecturerListByAdvertisementRequirement.setPredicate(lecturer ->
-					 												  {
-					 													  if (newValue == null || newValue.isEmpty())
-					 													  {
-					 														  return true;
-					 													  }
-					 													  String lowerCaseFilter = newValue.toLowerCase();
-					 													  if (lecturer.getAdvertReq().toLowerCase().contains(lowerCaseFilter))
-					 													  {
-					 														  return true;
-					 													  }
-					 													  return false;
-					 												  });
-					 											  });
-					 											  SortedList<Lecturer> sortedDataByAdvertisementRequirement = new SortedList<>(filteredLecturerListByAdvertisementRequirement);
-					 											  sortedDataByAdvertisementRequirement.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
-					 											  tableViewLecturer.setItems(sortedDataByAdvertisementRequirement); break;			 
-								}
+					SortedList<Member> sortedMemberListByName = new SortedList<>(filteredMemberListByName);
+					sortedMemberListByName.comparatorProperty().bind(tableMemberView.comparatorProperty());
+					tableMemberView.setItems(sortedMemberListByName);
+					break;
+
+				case "Address":
+					FilteredList<Member> filteredMemberListByAddress = new FilteredList<>(memberObservableList,
+							p -> true);
+					txtFieldSearchMember.textProperty()
+							.addListener((observableMember2, oldValueMember, newValueMember) -> {
+								filteredMemberListByAddress.setPredicate(member -> {
+									if (newValueMember == null || newValueMember.isEmpty()) {
+										return true;
+									}
+									String lowerCaseMemberFilter = newValueMember.toLowerCase();
+									if (member.getAddress().toLowerCase().contains(lowerCaseMemberFilter)) {
+										return true;
+									}
+									return false;
+
+								});
+							});
+					SortedList<Member> sortedMemberListByAddress = new SortedList<>(filteredMemberListByAddress);
+					sortedMemberListByAddress.comparatorProperty().bind(tableMemberView.comparatorProperty());
+					tableMemberView.setItems(sortedMemberListByAddress);
+					break;
+
+				case "Email":
+					FilteredList<Member> filteredMemberListByEmail = new FilteredList<>(memberObservableList,
+							p -> true);
+					txtFieldSearchMember.textProperty()
+							.addListener((observableMember2, oldValueMember, newValueMember) -> {
+								filteredMemberListByEmail.setPredicate(member -> {
+									if (newValueMember == null || newValueMember.isEmpty()) {
+										return true;
+									}
+									String lowerCaseMemberFilter = newValueMember.toLowerCase();
+									if (member.getEmail().toLowerCase().contains(lowerCaseMemberFilter)) {
+										return true;
+									}
+									return false;
+
+								});
+							});
+					SortedList<Member> sortedMemberListByEmail = new SortedList<>(filteredMemberListByEmail);
+					sortedMemberListByEmail.comparatorProperty().bind(tableMemberView.comparatorProperty());
+					tableMemberView.setItems(sortedMemberListByEmail);
+					break;
+				case "Age":
+					FilteredList<Member> filteredMemberListByAge = new FilteredList<>(memberObservableList, p -> true);
+					txtFieldSearchMember.textProperty()
+							.addListener((observableMember2, oldValueMember, newValueMember) -> {
+								filteredMemberListByAge.setPredicate(member -> {
+									if (newValueMember == null || newValueMember.isEmpty()) {
+										return true;
+									}
+									String lowerCaseMemberFilter = newValueMember.toLowerCase();
+									if (member.getAge().toLowerCase().contains(lowerCaseMemberFilter)) {
+										return true;
+									}
+									return false;
+
+								});
+							});
+					SortedList<Member> sortedMemberListByAge = new SortedList<>(filteredMemberListByAge);
+					sortedMemberListByAge.comparatorProperty().bind(tableMemberView.comparatorProperty());
+					tableMemberView.setItems(sortedMemberListByAge);
+					break;
+
+				case "Membership Payment":
+					FilteredList<Member> filteredMemberListByMembPay = new FilteredList<>(memberObservableList,
+							p -> true);
+					txtFieldSearchMember.textProperty()
+							.addListener((observableMember2, oldValueMember, newValueMember) -> {
+								filteredMemberListByMembPay.setPredicate(member -> {
+									if (newValueMember == null || newValueMember.isEmpty()) {
+										return true;
+									}
+									String lowerCaseMemberFilter = newValueMember.toLowerCase();
+									if (member.getEmail().toLowerCase().contains(lowerCaseMemberFilter)) {
+										return true;
+									}
+									return false;
+
+								});
+							});
+					SortedList<Member> sortedMemberListByMembPay = new SortedList<>(filteredMemberListByMembPay);
+					sortedMemberListByMembPay.comparatorProperty().bind(tableMemberView.comparatorProperty());
+					tableMemberView.setItems(sortedMemberListByMembPay);
+					break;
+				}
+			}
+		});
+
+		// Listener for Search Lecturer ChoiceBox
+		choiceBoxSearchLecturer.getItems().addAll("Search By", "Name", "Email", "Course Specification",
+				"Advertisement Requirement");
+		choiceBoxSearchLecturer.getSelectionModel().selectFirst();
+		choiceBoxSearchLecturer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String previousChoice,
+					String currentChoice) {
+				switch (currentChoice) {
+				case "Name":
+					FilteredList<Lecturer> filteredLecturerListByName = new FilteredList<>(dataInLecturerTable,
+							p -> true);
+					txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) -> {
+						filteredLecturerListByName.setPredicate(lecturer -> {
+							if (newValue == null || newValue.isEmpty()) {
+								return true;
 							}
-						});	
+							String lowerCaseFilter = newValue.toLowerCase();
+							if (lecturer.getName().toLowerCase().contains(lowerCaseFilter)) {
+								return true;
+							}
+							return false;
+						});
+					});
+					SortedList<Lecturer> sortedDataByName = new SortedList<>(filteredLecturerListByName);
+					sortedDataByName.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
+					tableViewLecturer.setItems(sortedDataByName);
+					break;
+
+				case "Email":
+					FilteredList<Lecturer> filteredLecturerListByEmail = new FilteredList<>(dataInLecturerTable,
+							p -> true);
+					txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) -> {
+						filteredLecturerListByEmail.setPredicate(lecturer -> {
+							if (newValue == null || newValue.isEmpty()) {
+								return true;
+							}
+							String lowerCaseFilter = newValue.toLowerCase();
+							if (lecturer.getEmail().toLowerCase().contains(lowerCaseFilter)) {
+								return true;
+							}
+
+							return false;
+						});
+					});
+					SortedList<Lecturer> sortedDataByEmail = new SortedList<>(filteredLecturerListByEmail);
+					sortedDataByEmail.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
+					tableViewLecturer.setItems(sortedDataByEmail);
+					break;
+
+				case "Course Specification":
+					FilteredList<Lecturer> filteredLecturerListByCourseSpecification = new FilteredList<>(
+							dataInLecturerTable, p -> true);
+					txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) -> {
+						filteredLecturerListByCourseSpecification.setPredicate(lecturer -> {
+							if (newValue == null || newValue.isEmpty()) {
+								return true;
+							}
+							String lowerCaseFilter = newValue.toLowerCase();
+							if (lecturer.getCourseSpec().toLowerCase().contains(lowerCaseFilter)) {
+								return true;
+							}
+							return false;
+						});
+					});
+					SortedList<Lecturer> sortedDataByCourseSpecification = new SortedList<>(
+							filteredLecturerListByCourseSpecification);
+					sortedDataByCourseSpecification.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
+					tableViewLecturer.setItems(sortedDataByCourseSpecification);
+					break;
+
+				case "Advertisement Requirement":
+					FilteredList<Lecturer> filteredLecturerListByAdvertisementRequirement = new FilteredList<>(
+							dataInLecturerTable, p -> true);
+					txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) -> {
+						filteredLecturerListByAdvertisementRequirement.setPredicate(lecturer -> {
+							if (newValue == null || newValue.isEmpty()) {
+								return true;
+							}
+							String lowerCaseFilter = newValue.toLowerCase();
+							if (lecturer.getAdvertReq().toLowerCase().contains(lowerCaseFilter)) {
+								return true;
+							}
+							return false;
+						});
+					});
+					SortedList<Lecturer> sortedDataByAdvertisementRequirement = new SortedList<>(
+							filteredLecturerListByAdvertisementRequirement);
+					sortedDataByAdvertisementRequirement.comparatorProperty()
+							.bind(tableViewLecturer.comparatorProperty());
+					tableViewLecturer.setItems(sortedDataByAdvertisementRequirement);
+					break;
+				}
+			}
+		});
 	}
 
 	public void toEventsScene() throws IOException {
@@ -677,7 +757,8 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void addLect(ActionEvent event) {
-		if (!(selectedRadioButton.equals("Yes"))) selectedRadioButton = "No";
+		if (!(selectedRadioButton.equals("Yes")))
+			selectedRadioButton = "No";
 		Lecturer newLecturer = new Lecturer(txtFieldAddLecturerName.getText(), txtFieldAddLecturerEmail.getText(),
 				txtFieldAddLecturerCourseSpec.getText(), txtFieldAddLecturerTelNumber.getText(), selectedRadioButton);
 		dataInLecturerTable.add(newLecturer);
@@ -724,6 +805,7 @@ public class VIAController implements Initializable, Serializable {
 		}
 		viaModel.setEventList(eventsList1);
 	}
+
 	public void deletetheTextInsideOfTheSearchEventTextField()
     {
         txtFieldSearchEvent.setText("");
@@ -745,14 +827,4 @@ public class VIAController implements Initializable, Serializable {
     	System.out.println(nameOfTheChosenLecturer);
     	toAddEventScene();
     }
-   /* tableColumnLecturerName.setCellFactory(TextFieldTableCell.forTableColumn());
-	tableColumnLecturerName.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>() {
-		@Override
-		public void handle(CellEditEvent<Lecturer, String> t) {
-			((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
-		}
-	}
-
-	);*/
-	
 }
