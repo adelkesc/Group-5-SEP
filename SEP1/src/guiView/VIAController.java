@@ -653,7 +653,7 @@ public class VIAController implements Initializable, Serializable {
 				txtFieldAddMemberAddress.getText(), txtFieldAddMemberTel.getText(), txtFieldAddMemberEmail.getText(),
 				txtFieldAddMemberCoursePref.getText(), txtFieldAddMemberMembPay.getText());
 		memberObservableList.add(newMember);
-		JOptionPane.showMessageDialog(null, "New Member has been added");
+		JOptionPane.showMessageDialog(null, "Member added sucessfully!");
 	}
 
 	public void deleteMember(ActionEvent event) {
@@ -663,9 +663,7 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void addLect(ActionEvent event) {
-		if (!(selectedRadioButton.equals("Yes"))) {
-			selectedRadioButton = "No";
-		}
+		if (!(selectedRadioButton.equals("Yes"))) selectedRadioButton = "No";
 		Lecturer newLecturer = new Lecturer(txtFieldAddLecturerName.getText(), txtFieldAddLecturerEmail.getText(),
 				txtFieldAddLecturerCourseSpec.getText(), txtFieldAddLecturerTelNumber.getText(), selectedRadioButton);
 		dataInLecturerTable.add(newLecturer);
