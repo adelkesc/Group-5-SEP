@@ -13,7 +13,7 @@ public class Events implements Serializable {
 	private String type;
 	private String location;
 	private String category;
-	// private Lecturer conductor;
+	private String conductor;
 	private String price;
 	private String minPartic;
 	private String maxPartic;
@@ -21,13 +21,14 @@ public class Events implements Serializable {
 	// ArrayList<Members> eventMembList = new ArrayList<>();
 
 	public Events(String name, String date, String duration, String type, String location, String category,
-			/* Lecturer conductor, */ String price, String minPartic, String maxPartic, String isFinalized) {
+			String conductor, String price, String minPartic, String maxPartic, String isFinalized) {
 		this.name = name;
 		this.date = date;
 		this.duration = duration;
 		this.type = type;
 		this.location = location;
 		this.category = category;
+		this.conductor=conductor;
 		this.price = price;
 		this.minPartic = minPartic;
 		this.maxPartic = maxPartic;
@@ -35,7 +36,7 @@ public class Events implements Serializable {
 	}
 
 	public Events() {
-		this("", "", "", "", "", "", "", "", "", "false");
+		this("", "", "", "", "","", "", "", "", "", "false");
 	}
 
 	public String getName() {
@@ -110,14 +111,25 @@ public class Events implements Serializable {
 		this.maxPartic = (maxPartic);
 	}
 
-	public String isFinalized() {
+	public String getisFinalized() {
 		return isFinalized;
 	}
 
-	public void setFinalized(String isFinalized) {
+	public void setisFinalized(String isFinalized) {
 		this.isFinalized = isFinalized;
 	}
 
+	public String getConductor() {
+		return conductor;
+	}
+
+	public void setConductor(String conductor) {
+		this.conductor = conductor;
+	}
+
+	public String getIsFinalized() {
+		return isFinalized;
+	}
 	public void finalizeEvent() {
 		this.isFinalized = "true";
 	}
@@ -127,7 +139,7 @@ public class Events implements Serializable {
 	// }
 	public String toString() {
 		return this.name + "\n" + this.date + "\n" + this.duration + "\n" + this.type + "\n" + this.location + "\n"
-				+ this.category + "\n" + this.price + "\n" + this.minPartic + "\n" + this.maxPartic + "\n"
+				+ this.category + "\n" + this.conductor + "\n" + this.price + "\n" + this.minPartic + "\n" + this.maxPartic + "\n"
 				+ this.isFinalized;
 	}
 

@@ -27,5 +27,6 @@
       <Button layoutX="26.0" layoutY="628.0" mnemonicParsing="false" onAction="#toAddEventScene" text="Add New" />
       <Button fx:id="saveButtonTest" disable="false" layoutX="120.0" layoutY="628.0" mnemonicParsing="false" onAction="#saveToFile" prefHeight="25.0" prefWidth="82.0" text="Save" />
       <Button fx:id="eventsDeleteButton" disable="true" layoutX="220.0" layoutY="628.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="25.0" prefWidth="82.0" text="Delete" />
+      <Button fx:id="btnFinalizeEvent" layoutX="426.0" layoutY="628.0" mnemonicParsing="false" text="Finalize Event" onAction="#finalizeEvent" />
    </children>
 </AnchorPane>

@@ -139,17 +139,18 @@ public class VIAController implements Initializable, Serializable {
 	private TextField addEventMaxPartic;
 	@FXML
 	private TextField txtFieldSearchEvent;
-/*	@FXML
-	private TextField txtFieldAddLecturerToTheEvent = nameOfTh;*/
 	@FXML
 	private Button eventsDeleteButton = new Button();
 	@FXML
 	private ChoiceBox<String> choiceBoxSearchEvent = new ChoiceBox<String>(searchEventChoices);
+	@FXML
 	private Button btnAddLecturerToEvent = new Button();
 	@FXML
 	private Button btnGoBackToCreateEvent;
 	@FXML
 	private Button btnAddLecturerToTheEvent = new Button();
+	@FXML
+	private Button btnFinalizeEvent = new Button();
 
 	// main page FXML
 	@FXML
@@ -170,7 +171,7 @@ public class VIAController implements Initializable, Serializable {
 	private Button btnMainPageMemb;
 
 	// Necessary initializations for Lecturer
-		private String nameOfTheChosenLecturer = "";
+		private static String nameOfTheChosenLecturer = "";
 		private String selectedRadioButton = "";
 		private static LecturerList init = new LecturerList();
 		private static ObservableList<Lecturer> dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
@@ -179,7 +180,7 @@ public class VIAController implements Initializable, Serializable {
 
 	// Lecturer FXML
 		@FXML
-		private TextField txtFieldAddLecturerToTheEvent = new TextField(nameOfTheChosenLecturer);//nameOfTheChosenLecturer;	
+		private TextField txtFieldAddLecturerToTheEvent = new TextField();
 	@FXML
 	private Label txtLabelAddLecturerName;
 	@FXML
@@ -237,16 +238,14 @@ public class VIAController implements Initializable, Serializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
 		txtFieldAddLecturerToTheEvent.setText(nameOfTheChosenLecturer);
-		
 		eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("name"));
 		eventTableCol2.setCellValueFactory(new PropertyValueFactory<Events, String>("date"));
 		eventTableCol3.setCellValueFactory(new PropertyValueFactory<Events, String>("duration"));
 		eventTableCol4.setCellValueFactory(new PropertyValueFactory<Events, String>("type"));
 		eventTableCol5.setCellValueFactory(new PropertyValueFactory<Events, String>("location"));
 		eventTableCol6.setCellValueFactory(new PropertyValueFactory<Events, String>("category"));
-		eventTableCol7.setCellValueFactory(new PropertyValueFactory<Events, String>("null"));
+		eventTableCol7.setCellValueFactory(new PropertyValueFactory<Events, String>("conductor"));
 		eventTableCol8.setCellValueFactory(new PropertyValueFactory<Events, String>("price"));
 		eventTableCol9.setCellValueFactory(new PropertyValueFactory<Events, String>("minPartic"));
 		eventTableCol10.setCellValueFactory(new PropertyValueFactory<Events, String>("maxPartic"));
@@ -255,6 +254,8 @@ public class VIAController implements Initializable, Serializable {
 		eventsMainTable.setEditable(setEditable);
 		eventsDeleteButton.disableProperty()
 				.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
+		btnFinalizeEvent.disableProperty()
+		.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
 
 		eventTableCol1.setCellFactory(TextFieldTableCell.forTableColumn());
 		eventTableCol1.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
@@ -580,7 +581,7 @@ public class VIAController implements Initializable, Serializable {
 			}
 		});
 		// Search Event ChioceBox
-		choiceBoxSearchEvent.getItems().addAll("Search By", "Name", "Type", "Catogory", "is-Finalized");
+		choiceBoxSearchEvent.getItems().addAll("Search By", "Name", "Type", "Category", "is-Finalized");
 		choiceBoxSearchEvent.getSelectionModel().selectFirst();
 		choiceBoxSearchEvent.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -627,11 +628,11 @@ public class VIAController implements Initializable, Serializable {
 					eventsMainTable.setItems(sortedEventListByType);
 					break;
 					
-				case "Catagory":
-					FilteredList<Events> filteredEventListByCatagory = new FilteredList<>(data, p -> true);
+				case "Category":
+					FilteredList<Events> filteredEventListByCategory = new FilteredList<>(data, p -> true);
 					txtFieldSearchEvent.textProperty()
 							.addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
-								filteredEventListByCatagory.setPredicate(events -> {
+								filteredEventListByCategory.setPredicate(events -> {
 									if (newValueEvent == null || newValueEvent.isEmpty()) {
 										return true;
 									}
@@ -642,9 +643,9 @@ public class VIAController implements Initializable, Serializable {
 									return false;
 								});
 							});
-					SortedList<Events> sortedEventListByCatagory = new SortedList<>(filteredEventListByCatagory);
-					sortedEventListByCatagory.comparatorProperty().bind(eventsMainTable.comparatorProperty());
-					eventsMainTable.setItems(sortedEventListByCatagory);
+					SortedList<Events> sortedEventListByCategory = new SortedList<>(filteredEventListByCategory);
+					sortedEventListByCategory.comparatorProperty().bind(eventsMainTable.comparatorProperty());
+					eventsMainTable.setItems(sortedEventListByCategory);
 					break;
 	
 				case "is-Finalized":
@@ -656,7 +657,7 @@ public class VIAController implements Initializable, Serializable {
 										return true;
 									}
 									String lowerCaseEventFilter = newValueEvent.toLowerCase();
-									if (events.isFinalized().toLowerCase().contains(lowerCaseEventFilter)) {
+									if (events.getisFinalized().toLowerCase().contains(lowerCaseEventFilter)) {
 										return true;
 									}
 									return false;
@@ -765,6 +766,7 @@ public class VIAController implements Initializable, Serializable {
 				}
 			}
 		});
+		
 	}
 
 	public void toEventsScene() throws IOException {
@@ -815,11 +817,8 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void toAddEventScene() throws IOException {
-		txtFieldAddLecturerToTheEvent.setText(nameOfTheChosenLecturer);
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("addNewEvent.fxml"));
 		mainAnchor.getChildren().setAll(pane);
-		System.out.println("Again: " + nameOfTheChosenLecturer);
-		txtFieldAddLecturerToTheEvent.setText(nameOfTheChosenLecturer);
 	}
 	
 	public void addLecturerToTheEventScene() throws IOException
@@ -864,12 +863,8 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void addEvent(ActionEvent event) {
-		// String temp = addEventDate.getText();
-		// String[] temp2 = temp.split("/");
-		// MyDate date1 = new MyDate(Integer.parseInt(temp2[0]),
-		// Integer.parseInt(temp2[1]), Integer.parseInt(temp2[2]));
 		Events event1 = new Events(addEventName.getText(), addEventDate.getText(), addEventDuration.getText(),
-				addEventType.getText(), addEventLocation.getText(), addEventCategory.getText(), addEventPrice.getText(),
+				addEventType.getText(), addEventLocation.getText(), addEventCategory.getText(), nameOfTheChosenLecturer, addEventPrice.getText(),
 				addEventMinPartic.getText(), addEventMaxPartic.getText(), "false");
 		data.add(event1);
 		JOptionPane.showMessageDialog(null, "Event added sucessfully!");
@@ -881,6 +876,16 @@ public class VIAController implements Initializable, Serializable {
 		ObservableList<Events> allEvents = eventsMainTable.getItems();
 		selectedEvent.forEach(allEvents::remove);
 
+	}
+	public void finalizeEvent(ActionEvent event) throws IOException {
+		data.get(eventsMainTable.getSelectionModel().getSelectedIndex()).setisFinalized("true");
+		
+		if (data.get(eventsMainTable.getSelectionModel().getSelectedIndex()) != null)
+		{
+		JOptionPane.showMessageDialog(null, "Event Finalized.");
+		toEventsScene();
+		}
+		
 	}
 
 	public VIAModel getVIAMod() {
@@ -915,7 +920,6 @@ public class VIAController implements Initializable, Serializable {
     public void addLecturerToEvent() throws IOException
     {
     	nameOfTheChosenLecturer = tableViewLecturer.getSelectionModel().getSelectedItem().getName();
-    	System.out.println(nameOfTheChosenLecturer);
     	toAddEventScene();
     }
 }

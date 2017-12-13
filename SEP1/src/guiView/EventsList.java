@@ -33,7 +33,7 @@ public class EventsList implements Serializable {
 		tempEvent.setPrice(event.getPrice());
 		tempEvent.setMinPartic(event.getMinPartic());
 		tempEvent.setMaxPartic(event.getMaxPartic());
-		tempEvent.setFinalized(event.isFinalized());
+		tempEvent.setisFinalized(event.getIsFinalized());
 		return tempEvent;
 	}
 
