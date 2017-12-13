@@ -89,8 +89,13 @@ public class VIAController implements Initializable, Serializable {
 	private ChoiceBox<String> choiceBoxSearchMember = new ChoiceBox<String>(searchMemberChoices);
 	@FXML
 	private TableView<Events> eventsMainTable = new TableView<Events>();
+	
+	// Necessary intialisations for Event
 	private static EventsList el1 = new EventsList();
 	private static ObservableList<Events> data = FXCollections.observableList(el1.getListOfEvents());
+	
+	@FXML
+	private Label txtLabelAddLecturerToTheEvent;
 	@FXML
 	private TableColumn<Events, String> eventTableCol1 = new TableColumn<Events, String>();
 	@FXML
@@ -133,8 +138,17 @@ public class VIAController implements Initializable, Serializable {
 	private TextField addEventMaxPartic;
 	@FXML
 	private TextField txtFieldSearchEvent;
+/*	@FXML
+	private TextField txtFieldAddLecturerToTheEvent = nameOfTh;*/
 	@FXML
 	private Button eventsDeleteButton = new Button();
+	@FXML
+	private Button btnAddLecturerToEvent = new Button();
+	@FXML
+	private Button btnGoBackToCreateEvent;
+	@FXML
+	private Button btnAddLecturerToTheEvent = new Button();
+
 
 	// main page FXML
 	@FXML
@@ -156,13 +170,16 @@ public class VIAController implements Initializable, Serializable {
 
 	
 	// Necessary initializations for Lecturer
+		private String nameOfTheChosenLecturer = "";
 		private String selectedRadioButton = "";
-		private static String selectedChoiceForSearchLecturer = "";
 		private static LecturerList init = new LecturerList();
 		private static ObservableList<Lecturer> dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
 		private static ObservableList<String> searchLecturerChoices = FXCollections.observableArrayList();
+		private static boolean setEditable = true;
 
 	// Lecturer FXML
+		@FXML
+		private TextField txtFieldAddLecturerToTheEvent = new TextField(nameOfTheChosenLecturer);//nameOfTheChosenLecturer;	
 	@FXML
 	private Label txtLabelAddLecturerName;
 	@FXML
@@ -188,13 +205,13 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private RadioButton radioBtnAddLecturerNo = new RadioButton();
 	@FXML
-	private Button btnAddNewLecturer;
+	private Button btnAddNewLecturer = new Button();
 	@FXML
-	private Button btnLecturerBack;
+	private Button btnLecturerBack = new Button();
 	@FXML
-	private Button btnDeleteLecturer;
+	private Button btnDeleteLecturer = new Button();
 	@FXML
-	private Button btnLecturerAdd;
+	private Button btnLecturerAdd = new Button();
 	@FXML
 	private TableView<Lecturer> tableViewLecturer = new TableView<Lecturer>();
 	@FXML
@@ -221,6 +238,9 @@ public class VIAController implements Initializable, Serializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		txtFieldAddLecturerToTheEvent.setText(nameOfTheChosenLecturer);
+		
 		eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("name"));
 		eventTableCol2.setCellValueFactory(new PropertyValueFactory<Events, String>("date"));
 		eventTableCol3.setCellValueFactory(new PropertyValueFactory<Events, String>("duration"));
@@ -233,7 +253,7 @@ public class VIAController implements Initializable, Serializable {
 		eventTableCol10.setCellValueFactory(new PropertyValueFactory<Events, String>("maxPartic"));
 		eventTableCol11.setCellValueFactory(new PropertyValueFactory<Events, String>("isFinalized"));
 		eventsMainTable.setItems(data);
-		eventsMainTable.setEditable(true);
+		eventsMainTable.setEditable(setEditable);
 		eventsDeleteButton.disableProperty()
 				.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
 
@@ -371,8 +391,7 @@ public class VIAController implements Initializable, Serializable {
 		// Creating and populating Lecturer table
 		tableColumnLecturerName.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("name"));
 		tableColumnLecturerEmail.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("email"));
-		tableColumnLecturerCourseSpecification
-				.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("courseSpec"));
+		tableColumnLecturerCourseSpecification.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("courseSpec"));
 		tableColumnLecturerTelNumber.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("telNumber"));
 		tableColumnLecturerAdvertReq.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("advertReq"));
 		tableViewLecturer.setItems(dataInLecturerTable);
@@ -574,7 +593,7 @@ public class VIAController implements Initializable, Serializable {
 					 											  tableViewLecturer.setItems(sortedDataByAdvertisementRequirement); break;			 
 								}
 							}
-						});
+						});	
 	}
 
 	public void toEventsScene() throws IOException {
@@ -625,8 +644,22 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void toAddEventScene() throws IOException {
+		txtFieldAddLecturerToTheEvent.setText(nameOfTheChosenLecturer);
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("addNewEvent.fxml"));
 		mainAnchor.getChildren().setAll(pane);
+		System.out.println("Again: " + nameOfTheChosenLecturer);
+		txtFieldAddLecturerToTheEvent.setText(nameOfTheChosenLecturer);
+	}
+	
+	public void addLecturerToTheEventScene() throws IOException
+	{
+		VIAView viaView1 = new VIAView();
+		viaModel = viaView1.viaModFromFile();
+		init = viaModel.getLecturerList();
+		dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("AddLecturerToEvent.fxml"));
+		mainAnchor.getChildren().setAll(pane);
+		btnAddLecturerToTheEvent.disableProperty().bind(Bindings.isEmpty(tableViewLecturer.getSelectionModel().getSelectedItems()));
 	}
 
 	public void addMember(ActionEvent event) {
@@ -705,5 +738,21 @@ public class VIAController implements Initializable, Serializable {
     {
         txtFieldSearchMember.setText("");
     }
+    
+    public void addLecturerToEvent() throws IOException
+    {
+    	nameOfTheChosenLecturer = tableViewLecturer.getSelectionModel().getSelectedItem().getName();
+    	System.out.println(nameOfTheChosenLecturer);
+    	toAddEventScene();
+    }
+   /* tableColumnLecturerName.setCellFactory(TextFieldTableCell.forTableColumn());
+	tableColumnLecturerName.setOnEditCommit(new EventHandler<CellEditEvent<Lecturer, String>>() {
+		@Override
+		public void handle(CellEditEvent<Lecturer, String> t) {
+			((Lecturer) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
+		}
+	}
+
+	);*/
 	
 }
