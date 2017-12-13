@@ -114,8 +114,6 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private TableColumn<Events, String> eventTableCol11 = new TableColumn<Events, String>();
 	@FXML
-	private TableColumn<Events, String> eventTableCol12 = new TableColumn<Events, String>();
-	@FXML
 	private TextField addEventName;
 	@FXML
 	private TextField addEventDate;
@@ -214,7 +212,6 @@ public class VIAController implements Initializable, Serializable {
 	
     
     // Necessary initializations for Member
-    private static String selectedChoiceForSearchMember = "";
     private static ObservableList<String> searchMemberChoices = FXCollections.observableArrayList();
 	private static MemberList list = new MemberList();
 	private static ObservableList<Member> memberObservableList = FXCollections
@@ -231,11 +228,10 @@ public class VIAController implements Initializable, Serializable {
 		eventTableCol5.setCellValueFactory(new PropertyValueFactory<Events, String>("location"));
 		eventTableCol6.setCellValueFactory(new PropertyValueFactory<Events, String>("category"));
 		eventTableCol7.setCellValueFactory(new PropertyValueFactory<Events, String>("null"));
-		eventTableCol8.setCellValueFactory(new PropertyValueFactory<Events, String>("null"));
-		eventTableCol9.setCellValueFactory(new PropertyValueFactory<Events, String>("price"));
-		eventTableCol10.setCellValueFactory(new PropertyValueFactory<Events, String>("MinPartic"));
-		eventTableCol11.setCellValueFactory(new PropertyValueFactory<Events, String>("maxPartic"));
-		eventTableCol12.setCellValueFactory(new PropertyValueFactory<Events, String>("isFinalized"));
+		eventTableCol8.setCellValueFactory(new PropertyValueFactory<Events, String>("price"));
+		eventTableCol9.setCellValueFactory(new PropertyValueFactory<Events, String>("minPartic"));
+		eventTableCol10.setCellValueFactory(new PropertyValueFactory<Events, String>("maxPartic"));
+		eventTableCol11.setCellValueFactory(new PropertyValueFactory<Events, String>("isFinalized"));
 		eventsMainTable.setItems(data);
 		eventsMainTable.setEditable(true);
 		eventsDeleteButton.disableProperty()
@@ -252,70 +248,56 @@ public class VIAController implements Initializable, Serializable {
 		eventTableCol2.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
 			@Override
 			public void handle(CellEditEvent<Events, String> t) {
-				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
+				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setDate(t.getNewValue());
 			}
 		});
 		eventTableCol3.setCellFactory(TextFieldTableCell.forTableColumn());
 		eventTableCol3.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
 			@Override
 			public void handle(CellEditEvent<Events, String> t) {
-				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
+				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setDuration(t.getNewValue());
 			}
 		});
 		eventTableCol4.setCellFactory(TextFieldTableCell.forTableColumn());
 		eventTableCol4.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
 			@Override
 			public void handle(CellEditEvent<Events, String> t) {
-				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
+				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setType(t.getNewValue());
 			}
 		});
 		eventTableCol5.setCellFactory(TextFieldTableCell.forTableColumn());
 		eventTableCol5.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
 			@Override
 			public void handle(CellEditEvent<Events, String> t) {
-				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
+				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setLocation(t.getNewValue());
 			}
 		});
 		eventTableCol6.setCellFactory(TextFieldTableCell.forTableColumn());
 		eventTableCol6.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
 			@Override
 			public void handle(CellEditEvent<Events, String> t) {
-				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
-			}
-		});
-		eventTableCol7.setCellFactory(TextFieldTableCell.forTableColumn());
-		eventTableCol7.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
-			@Override
-			public void handle(CellEditEvent<Events, String> t) {
-				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
+				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setCategory(t.getNewValue());
 			}
 		});
 		eventTableCol8.setCellFactory(TextFieldTableCell.forTableColumn());
 		eventTableCol8.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
 			@Override
 			public void handle(CellEditEvent<Events, String> t) {
-				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
+				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setPrice(t.getNewValue());
 			}
 		});
 		eventTableCol9.setCellFactory(TextFieldTableCell.forTableColumn());
 		eventTableCol9.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
 			@Override
 			public void handle(CellEditEvent<Events, String> t) {
-				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
+				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setMinPartic(t.getNewValue());
 			}
 		});
 		eventTableCol10.setCellFactory(TextFieldTableCell.forTableColumn());
 		eventTableCol10.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
 			@Override
 			public void handle(CellEditEvent<Events, String> t) {
-				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
-			}
-		});
-		eventTableCol11.setCellFactory(TextFieldTableCell.forTableColumn());
-		eventTableCol11.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
-			@Override
-			public void handle(CellEditEvent<Events, String> t) {
-				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
+				((Events) t.getTableView().getItems().get(t.getTablePosition().getRow())).setMaxPartic(t.getNewValue());
 			}
 		});
 
@@ -592,8 +574,7 @@ public class VIAController implements Initializable, Serializable {
 							@Override
 							public void changed(ObservableValue<? extends String> observable, String previousChoice, String currentChoice)
 							{
-								selectedChoiceForSearchLecturer = currentChoice;
-								switch(selectedChoiceForSearchLecturer)
+								switch(currentChoice)
 								{
 								case "Name": FilteredList<Lecturer> filteredLecturerListByName = new FilteredList<>(dataInLecturerTable, p -> true);
 											 txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
@@ -740,7 +721,7 @@ public class VIAController implements Initializable, Serializable {
 				txtFieldAddMemberAddress.getText(), txtFieldAddMemberTel.getText(), txtFieldAddMemberEmail.getText(),
 				txtFieldAddMemberCoursePref.getText(), txtFieldAddMemberMembPay.getText());
 		memberObservableList.add(newMember);
-		JOptionPane.showMessageDialog(null, "New Member has been added");
+		JOptionPane.showMessageDialog(null, "Member added sucessfully!");
 	}
 
 	public void deleteMember(ActionEvent event) {
@@ -750,9 +731,7 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void addLect(ActionEvent event) {
-		if (!(selectedRadioButton.equals("Yes"))) {
-			selectedRadioButton = "No";
-		}
+		if (!(selectedRadioButton.equals("Yes"))) selectedRadioButton = "No";
 		Lecturer newLecturer = new Lecturer(txtFieldAddLecturerName.getText(), txtFieldAddLecturerEmail.getText(),
 				txtFieldAddLecturerCourseSpec.getText(), txtFieldAddLecturerTelNumber.getText(), selectedRadioButton);
 		dataInLecturerTable.add(newLecturer);
@@ -773,7 +752,7 @@ public class VIAController implements Initializable, Serializable {
 		// Integer.parseInt(temp2[1]), Integer.parseInt(temp2[2]));
 		Events event1 = new Events(addEventName.getText(), addEventDate.getText(), addEventDuration.getText(),
 				addEventType.getText(), addEventLocation.getText(), addEventCategory.getText(), addEventPrice.getText(),
-				addEventMinPartic.getText(), addEventMaxPartic.getText(), false);
+				addEventMinPartic.getText(), addEventMaxPartic.getText(), "false");
 		data.add(event1);
 		JOptionPane.showMessageDialog(null, "Event added sucessfully!");
 
