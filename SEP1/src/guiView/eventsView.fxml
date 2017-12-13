@@ -25,8 +25,8 @@
         </columns>
       </TableView>
       <Button layoutX="26.0" layoutY="628.0" mnemonicParsing="false" onAction="#toAddEventScene" text="Add New" />
-      <Button fx:id="saveButtonTest" disable="false" layoutX="120.0" layoutY="628.0" mnemonicParsing="false" onAction="#saveToFile" prefHeight="25.0" prefWidth="82.0" text="Save" />
-      <Button fx:id="eventsDeleteButton" disable="true" layoutX="220.0" layoutY="628.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="25.0" prefWidth="82.0" text="Delete" />
-      <Button fx:id="btnFinalizeEvent" layoutX="426.0" layoutY="628.0" mnemonicParsing="false" text="Finalize Event" onAction="#finalizeEvent" />
+      <Button fx:id="btnAddMemberToEvent" disable="true" layoutX="254.0" layoutY="628.0" mnemonicParsing="false" onAction="#addMemberToEvent" prefHeight="31.0" prefWidth="178.0" text="Add Member to Event" />
+      <Button fx:id="eventsDeleteButton" disable="true" layoutX="145.0" layoutY="628.0" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="25.0" prefWidth="82.0" text="Delete" />
+      <Button fx:id="btnFinalizeEvent" disable="true" layoutX="449.0" layoutY="628.0" mnemonicParsing="false" onAction="#finalizeEvent" text="Finalize Event" />
    </children>
 </AnchorPane>

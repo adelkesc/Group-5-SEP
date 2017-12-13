@@ -151,6 +151,8 @@ public class VIAController implements Initializable, Serializable {
 	private Button btnAddLecturerToTheEvent = new Button();
 	@FXML
 	private Button btnFinalizeEvent = new Button();
+	@FXML
+	private Button btnAddMemberToEvent = new Button();
 
 	// main page FXML
 	@FXML
@@ -254,6 +256,8 @@ public class VIAController implements Initializable, Serializable {
 		eventsMainTable.setEditable(setEditable);
 		eventsDeleteButton.disableProperty()
 				.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
+		btnAddMemberToEvent.disableProperty()
+		.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
 		btnFinalizeEvent.disableProperty()
 		.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
 
@@ -879,7 +883,6 @@ public class VIAController implements Initializable, Serializable {
 	}
 	public void finalizeEvent(ActionEvent event) throws IOException {
 		data.get(eventsMainTable.getSelectionModel().getSelectedIndex()).setisFinalized("true");
-		
 		if (data.get(eventsMainTable.getSelectionModel().getSelectedIndex()) != null)
 		{
 		JOptionPane.showMessageDialog(null, "Event Finalized.");
@@ -921,5 +924,8 @@ public class VIAController implements Initializable, Serializable {
     {
     	nameOfTheChosenLecturer = tableViewLecturer.getSelectionModel().getSelectedItem().getName();
     	toAddEventScene();
+    }
+    public void addMemberToEvent() {
+    	JOptionPane.showMessageDialog(null, "No functionality added at this time. Check back later");
     }
 }
