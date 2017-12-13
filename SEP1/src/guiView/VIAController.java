@@ -214,7 +214,6 @@ public class VIAController implements Initializable, Serializable {
 	
     
     // Necessary initializations for Member
-    private static String selectedChoiceForSearchMember = "";
     private static ObservableList<String> searchMemberChoices = FXCollections.observableArrayList();
 	private static MemberList list = new MemberList();
 	private static ObservableList<Member> memberObservableList = FXCollections
@@ -505,8 +504,7 @@ public class VIAController implements Initializable, Serializable {
 							@Override
 							public void changed(ObservableValue<? extends String> observable, String previousChoice, String currentChoice)
 							{
-								selectedChoiceForSearchLecturer = currentChoice;
-								switch(selectedChoiceForSearchLecturer)
+								switch(currentChoice)
 								{
 								case "Name": FilteredList<Lecturer> filteredLecturerListByName = new FilteredList<>(dataInLecturerTable, p -> true);
 											 txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
