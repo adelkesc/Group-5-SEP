@@ -86,6 +86,8 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private TextField txtFieldSearchMember;
 	@FXML
+	private ChoiceBox<String> choiceBoxSearchMember = new ChoiceBox<String>(searchMemberChoices);
+	@FXML
 	private TableView<Events> eventsMainTable = new TableView<Events>();
 	private static EventsList el1 = new EventsList();
 	private static ObservableList<Events> data = FXCollections.observableList(el1.getListOfEvents());
@@ -158,7 +160,7 @@ public class VIAController implements Initializable, Serializable {
 		private static String selectedChoiceForSearchLecturer = "";
 		private static LecturerList init = new LecturerList();
 		private static ObservableList<Lecturer> dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
-		private static ObservableList<String> choices = FXCollections.observableArrayList();
+		private static ObservableList<String> searchLecturerChoices = FXCollections.observableArrayList();
 
 	// Lecturer FXML
 	@FXML
@@ -206,17 +208,16 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private TableColumn<Lecturer, String> tableColumnLecturerAdvertReq = new TableColumn<Lecturer, String>();
 	@FXML
-	private ChoiceBox<String> choiceBoxSearchLecturer = new ChoiceBox<String>(choices);
-	private ChoiceBox<String> choiceBoxMemberSearch = new ChoiceBox<String>();
-    //TODO implement Observable list of choices
+	private ChoiceBox<String> choiceBoxSearchLecturer = new ChoiceBox<String>(searchLecturerChoices);
+	
     
     // Necessary initializations for Member
-    private static String selectedChoicesForMemberSearch = "";
-
-	// Necessary initializations for Member
+    private static String selectedChoiceForSearchMember = "";
+    private static ObservableList<String> searchMemberChoices = FXCollections.observableArrayList();
 	private static MemberList list = new MemberList();
 	private static ObservableList<Member> memberObservableList = FXCollections
 			.observableList(list.getListOfMembers());
+	
 	private VIAModel viaModel = new VIAModel(el1, list, init);
 
 	@Override
@@ -446,36 +447,35 @@ public class VIAController implements Initializable, Serializable {
 			}
 		});
 		// Search Member ChioceBox
-				choiceBoxMemberSearch.getItems().addAll("None","Name", "Address", "Email", "Age", "Membership Date");
-				choiceBoxMemberSearch.getSelectionModel().selectFirst();
-				choiceBoxMemberSearch.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
+				choiceBoxSearchMember.getItems().addAll("Search By","Name", "Address", "Email", "Age", "Membership Date");
+				choiceBoxSearchMember.getSelectionModel().selectFirst();
+				choiceBoxSearchMember.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
 						{
 							@Override
-					public void changed(ObservableValue<? extends String> observable, String previousChoice, String currentChoice)
+					public void changed(ObservableValue<? extends String> observableMember, String previousChoiceMember, String currentChoiceMember)
 					{
-						selectedChoicesForMemberSearch = currentChoice;
-						switch(selectedChoicesForMemberSearch)
+						switch(currentChoiceMember)
 						{
-						case "Name": FilteredList<Member> filteredMemberName = new FilteredList<>(memberObservableList, p -> true);
-						txtFieldSearchMember.textProperty().addListener((observable2, oldValue, newValue) ->
+						case "Name": FilteredList<Member> filteredMemberListByName = new FilteredList<>(memberObservableList, p -> true);
+						txtFieldSearchMember.textProperty().addListener((observableMember2, oldValueMember, newValueMember) ->
 									 {
-										 filteredMemberName.setPredicate(member ->
+										 filteredMemberListByName.setPredicate(member ->
 										 {
-											 if (newValue == null || newValue.isEmpty())
+											 if (newValueMember == null || newValueMember.isEmpty())
 											 {
 												 return true;
 											 }
-											 String lowerCaseFilter = newValue.toLowerCase();
-											 if (member.getName().toLowerCase().contains(lowerCaseFilter))
+											 String lowerCaseMemberFilter = newValueMember.toLowerCase();
+											 if (member.getName().toLowerCase().contains(lowerCaseMemberFilter))
 											 {
 												 return true;
 											 }
 											 return false;
 										 });
 									 });
-									 SortedList<Member> sortedMemberName = new SortedList<>(filteredMemberName);
-									 sortedMemberName.comparatorProperty().bind(tableMemberView.comparatorProperty());
-									 tableMemberView.setItems(sortedMemberName); break;
+									 SortedList<Member> sortedMemberListByName = new SortedList<>(filteredMemberListByName);
+									 sortedMemberListByName.comparatorProperty().bind(tableMemberView.comparatorProperty());
+									 tableMemberView.setItems(sortedMemberListByName); break;
 						}
 						}
 							});
@@ -636,7 +636,7 @@ public class VIAController implements Initializable, Serializable {
 				txtFieldAddMemberAddress.getText(), txtFieldAddMemberTel.getText(), txtFieldAddMemberEmail.getText(),
 				txtFieldAddMemberCoursePref.getText(), txtFieldAddMemberMembPay.getText());
 		memberObservableList.add(newMember);
-		JOptionPane.showMessageDialog(null, "New Member has been added");
+		JOptionPane.showMessageDialog(null, "Member added sucessfully!");
 	}
 
 	public void deleteMember(ActionEvent event) {
@@ -646,9 +646,7 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void addLect(ActionEvent event) {
-		if (!(selectedRadioButton.equals("Yes"))) {
-			selectedRadioButton = "No";
-		}
+		if (!(selectedRadioButton.equals("Yes"))) selectedRadioButton = "No";
 		Lecturer newLecturer = new Lecturer(txtFieldAddLecturerName.getText(), txtFieldAddLecturerEmail.getText(),
 				txtFieldAddLecturerCourseSpec.getText(), txtFieldAddLecturerTelNumber.getText(), selectedRadioButton);
 		dataInLecturerTable.add(newLecturer);
