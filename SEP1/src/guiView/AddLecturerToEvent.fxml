@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="mainAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="696.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiView.VIAController">
+   <children>
+      <Button fx:id="btnGoBackToCreateEvent" layoutX="969.0" layoutY="621.0" mnemonicParsing="false" onAction="#toAddEventScene" text="Back" />
+      <TextField fx:id="txtFieldSearchLecturer" layoutX="26.0" layoutY="14.0" onMouseClicked="#deletetheTextInsideOfTheSearchLecturerTextField" text="Search" />
+      <ChoiceBox fx:id="choiceBoxSearchLecturer" layoutX="227.0" layoutY="14.0" prefWidth="150.0" />
+      <TableView fx:id="tableViewLecturer" layoutX="26.0" layoutY="60.0" prefHeight="548.0" prefWidth="985.0">
+        <columns>
+          <TableColumn fx:id="tableColumnLecturerName" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="tableColumnLecturerEmail" prefWidth="75.0" text="E-Mail" />
+            <TableColumn fx:id="tableColumnLecturerCourseSpecification" prefWidth="126.0" text="Course Specification" />
+            <TableColumn fx:id="tableColumnLecturerTelNumber" prefWidth="75.0" text="Tel. Number" />
+            <TableColumn fx:id="tableColumnLecturerAdvertReq" prefWidth="167.0" text="Advertisement Requirement" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnAddLecturerToTheEvent" disable="false" layoutX="26.0" layoutY="628.0" mnemonicParsing="false" onAction="#addLecturerToEvent" text="Add Lecturer to the event" />
+   </children>
+</AnchorPane>
