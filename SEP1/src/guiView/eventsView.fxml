@@ -7,22 +7,21 @@
 <AnchorPane fx:id="mainAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="696.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiView.VIAController">
    <children>
       <Button fx:id="goBack" layoutX="974.0" layoutY="628.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
-      <TextField fx:id="txtFieldSearchEvent" layoutX="26.0" layoutY="14.0" text="Search" onMouseClicked ="#deletetheTextInsideOfTheSearchEventTextField" />
+      <TextField fx:id="txtFieldSearchEvent" layoutX="26.0" layoutY="14.0" onMouseClicked="#deletetheTextInsideOfTheSearchEventTextField" text="Search" />
       <ChoiceBox layoutX="227.0" layoutY="14.0" prefWidth="150.0" />
       <TableView fx:id="eventsMainTable" layoutX="26.0" layoutY="60.0" prefHeight="548.0" prefWidth="989.0">
         <columns>
-          <TableColumn fx:id="eventTableCol1" prefWidth="75.0" text="Name" />
-          <TableColumn fx:id="eventTableCol2" prefWidth="75.0" text="Date" />
-            <TableColumn fx:id="eventTableCol3" prefWidth="75.0" text="Duration" />
-            <TableColumn fx:id="eventTableCol4" prefWidth="75.0" text="Type" />
-            <TableColumn fx:id="eventTableCol5" prefWidth="75.0" text="Location" />
-            <TableColumn fx:id="eventTableCol6" prefWidth="75.0" text="Category" />
-            <TableColumn fx:id="eventTableCol7" prefWidth="95.0" text="Conductor" />
-            <TableColumn fx:id="eventTableCol8" prefWidth="75.0" text="Price" />
-            <TableColumn fx:id="eventTableCol9" prefWidth="75.0" text="Status" />
-            <TableColumn fx:id="eventTableCol10" prefWidth="105.0" text="Min Partic." />
-            <TableColumn fx:id="eventTableCol11" prefWidth="97.0" text="Max Partic." />
-            <TableColumn fx:id="eventTableCol12" prefWidth="92.0" text="Is Finalized" />
+          <TableColumn fx:id="eventTableCol1" prefWidth="115.0" text="Name" />
+          <TableColumn fx:id="eventTableCol2" prefWidth="84.0" text="Date" />
+            <TableColumn fx:id="eventTableCol3" prefWidth="83.0" text="Duration" />
+            <TableColumn fx:id="eventTableCol4" prefWidth="76.0" text="Type" />
+            <TableColumn fx:id="eventTableCol5" prefWidth="67.0" text="Location" />
+            <TableColumn fx:id="eventTableCol6" prefWidth="87.0" text="Category" />
+            <TableColumn fx:id="eventTableCol7" prefWidth="143.0" text="Conductor" />
+            <TableColumn fx:id="eventTableCol8" prefWidth="61.0" text="Price" />
+            <TableColumn fx:id="eventTableCol9" prefWidth="87.0" text="Min Partic." />
+            <TableColumn fx:id="eventTableCol10" prefWidth="91.0" text="Max Partic." />
+            <TableColumn fx:id="eventTableCol11" prefWidth="94.0" text="Is Finalized" />
         </columns>
       </TableView>
       <Button layoutX="26.0" layoutY="628.0" mnemonicParsing="false" onAction="#toAddEventScene" text="Add New" />
