@@ -84,6 +84,8 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private TextField txtFieldAddMemberMembPay;
 	@FXML
+	private TextField txtFieldSearchMember;
+	@FXML
 	private TableView<Events> eventsMainTable = new TableView<Events>();
 	private static EventsList el1 = new EventsList();
 	private static ObservableList<Events> data = FXCollections.observableList(el1.getListOfEvents());
@@ -130,6 +132,8 @@ public class VIAController implements Initializable, Serializable {
 	@FXML
 	private TextField addEventMaxPartic;
 	@FXML
+	private TextField txtFieldSearchEvent;
+	@FXML
 	private Button eventsDeleteButton = new Button();
 
 	// main page FXML
@@ -149,6 +153,7 @@ public class VIAController implements Initializable, Serializable {
 	private Button btnMainPageLect;
 	@FXML
 	private Button btnMainPageMemb;
+
 	
 	// Necessary initializations for Lecturer
 		private String selectedRadioButton = "";
@@ -204,6 +209,11 @@ public class VIAController implements Initializable, Serializable {
 	private TableColumn<Lecturer, String> tableColumnLecturerAdvertReq = new TableColumn<Lecturer, String>();
 	@FXML
 	private ChoiceBox<String> choiceBoxSearchLecturer = new ChoiceBox<String>(choices);
+	private ChoiceBox<String> choiceBoxMemberSearch = new ChoiceBox<String>();
+    //TODO implement Observable list of choices
+    
+    // Necessary initializations for Member
+    private static String selectedChoicesForMemberSearch = "";
 
 	// Necessary initializations for Member
 	private static MemberList list = new MemberList();
@@ -213,18 +223,6 @@ public class VIAController implements Initializable, Serializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		choiceBoxSearchLecturer.getItems().addAll("None", "Name", "Email", "Course Specification",
-				"Advertisement Requirement");
-		choiceBoxSearchLecturer.getSelectionModel().selectFirst();
-		choiceBoxSearchLecturer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String previousChoice,
-					String currentChoice) {
-				selectedChoiceForSearchLecturer = currentChoice;
-			}
-		});
-
-
 		eventTableCol1.setCellValueFactory(new PropertyValueFactory<Events, String>("name"));
 		eventTableCol2.setCellValueFactory(new PropertyValueFactory<Events, String>("date"));
 		eventTableCol3.setCellValueFactory(new PropertyValueFactory<Events, String>("duration"));
@@ -464,105 +462,138 @@ public class VIAController implements Initializable, Serializable {
 				selectedRadioButton = check.getText();
 			}
 		});
-		
-		//Listener for Search Lecturer ChoiceBox
-		choiceBoxSearchLecturer.getItems().addAll("None", "Name", "Email", "Course Specification", "Advertisement Requirement");
-		choiceBoxSearchLecturer.getSelectionModel().selectFirst();
-		choiceBoxSearchLecturer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
-				{
-					@Override
+		// Search Member ChioceBox
+				choiceBoxMemberSearch.getItems().addAll("None","Name", "Address", "Email", "Age", "Membership Date");
+				choiceBoxMemberSearch.getSelectionModel().selectFirst();
+				choiceBoxMemberSearch.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
+						{
+							@Override
 					public void changed(ObservableValue<? extends String> observable, String previousChoice, String currentChoice)
 					{
-						selectedChoiceForSearchLecturer = currentChoice;
-						switch(selectedChoiceForSearchLecturer)
+						selectedChoicesForMemberSearch = currentChoice;
+						switch(selectedChoicesForMemberSearch)
 						{
-						case "Name": FilteredList<Lecturer> filteredLecturerListByName = new FilteredList<>(dataInLecturerTable, p -> true);
-									 txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
+						case "Name": FilteredList<Member> filteredMemberName = new FilteredList<>(memberObservableList, p -> true);
+						txtFieldSearchMember.textProperty().addListener((observable2, oldValue, newValue) ->
 									 {
-										 filteredLecturerListByName.setPredicate(lecturer ->
+										 filteredMemberName.setPredicate(member ->
 										 {
 											 if (newValue == null || newValue.isEmpty())
 											 {
 												 return true;
 											 }
 											 String lowerCaseFilter = newValue.toLowerCase();
-											 if (lecturer.getName().toLowerCase().contains(lowerCaseFilter))
+											 if (member.getName().toLowerCase().contains(lowerCaseFilter))
 											 {
 												 return true;
 											 }
 											 return false;
 										 });
 									 });
-									 SortedList<Lecturer> sortedDataByName = new SortedList<>(filteredLecturerListByName);
-									 sortedDataByName.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
-									 tableViewLecturer.setItems(sortedDataByName); break;
-									 
-						case "Email":FilteredList<Lecturer> filteredLecturerListByEmail = new FilteredList<>(dataInLecturerTable, p -> true);
-						 			txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
-						 			{
-						 				filteredLecturerListByEmail.setPredicate(lecturer ->
-						 				{
-						 					if (newValue == null || newValue.isEmpty())
-						 					{
-						 						return true;
-						 					}
-						 					String lowerCaseFilter = newValue.toLowerCase();
-						 					if (lecturer.getEmail().toLowerCase().contains(lowerCaseFilter))
-						 					{
-						 						return true;
-						 					}
-						 					return false;
-						 				});
-						 			});
-						 SortedList<Lecturer> sortedDataByEmail = new SortedList<>(filteredLecturerListByEmail);
-						 sortedDataByEmail.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
-						 tableViewLecturer.setItems(sortedDataByEmail); break;
-						 
-						case "Course Specification": FilteredList<Lecturer> filteredLecturerListByCourseSpecification = new FilteredList<>(dataInLecturerTable, p -> true);
-			 										 txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
-			 										 {
-			 											 filteredLecturerListByCourseSpecification.setPredicate(lecturer ->
-			 											 {
-			 												 if (newValue == null || newValue.isEmpty())
-			 												 {
-			 													 return true;
-			 												 }
-			 												 String lowerCaseFilter = newValue.toLowerCase();
-			 												 if (lecturer.getCourseSpec().toLowerCase().contains(lowerCaseFilter))
-			 												 {
-			 													 return true;
-			 												 }
-			 												 return false;
-			 											 });
-			 										 });
-			 										 SortedList<Lecturer> sortedDataByCourseSpecification = new SortedList<>(filteredLecturerListByCourseSpecification);
-			 										 sortedDataByCourseSpecification.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
-			 										 tableViewLecturer.setItems(sortedDataByCourseSpecification); break;	
-			 										 
-						case "Advertisement Requirement": FilteredList<Lecturer> filteredLecturerListByAdvertisementRequirement = new FilteredList<>(dataInLecturerTable, p -> true);
-			 											  txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
-			 											  {
-			 												  filteredLecturerListByAdvertisementRequirement.setPredicate(lecturer ->
-			 												  {
-			 													  if (newValue == null || newValue.isEmpty())
-			 													  {
-			 														  return true;
-			 													  }
-			 													  String lowerCaseFilter = newValue.toLowerCase();
-			 													  if (lecturer.getAdvertReq().toLowerCase().contains(lowerCaseFilter))
-			 													  {
-			 														  return true;
-			 													  }
-			 													  return false;
-			 												  });
-			 											  });
-			 											  SortedList<Lecturer> sortedDataByAdvertisementRequirement = new SortedList<>(filteredLecturerListByAdvertisementRequirement);
-			 											  sortedDataByAdvertisementRequirement.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
-			 											  tableViewLecturer.setItems(sortedDataByAdvertisementRequirement); break;							 
-						default: System.out.println("It is not working!");			 
+									 SortedList<Member> sortedMemberName = new SortedList<>(filteredMemberName);
+									 sortedMemberName.comparatorProperty().bind(tableMemberView.comparatorProperty());
+									 tableMemberView.setItems(sortedMemberName); break;
 						}
-					}
-				});
+						}
+							});
+		
+		//Listener for Search Lecturer ChoiceBox
+				choiceBoxSearchLecturer.getItems().addAll("Search By", "Name", "Email", "Course Specification", "Advertisement Requirement");
+				choiceBoxSearchLecturer.getSelectionModel().selectFirst();
+				choiceBoxSearchLecturer.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
+						{
+							@Override
+							public void changed(ObservableValue<? extends String> observable, String previousChoice, String currentChoice)
+							{
+								selectedChoiceForSearchLecturer = currentChoice;
+								switch(selectedChoiceForSearchLecturer)
+								{
+								case "Name": FilteredList<Lecturer> filteredLecturerListByName = new FilteredList<>(dataInLecturerTable, p -> true);
+											 txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
+											 {
+												 filteredLecturerListByName.setPredicate(lecturer ->
+												 {
+													 if (newValue == null || newValue.isEmpty())
+													 {
+														 return true;
+													 }
+													 String lowerCaseFilter = newValue.toLowerCase();
+													 if (lecturer.getName().toLowerCase().contains(lowerCaseFilter))
+													 {
+														 return true;
+													 }
+													 return false;
+												 });
+											 });
+											 SortedList<Lecturer> sortedDataByName = new SortedList<>(filteredLecturerListByName);
+											 sortedDataByName.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
+											 tableViewLecturer.setItems(sortedDataByName); break;
+											 
+								case "Email":FilteredList<Lecturer> filteredLecturerListByEmail = new FilteredList<>(dataInLecturerTable, p -> true);
+								 			txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
+								 			{
+								 				filteredLecturerListByEmail.setPredicate(lecturer ->
+								 				{
+								 					if (newValue == null || newValue.isEmpty())
+								 					{
+								 						return true;
+								 					}
+								 					String lowerCaseFilter = newValue.toLowerCase();
+								 					if (lecturer.getEmail().toLowerCase().contains(lowerCaseFilter))
+								 					{
+								 						return true;
+								 					}
+								 					return false;
+								 				});
+								 			});
+								 SortedList<Lecturer> sortedDataByEmail = new SortedList<>(filteredLecturerListByEmail);
+								 sortedDataByEmail.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
+								 tableViewLecturer.setItems(sortedDataByEmail); break;
+								 
+								case "Course Specification": FilteredList<Lecturer> filteredLecturerListByCourseSpecification = new FilteredList<>(dataInLecturerTable, p -> true);
+					 										 txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
+					 										 {
+					 											 filteredLecturerListByCourseSpecification.setPredicate(lecturer ->
+					 											 {
+					 												 if (newValue == null || newValue.isEmpty())
+					 												 {
+					 													 return true;
+					 												 }
+					 												 String lowerCaseFilter = newValue.toLowerCase();
+					 												 if (lecturer.getCourseSpec().toLowerCase().contains(lowerCaseFilter))
+					 												 {
+					 													 return true;
+					 												 }
+					 												 return false;
+					 											 });
+					 										 });
+					 										 SortedList<Lecturer> sortedDataByCourseSpecification = new SortedList<>(filteredLecturerListByCourseSpecification);
+					 										 sortedDataByCourseSpecification.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
+					 										 tableViewLecturer.setItems(sortedDataByCourseSpecification); break;	
+					 										 
+								case "Advertisement Requirement": FilteredList<Lecturer> filteredLecturerListByAdvertisementRequirement = new FilteredList<>(dataInLecturerTable, p -> true);
+					 											  txtFieldSearchLecturer.textProperty().addListener((observable2, oldValue, newValue) ->
+					 											  {
+					 												  filteredLecturerListByAdvertisementRequirement.setPredicate(lecturer ->
+					 												  {
+					 													  if (newValue == null || newValue.isEmpty())
+					 													  {
+					 														  return true;
+					 													  }
+					 													  String lowerCaseFilter = newValue.toLowerCase();
+					 													  if (lecturer.getAdvertReq().toLowerCase().contains(lowerCaseFilter))
+					 													  {
+					 														  return true;
+					 													  }
+					 													  return false;
+					 												  });
+					 											  });
+					 											  SortedList<Lecturer> sortedDataByAdvertisementRequirement = new SortedList<>(filteredLecturerListByAdvertisementRequirement);
+					 											  sortedDataByAdvertisementRequirement.comparatorProperty().bind(tableViewLecturer.comparatorProperty());
+					 											  tableViewLecturer.setItems(sortedDataByAdvertisementRequirement); break;			 
+								}
+							}
+						});
 	}
 
 	public void toEventsScene() throws IOException {
@@ -632,6 +663,9 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void addLect(ActionEvent event) {
+		if (!(selectedRadioButton.equals("Yes"))) {
+			selectedRadioButton = "No";
+		}
 		Lecturer newLecturer = new Lecturer(txtFieldAddLecturerName.getText(), txtFieldAddLecturerEmail.getText(),
 				txtFieldAddLecturerCourseSpec.getText(), txtFieldAddLecturerTelNumber.getText(), selectedRadioButton);
 		dataInLecturerTable.add(newLecturer);
@@ -678,4 +712,19 @@ public class VIAController implements Initializable, Serializable {
 		}
 		viaModel.setEventList(eventsList1);
 	}
+	public void deletetheTextInsideOfTheSearchEventTextField()
+    {
+        txtFieldSearchEvent.setText("");
+    }
+    
+    public void deletetheTextInsideOfTheSearchLecturerTextField()
+    {
+        txtFieldSearchLecturer.setText("");
+    }
+    
+    public void deletetheTextInsideOfTheSearchMemberTextField()
+    {
+        txtFieldSearchMember.setText("");
+    }
+	
 }
