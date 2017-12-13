@@ -464,7 +464,7 @@ public class VIAController implements Initializable, Serializable {
 			}
 		});
 		// Search Member ChioceBox
-				choiceBoxSearchMember.getItems().addAll("Search By","Name", "Address", "Email", "Age", "Membership Date");
+				choiceBoxSearchMember.getItems().addAll("Search By","Name", "Address", "Email", "Age", "Membership Payment");
 				choiceBoxSearchMember.getSelectionModel().selectFirst();
 				choiceBoxSearchMember.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
 						{
@@ -493,6 +493,93 @@ public class VIAController implements Initializable, Serializable {
 									 SortedList<Member> sortedMemberListByName = new SortedList<>(filteredMemberListByName);
 									 sortedMemberListByName.comparatorProperty().bind(tableMemberView.comparatorProperty());
 									 tableMemberView.setItems(sortedMemberListByName); break;
+									 
+						case "Address": FilteredList<Member> filteredMemberListByAddress = new FilteredList<>(memberObservableList, p -> true);
+						txtFieldSearchMember.textProperty().addListener((observableMember2, oldValueMember, newValueMember) ->
+									 {
+										 filteredMemberListByAddress.setPredicate(member ->
+										 {
+											 if (newValueMember == null || newValueMember.isEmpty())
+											 {
+												 return true;
+											 }
+											 String lowerCaseMemberFilter = newValueMember.toLowerCase();
+											 if (member.getAddress().toLowerCase().contains(lowerCaseMemberFilter))
+											 {
+												 return true;
+											 }
+											 return false;
+											 
+										 });
+									 });
+									 SortedList<Member> sortedMemberListByAddress = new SortedList<>(filteredMemberListByAddress);
+									 sortedMemberListByAddress.comparatorProperty().bind(tableMemberView.comparatorProperty());
+									 tableMemberView.setItems(sortedMemberListByAddress); break;
+									 
+						case "Email": FilteredList<Member> filteredMemberListByEmail = new FilteredList<>(memberObservableList, p -> true);
+						txtFieldSearchMember.textProperty().addListener((observableMember2, oldValueMember, newValueMember) ->
+									 {
+										 filteredMemberListByEmail.setPredicate(member ->
+										 {
+											 if (newValueMember == null || newValueMember.isEmpty())
+											 {
+												 return true;
+											 }
+											 String lowerCaseMemberFilter = newValueMember.toLowerCase();
+											 if (member.getEmail().toLowerCase().contains(lowerCaseMemberFilter))
+											 {
+												 return true;
+											 }
+											 return false;
+											 
+										 });
+									 });
+									 SortedList<Member> sortedMemberListByEmail = new SortedList<>(filteredMemberListByEmail);
+									 sortedMemberListByEmail.comparatorProperty().bind(tableMemberView.comparatorProperty());
+									 tableMemberView.setItems(sortedMemberListByEmail); break;
+						case "Age": FilteredList<Member> filteredMemberListByAge = new FilteredList<>(memberObservableList, p -> true);
+						txtFieldSearchMember.textProperty().addListener((observableMember2, oldValueMember, newValueMember) ->
+									 {
+										 filteredMemberListByAge.setPredicate(member ->
+										 {
+											 if (newValueMember == null || newValueMember.isEmpty())
+											 {
+												 return true;
+											 }
+											 String lowerCaseMemberFilter = newValueMember.toLowerCase();
+											 if (member.getAge().toLowerCase().contains(lowerCaseMemberFilter))
+											 {
+												 return true;
+											 }
+											 return false;
+											 
+										 });
+									 });
+									 SortedList<Member> sortedMemberListByAge = new SortedList<>(filteredMemberListByAge);
+									 sortedMemberListByAge.comparatorProperty().bind(tableMemberView.comparatorProperty());
+									 tableMemberView.setItems(sortedMemberListByAge); break;
+									 
+						case "Membership Payment": FilteredList<Member> filteredMemberListByMembPay = new FilteredList<>(memberObservableList, p -> true);
+						txtFieldSearchMember.textProperty().addListener((observableMember2, oldValueMember, newValueMember) ->
+									 {
+										 filteredMemberListByMembPay.setPredicate(member ->
+										 {
+											 if (newValueMember == null || newValueMember.isEmpty())
+											 {
+												 return true;
+											 }
+											 String lowerCaseMemberFilter = newValueMember.toLowerCase();
+											 if (member.getEmail().toLowerCase().contains(lowerCaseMemberFilter))
+											 {
+												 return true;
+											 }
+											 return false;
+											 
+										 });
+									 });
+									 SortedList<Member> sortedMemberListByMembPay = new SortedList<>(filteredMemberListByMembPay);
+									 sortedMemberListByMembPay.comparatorProperty().bind(tableMemberView.comparatorProperty());
+									 tableMemberView.setItems(sortedMemberListByMembPay); break;
 						}
 						}
 							});
