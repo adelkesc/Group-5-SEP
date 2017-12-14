@@ -30,6 +30,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 
 /**
  * VIAController - Handles all actions on the user interface.
@@ -241,6 +242,7 @@ public class VIAController implements Initializable, Serializable {
 	private static ObservableList<Member> memberObservableList = FXCollections.observableList(list.getListOfMembers());
 
 	private VIAModel viaModel = new VIAModel(eventsList1, list, init);
+	static Paint value0 = Paint.valueOf("F28697");
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -775,7 +777,8 @@ public class VIAController implements Initializable, Serializable {
 				}
 			}
 		});
-
+		txtFieldAddLecturerToTheEvent.setOpacity(1.0);
+		txtFieldAddLecturerToTheEvent.setStyle("-fx-control-inner-background: #"+value0.toString().substring(2));
 	}
 
 	/**
@@ -842,7 +845,7 @@ public class VIAController implements Initializable, Serializable {
 	 * @throws IOException
 	 */
 	public void goBack() throws IOException {
-		nameOfTheChosenLecturer = "";
+		value0 = Paint.valueOf("F28697");
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("viamain.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
@@ -891,6 +894,7 @@ public class VIAController implements Initializable, Serializable {
 	 * @throws IOException
 	 */
 	public void toAddEventScene() throws IOException {
+		value0 = Paint.valueOf("F28697");
 		nameOfTheChosenLecturer = "";
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("addNewEvent.fxml"));
 		mainAnchor.getChildren().setAll(pane);
@@ -1081,6 +1085,7 @@ public class VIAController implements Initializable, Serializable {
 	 * @see javafx.scene.control.TableView, javafx.scene.layout.AnchorPane
 	 */
 	public void addLecturerToEvent() throws IOException {
+		value0 = Paint.valueOf("92fcb7");
 		nameOfTheChosenLecturer = tableViewLecturer.getSelectionModel().getSelectedItem().getName();
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("addNewEvent.fxml"));
 		mainAnchor.getChildren().setAll(pane);
