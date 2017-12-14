@@ -89,12 +89,12 @@ public class VIAController implements Initializable, Serializable {
 	private ChoiceBox<String> choiceBoxSearchMember = new ChoiceBox<String>(searchMemberChoices);
 	@FXML
 	private TableView<Events> eventsMainTable = new TableView<Events>();
-	
+
 	// Necessary intialisations for Event
 	private static EventsList el1 = new EventsList();
 	private static ObservableList<Events> data = FXCollections.observableList(el1.getListOfEvents());
 	private static ObservableList<String> searchEventChoices = FXCollections.observableArrayList();
-	
+
 	@FXML
 	private Label txtLabelAddLecturerToTheEvent;
 	@FXML
@@ -173,16 +173,17 @@ public class VIAController implements Initializable, Serializable {
 	private Button btnMainPageMemb;
 
 	// Necessary initializations for Lecturer
-		private static String nameOfTheChosenLecturer = "";
-		private String selectedRadioButton = "";
-		private static LecturerList init = new LecturerList();
-		private static ObservableList<Lecturer> dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
-		private static ObservableList<String> searchLecturerChoices = FXCollections.observableArrayList();
-		private static boolean setEditable = true;
+	private static String nameOfTheChosenLecturer = "";
+	private String selectedRadioButton = "";
+	private static LecturerList init = new LecturerList();
+	private static ObservableList<Lecturer> dataInLecturerTable = FXCollections
+			.observableList(init.getListOfLecturers());
+	private static ObservableList<String> searchLecturerChoices = FXCollections.observableArrayList();
+	private static boolean setEditable = true;
 
 	// Lecturer FXML
-		@FXML
-		private TextField txtFieldAddLecturerToTheEvent = new TextField();
+	@FXML
+	private TextField txtFieldAddLecturerToTheEvent = new TextField();
 	@FXML
 	private Label txtLabelAddLecturerName;
 	@FXML
@@ -237,7 +238,6 @@ public class VIAController implements Initializable, Serializable {
 
 	private VIAModel viaModel = new VIAModel(el1, list, init);
 
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		txtFieldAddLecturerToTheEvent.setText(nameOfTheChosenLecturer);
@@ -257,9 +257,9 @@ public class VIAController implements Initializable, Serializable {
 		eventsDeleteButton.disableProperty()
 				.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
 		btnAddMemberToEvent.disableProperty()
-		.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
+				.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
 		btnFinalizeEvent.disableProperty()
-		.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
+				.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
 
 		eventTableCol1.setCellFactory(TextFieldTableCell.forTableColumn());
 		eventTableCol1.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
@@ -395,7 +395,8 @@ public class VIAController implements Initializable, Serializable {
 		// Creating and populating Lecturer table
 		tableColumnLecturerName.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("name"));
 		tableColumnLecturerEmail.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("email"));
-		tableColumnLecturerCourseSpecification.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("courseSpec"));
+		tableColumnLecturerCourseSpecification
+				.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("courseSpec"));
 		tableColumnLecturerTelNumber.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("telNumber"));
 		tableColumnLecturerAdvertReq.setCellValueFactory(new PropertyValueFactory<Lecturer, String>("advertReq"));
 		tableViewLecturer.setItems(dataInLecturerTable);
@@ -594,86 +595,82 @@ public class VIAController implements Initializable, Serializable {
 				switch (currentChoiceEvent) {
 				case "Name":
 					FilteredList<Events> filteredEventListByName = new FilteredList<>(data, p -> true);
-					txtFieldSearchEvent.textProperty()
-							.addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
-								filteredEventListByName.setPredicate(events -> {
-									if (newValueEvent == null || newValueEvent.isEmpty()) {
-										return true;
-									}
-									String lowerCaseEventFilter = newValueEvent.toLowerCase();
-									if (events.getName().toLowerCase().contains(lowerCaseEventFilter)) {
-										return true;
-									}
-									return false;
-								});
-							});
+					txtFieldSearchEvent.textProperty().addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
+						filteredEventListByName.setPredicate(events -> {
+							if (newValueEvent == null || newValueEvent.isEmpty()) {
+								return true;
+							}
+							String lowerCaseEventFilter = newValueEvent.toLowerCase();
+							if (events.getName().toLowerCase().contains(lowerCaseEventFilter)) {
+								return true;
+							}
+							return false;
+						});
+					});
 					SortedList<Events> sortedEventListByName = new SortedList<>(filteredEventListByName);
 					sortedEventListByName.comparatorProperty().bind(eventsMainTable.comparatorProperty());
 					eventsMainTable.setItems(sortedEventListByName);
 					break;
-					
+
 				case "Type":
 					FilteredList<Events> filteredEventListByType = new FilteredList<>(data, p -> true);
-					txtFieldSearchEvent.textProperty()
-							.addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
-								filteredEventListByType.setPredicate(events -> {
-									if (newValueEvent == null || newValueEvent.isEmpty()) {
-										return true;
-									}
-									String lowerCaseEventFilter = newValueEvent.toLowerCase();
-									if (events.getType().toLowerCase().contains(lowerCaseEventFilter)) {
-										return true;
-									}
-									return false;
-								});
-							});
+					txtFieldSearchEvent.textProperty().addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
+						filteredEventListByType.setPredicate(events -> {
+							if (newValueEvent == null || newValueEvent.isEmpty()) {
+								return true;
+							}
+							String lowerCaseEventFilter = newValueEvent.toLowerCase();
+							if (events.getType().toLowerCase().contains(lowerCaseEventFilter)) {
+								return true;
+							}
+							return false;
+						});
+					});
 					SortedList<Events> sortedEventListByType = new SortedList<>(filteredEventListByType);
 					sortedEventListByType.comparatorProperty().bind(eventsMainTable.comparatorProperty());
 					eventsMainTable.setItems(sortedEventListByType);
 					break;
-					
+
 				case "Category":
 					FilteredList<Events> filteredEventListByCategory = new FilteredList<>(data, p -> true);
-					txtFieldSearchEvent.textProperty()
-							.addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
-								filteredEventListByCategory.setPredicate(events -> {
-									if (newValueEvent == null || newValueEvent.isEmpty()) {
-										return true;
-									}
-									String lowerCaseEventFilter = newValueEvent.toLowerCase();
-									if (events.getCategory().toLowerCase().contains(lowerCaseEventFilter)) {
-										return true;
-									}
-									return false;
-								});
-							});
+					txtFieldSearchEvent.textProperty().addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
+						filteredEventListByCategory.setPredicate(events -> {
+							if (newValueEvent == null || newValueEvent.isEmpty()) {
+								return true;
+							}
+							String lowerCaseEventFilter = newValueEvent.toLowerCase();
+							if (events.getCategory().toLowerCase().contains(lowerCaseEventFilter)) {
+								return true;
+							}
+							return false;
+						});
+					});
 					SortedList<Events> sortedEventListByCategory = new SortedList<>(filteredEventListByCategory);
 					sortedEventListByCategory.comparatorProperty().bind(eventsMainTable.comparatorProperty());
 					eventsMainTable.setItems(sortedEventListByCategory);
 					break;
-	
+
 				case "is-Finalized":
 					FilteredList<Events> filteredEventListByIsFinalized = new FilteredList<>(data, p -> true);
-					txtFieldSearchEvent.textProperty()
-							.addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
-								filteredEventListByIsFinalized.setPredicate(events -> {
-									if (newValueEvent == null || newValueEvent.isEmpty()) {
-										return true;
-									}
-									String lowerCaseEventFilter = newValueEvent.toLowerCase();
-									if (events.getisFinalized().toLowerCase().contains(lowerCaseEventFilter)) {
-										return true;
-									}
-									return false;
-								});
-							});
+					txtFieldSearchEvent.textProperty().addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
+						filteredEventListByIsFinalized.setPredicate(events -> {
+							if (newValueEvent == null || newValueEvent.isEmpty()) {
+								return true;
+							}
+							String lowerCaseEventFilter = newValueEvent.toLowerCase();
+							if (events.getisFinalized().toLowerCase().contains(lowerCaseEventFilter)) {
+								return true;
+							}
+							return false;
+						});
+					});
 					SortedList<Events> sortedEventListByIsFinalized = new SortedList<>(filteredEventListByIsFinalized);
 					sortedEventListByIsFinalized.comparatorProperty().bind(eventsMainTable.comparatorProperty());
 					eventsMainTable.setItems(sortedEventListByIsFinalized);
 					break;
 				}
-				}
-			});
+			}
+		});
 
 		// Listener for Search Lecturer ChoiceBox
 		choiceBoxSearchLecturer.getItems().addAll("Search By", "Name", "Email", "Course Specification",
@@ -770,10 +767,11 @@ public class VIAController implements Initializable, Serializable {
 				}
 			}
 		});
-		
+
 	}
 
 	public void toEventsScene() throws IOException {
+		nameOfTheChosenLecturer = "";
 		VIAView viaView1 = new VIAView();
 		viaModel = viaView1.viaModFromFile();
 		el1 = viaModel.getEventList();
@@ -801,6 +799,7 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void goBack() throws IOException {
+		nameOfTheChosenLecturer = "";
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("viamain.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
@@ -821,19 +820,20 @@ public class VIAController implements Initializable, Serializable {
 	}
 
 	public void toAddEventScene() throws IOException {
+		nameOfTheChosenLecturer = "";
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("addNewEvent.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
-	
-	public void addLecturerToTheEventScene() throws IOException
-	{
+
+	public void addLecturerToTheEventScene() throws IOException {
 		VIAView viaView1 = new VIAView();
 		viaModel = viaView1.viaModFromFile();
 		init = viaModel.getLecturerList();
 		dataInLecturerTable = FXCollections.observableList(init.getListOfLecturers());
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("AddLecturerToEvent.fxml"));
 		mainAnchor.getChildren().setAll(pane);
-		btnAddLecturerToTheEvent.disableProperty().bind(Bindings.isEmpty(tableViewLecturer.getSelectionModel().getSelectedItems()));
+		btnAddLecturerToTheEvent.disableProperty()
+				.bind(Bindings.isEmpty(tableViewLecturer.getSelectionModel().getSelectedItems()));
 	}
 
 	public void addMember(ActionEvent event) {
@@ -868,8 +868,8 @@ public class VIAController implements Initializable, Serializable {
 
 	public void addEvent(ActionEvent event) {
 		Events event1 = new Events(addEventName.getText(), addEventDate.getText(), addEventDuration.getText(),
-				addEventType.getText(), addEventLocation.getText(), addEventCategory.getText(), nameOfTheChosenLecturer, addEventPrice.getText(),
-				addEventMinPartic.getText(), addEventMaxPartic.getText(), "false");
+				addEventType.getText(), addEventLocation.getText(), addEventCategory.getText(), nameOfTheChosenLecturer,
+				addEventPrice.getText(), addEventMinPartic.getText(), addEventMaxPartic.getText(), "false");
 		data.add(event1);
 		JOptionPane.showMessageDialog(null, "Event added sucessfully!");
 
@@ -881,14 +881,14 @@ public class VIAController implements Initializable, Serializable {
 		selectedEvent.forEach(allEvents::remove);
 
 	}
+
 	public void finalizeEvent(ActionEvent event) throws IOException {
 		data.get(eventsMainTable.getSelectionModel().getSelectedIndex()).setisFinalized("true");
-		if (data.get(eventsMainTable.getSelectionModel().getSelectedIndex()) != null)
-		{
-		JOptionPane.showMessageDialog(null, "Event Finalized.");
-		toEventsScene();
+		if (data.get(eventsMainTable.getSelectionModel().getSelectedIndex()) != null) {
+			JOptionPane.showMessageDialog(null, "Event Finalized.");
+			toEventsScene();
 		}
-		
+
 	}
 
 	public VIAModel getVIAMod() {
@@ -905,27 +905,26 @@ public class VIAController implements Initializable, Serializable {
 		viaModel.setEventList(eventsList1);
 	}
 
-	public void deletetheTextInsideOfTheSearchEventTextField()
-    {
-        txtFieldSearchEvent.setText("");
-    }
-    
-    public void deletetheTextInsideOfTheSearchLecturerTextField()
-    {
-        txtFieldSearchLecturer.setText("");
-    }
-    
-    public void deletetheTextInsideOfTheSearchMemberTextField()
-    {
-        txtFieldSearchMember.setText("");
-    }
-    
-    public void addLecturerToEvent() throws IOException
-    {
-    	nameOfTheChosenLecturer = tableViewLecturer.getSelectionModel().getSelectedItem().getName();
-    	toAddEventScene();
-    }
-    public void addMemberToEvent() {
-    	JOptionPane.showMessageDialog(null, "No functionality added at this time. Check back later");
-    }
+	public void deletetheTextInsideOfTheSearchEventTextField() {
+		txtFieldSearchEvent.setText("");
+	}
+
+	public void deletetheTextInsideOfTheSearchLecturerTextField() {
+		txtFieldSearchLecturer.setText("");
+	}
+
+	public void deletetheTextInsideOfTheSearchMemberTextField() {
+		txtFieldSearchMember.setText("");
+	}
+
+	public void addLecturerToEvent() throws IOException {
+		nameOfTheChosenLecturer = tableViewLecturer.getSelectionModel().getSelectedItem().getName();
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("addNewEvent.fxml"));
+		mainAnchor.getChildren().setAll(pane);
+
+	}
+
+	public void addMemberToEvent() throws IOException {
+		JOptionPane.showMessageDialog(null, "No functionality added at this time. Check back later");
+	}
 }
