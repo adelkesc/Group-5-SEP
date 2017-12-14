@@ -982,8 +982,8 @@ public class VIAController implements Initializable, Serializable {
 	 */
 	public void deleteLecturer(ActionEvent event) {
 		ObservableList<Lecturer> selectedLecturer = tableViewLecturer.getSelectionModel().getSelectedItems();
-		ObservableList<Lecturer> allLecturers = tableViewLecturer.getItems();
-		selectedLecturer.forEach(allLecturers::remove);
+		//ObservableList<Lecturer> allLecturers = tableViewLecturer.getItems();
+		selectedLecturer.forEach(dataInLecturerTable::remove);
 
 	}
 
