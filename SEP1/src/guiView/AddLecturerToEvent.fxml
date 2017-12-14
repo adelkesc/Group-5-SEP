@@ -11,11 +11,11 @@
       <ChoiceBox fx:id="choiceBoxSearchLecturer" layoutX="227.0" layoutY="14.0" prefWidth="150.0" />
       <TableView fx:id="tableViewLecturer" layoutX="26.0" layoutY="60.0" prefHeight="548.0" prefWidth="985.0">
         <columns>
-          <TableColumn fx:id="tableColumnLecturerName" prefWidth="75.0" text="Name" />
-            <TableColumn fx:id="tableColumnLecturerEmail" prefWidth="75.0" text="E-Mail" />
-            <TableColumn fx:id="tableColumnLecturerCourseSpecification" prefWidth="126.0" text="Course Specification" />
-            <TableColumn fx:id="tableColumnLecturerTelNumber" prefWidth="75.0" text="Tel. Number" />
-            <TableColumn fx:id="tableColumnLecturerAdvertReq" prefWidth="167.0" text="Advertisement Requirement" />
+          <TableColumn fx:id="tableColumnLecturerName" prefWidth="173.0" text="Name" />
+            <TableColumn fx:id="tableColumnLecturerEmail" prefWidth="234.0" text="E-Mail" />
+            <TableColumn fx:id="tableColumnLecturerCourseSpecification" prefWidth="172.0" text="Course Specification" />
+            <TableColumn fx:id="tableColumnLecturerTelNumber" prefWidth="186.0" text="Tel. Number" />
+            <TableColumn fx:id="tableColumnLecturerAdvertReq" prefWidth="219.0" text="Advertisement Requirement" />
         </columns>
       </TableView>
       <Button fx:id="btnAddLecturerToTheEvent" disable="false" layoutX="26.0" layoutY="628.0" mnemonicParsing="false" onAction="#addLecturerToEvent" text="Add Lecturer to the event" />
