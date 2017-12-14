@@ -8,26 +8,26 @@
    <children>
       <Button fx:id="goBack" layoutX="969.0" layoutY="621.0" mnemonicParsing="false" onAction="#toEventsScene" text="Back" />
       <Button layoutX="197.0" layoutY="590.0" mnemonicParsing="false" onAction="#addEvent" text="Save" />
-      <TextField fx:id="addEventName" layoutX="136.0" layoutY="41.0" />
-      <Label layoutX="62.0" layoutY="46.0" text="Name" />
-      <Label layoutX="62.0" layoutY="85.0" text="Date" />
-      <TextField fx:id="addEventDate" layoutX="136.0" layoutY="80.0" />
-      <Label layoutX="62.0" layoutY="126.0" text="Duration" />
-      <TextField fx:id="addEventDuration" layoutX="136.0" layoutY="121.0" />
-      <Label layoutX="62.0" layoutY="171.0" text="Type" />
-      <TextField fx:id="addEventType" layoutX="136.0" layoutY="166.0" />
-      <Label layoutX="62.0" layoutY="215.0" text="Location" />
-      <TextField fx:id="addEventLocation" layoutX="136.0" layoutY="210.0" />
-      <Label layoutX="62.0" layoutY="261.0" text="Category" />
-      <TextField fx:id="addEventCategory" layoutX="136.0" layoutY="256.0" />
-      <Label layoutX="62.0" layoutY="313.0" text="Price" />
-      <TextField fx:id="addEventPrice" layoutX="136.0" layoutY="308.0" />
-      <Label layoutX="14.0" layoutY="361.0" text="Min Participants" />
-      <TextField fx:id="addEventMinPartic" layoutX="136.0" layoutY="356.0" />
-      <Label layoutX="13.0" layoutY="408.0" text="Max Participants" />
-      <TextField fx:id="addEventMaxPartic" layoutX="136.0" layoutY="403.0" />
-      <Button fx:id="btnAddLecturerToEvent" layoutX="14.0" layoutY="452.0" mnemonicParsing="false" onAction="#addLecturerToTheEventScene" text="Add Lecturer to the Event" />
-      <Label fx:id="txtLabelAddLecturerToTheEvent" layoutX="39.0" layoutY="496.0" text="Lecturer:" />
-      <TextField fx:id="txtFieldAddLecturerToTheEvent" editable="true" layoutX="136.0" layoutY="492.0" />
+      <TextField fx:id="addEventName" layoutX="137.0" layoutY="120.0" />
+      <Label layoutX="63.0" layoutY="125.0" text="Name" />
+      <Label layoutX="63.0" layoutY="164.0" text="Date" />
+      <TextField fx:id="addEventDate" layoutX="137.0" layoutY="159.0" />
+      <Label layoutX="63.0" layoutY="205.0" text="Duration" />
+      <TextField fx:id="addEventDuration" layoutX="137.0" layoutY="200.0" />
+      <Label layoutX="63.0" layoutY="250.0" text="Type" />
+      <TextField fx:id="addEventType" layoutX="137.0" layoutY="245.0" />
+      <Label layoutX="63.0" layoutY="294.0" text="Location" />
+      <TextField fx:id="addEventLocation" layoutX="137.0" layoutY="289.0" />
+      <Label layoutX="63.0" layoutY="340.0" text="Category" />
+      <TextField fx:id="addEventCategory" layoutX="137.0" layoutY="335.0" />
+      <Label layoutX="63.0" layoutY="392.0" text="Price" />
+      <TextField fx:id="addEventPrice" layoutX="137.0" layoutY="387.0" />
+      <Label layoutX="15.0" layoutY="440.0" text="Min Participants" />
+      <TextField fx:id="addEventMinPartic" layoutX="137.0" layoutY="435.0" />
+      <Label layoutX="14.0" layoutY="487.0" text="Max Participants" />
+      <TextField fx:id="addEventMaxPartic" layoutX="137.0" layoutY="482.0" />
+      <Button fx:id="btnAddLecturerToEvent" layoutX="332.0" layoutY="79.0" mnemonicParsing="false" onAction="#addLecturerToTheEventScene" text="Add Lecturer to the Event" />
+      <Label fx:id="txtLabelAddLecturerToTheEvent" layoutX="56.0" layoutY="84.0" text="Lecturer" />
+      <TextField fx:id="txtFieldAddLecturerToTheEvent" disable="true" editable="true" layoutX="136.0" layoutY="80.0" />
    </children>
 </AnchorPane>

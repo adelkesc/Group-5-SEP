@@ -31,11 +31,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * VIAController - Handles all actions on the user interface.
+ * 
+ * @Author Kevin Adams, Lukas Zagata, Muhammad Nadeem, Amahdya Delkescamp
+ * @Version Number 1.0, Date 14-12-2017
+ */
 public class VIAController implements Initializable, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@FXML
 	private TableView<Member> tableMemberView = new TableView<Member>();
@@ -91,8 +94,9 @@ public class VIAController implements Initializable, Serializable {
 	private TableView<Events> eventsMainTable = new TableView<Events>();
 
 	// Necessary intialisations for Event
-	private static EventsList el1 = new EventsList();
-	private static ObservableList<Events> data = FXCollections.observableList(el1.getListOfEvents());
+	private static EventsList eventsList1 = new EventsList();
+	private static ObservableList<Events> dataInEventObserableList = FXCollections
+			.observableList(eventsList1.getListOfEvents());
 	private static ObservableList<String> searchEventChoices = FXCollections.observableArrayList();
 
 	@FXML
@@ -236,7 +240,7 @@ public class VIAController implements Initializable, Serializable {
 	private static MemberList list = new MemberList();
 	private static ObservableList<Member> memberObservableList = FXCollections.observableList(list.getListOfMembers());
 
-	private VIAModel viaModel = new VIAModel(el1, list, init);
+	private VIAModel viaModel = new VIAModel(eventsList1, list, init);
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -252,7 +256,7 @@ public class VIAController implements Initializable, Serializable {
 		eventTableCol9.setCellValueFactory(new PropertyValueFactory<Events, String>("minPartic"));
 		eventTableCol10.setCellValueFactory(new PropertyValueFactory<Events, String>("maxPartic"));
 		eventTableCol11.setCellValueFactory(new PropertyValueFactory<Events, String>("isFinalized"));
-		eventsMainTable.setItems(data);
+		eventsMainTable.setItems(dataInEventObserableList);
 		eventsMainTable.setEditable(setEditable);
 		eventsDeleteButton.disableProperty()
 				.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
@@ -594,7 +598,8 @@ public class VIAController implements Initializable, Serializable {
 					String currentChoiceEvent) {
 				switch (currentChoiceEvent) {
 				case "Name":
-					FilteredList<Events> filteredEventListByName = new FilteredList<>(data, p -> true);
+					FilteredList<Events> filteredEventListByName = new FilteredList<>(dataInEventObserableList,
+							p -> true);
 					txtFieldSearchEvent.textProperty().addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
 						filteredEventListByName.setPredicate(events -> {
 							if (newValueEvent == null || newValueEvent.isEmpty()) {
@@ -613,7 +618,8 @@ public class VIAController implements Initializable, Serializable {
 					break;
 
 				case "Type":
-					FilteredList<Events> filteredEventListByType = new FilteredList<>(data, p -> true);
+					FilteredList<Events> filteredEventListByType = new FilteredList<>(dataInEventObserableList,
+							p -> true);
 					txtFieldSearchEvent.textProperty().addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
 						filteredEventListByType.setPredicate(events -> {
 							if (newValueEvent == null || newValueEvent.isEmpty()) {
@@ -632,7 +638,8 @@ public class VIAController implements Initializable, Serializable {
 					break;
 
 				case "Category":
-					FilteredList<Events> filteredEventListByCategory = new FilteredList<>(data, p -> true);
+					FilteredList<Events> filteredEventListByCategory = new FilteredList<>(dataInEventObserableList,
+							p -> true);
 					txtFieldSearchEvent.textProperty().addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
 						filteredEventListByCategory.setPredicate(events -> {
 							if (newValueEvent == null || newValueEvent.isEmpty()) {
@@ -651,7 +658,8 @@ public class VIAController implements Initializable, Serializable {
 					break;
 
 				case "is-Finalized":
-					FilteredList<Events> filteredEventListByIsFinalized = new FilteredList<>(data, p -> true);
+					FilteredList<Events> filteredEventListByIsFinalized = new FilteredList<>(dataInEventObserableList,
+							p -> true);
 					txtFieldSearchEvent.textProperty().addListener((observableEvent2, oldValueEvent, newValueEvent) -> {
 						filteredEventListByIsFinalized.setPredicate(events -> {
 							if (newValueEvent == null || newValueEvent.isEmpty()) {
@@ -770,16 +778,35 @@ public class VIAController implements Initializable, Serializable {
 
 	}
 
+	/**
+	 * toEventsScene() - Defines a new VIAView and sets the local VIAModel from
+	 * file. Sets local EventsList from the VIAModel then applies this to an
+	 * ObservableList. Defines and Instantiates a new anchor pane of eventsView.fxml
+	 * and sets this as the main AnchorPane.
+	 * 
+	 * @return void
+	 * @throws IOException
+	 * 
+	 */
 	public void toEventsScene() throws IOException {
 		nameOfTheChosenLecturer = "";
 		VIAView viaView1 = new VIAView();
 		viaModel = viaView1.viaModFromFile();
-		el1 = viaModel.getEventList();
-		data = FXCollections.observableList(el1.getListOfEvents());
+		eventsList1 = viaModel.getEventList();
+		dataInEventObserableList = FXCollections.observableList(eventsList1.getListOfEvents());
 		AnchorPane paneEvents = FXMLLoader.load(getClass().getResource("eventsView.fxml"));
 		mainAnchor.getChildren().setAll(paneEvents);
 	}
 
+	/**
+	 * toMemberScene() - Defined a new VIAView and sets the local VIAModel from
+	 * file. Sets local MemberList from the VIAModel then applies this to an
+	 * ObservableList. Defines and Instantiates a new anchor pane of MemberView.fxml
+	 * and sets this as the main AnchorPane.
+	 * 
+	 * @return void
+	 * @throws IOException
+	 */
 	public void toMemberScene() throws IOException {
 		VIAView viaView1 = new VIAView();
 		viaModel = viaView1.viaModFromFile();
@@ -789,6 +816,15 @@ public class VIAController implements Initializable, Serializable {
 		mainAnchor.getChildren().setAll(paneMembers);
 	}
 
+	/**
+	 * toLecturerScene() - Defined a new VIAView and sets the local VIAModel from
+	 * file. Sets local LecturerList from the VIAModel then applies this to an
+	 * ObservableList. Defines and Instantiates a new anchor pane of
+	 * DisplayLecturers.fxml and sets this as the main AnchorPane.
+	 * 
+	 * @return void
+	 * @throws IOException
+	 */
 	public void toLecturerScene() throws IOException {
 		VIAView viaView1 = new VIAView();
 		viaModel = viaView1.viaModFromFile();
@@ -798,33 +834,79 @@ public class VIAController implements Initializable, Serializable {
 		mainAnchor.getChildren().setAll(paneLecturers);
 	}
 
+	/**
+	 * goBack() - Sets nameOfChosenLecturer to "". Defines and Instantiates a new
+	 * AnchorPane of viamain.fxml and sets this as the main AnchorPane.
+	 * 
+	 * @return void
+	 * @throws IOException
+	 */
 	public void goBack() throws IOException {
 		nameOfTheChosenLecturer = "";
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("viamain.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
 
+	/**
+	 * toAddMemberScene() - Defines and Instantiates a new AnchorPane of
+	 * AddMember.fxml and sets this as the main AnchorPane.
+	 * 
+	 * @return void
+	 * @throws IOException
+	 */
 	public void toAddMemberScene() throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("AddMember.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
 
+	/**
+	 * toEditMemberScene() - Defines and Instantiates a new AnchorPane of
+	 * EditMember.fxml and sets this as the main AnchorPane.
+	 * 
+	 * @return void
+	 * @throws IOException
+	 */
 	public void toEditMemberScene() throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("EditMember.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
 
+	/**
+	 * toAddLecturerScene() - Defines and Instantiates a new AnchorPane of
+	 * AddLecturer.fxml and sets this as the main AnchorPane.
+	 * 
+	 * @return void
+	 * @throws IOException
+	 */
 	public void toAddLecturerScene() throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("AddLecturer.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
 
+	/**
+	 * toAddEventScene() - Defines and Instantiates a new AnchorPane of
+	 * AddEvent.fxml and sets this as the main AnchorPane.
+	 * 
+	 * @return void
+	 * @throws IOException
+	 */
 	public void toAddEventScene() throws IOException {
 		nameOfTheChosenLecturer = "";
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("addNewEvent.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
 
+	/**
+	 * addLecturerToTheEventsScene() - Defines and Instantiates a VIAView. Sets the
+	 * local VIAModel from the viaView Method viaModFromFile(). Sets the local
+	 * LecturerList from the local VIAModel. Sets the ObservableList of Lecturers as
+	 * the LecturerList from VIAModel. Defines and Instantiates a new AnchorPane and
+	 * sets this as the main AnchorPane. Sets the disable property of
+	 * btnAddLecturerToTheEvent to false if an item of the TableView is selected.
+	 * 
+	 * @return void
+	 * @throws IOException
+	 */
 	public void addLecturerToTheEventScene() throws IOException {
 		VIAView viaView1 = new VIAView();
 		viaModel = viaView1.viaModFromFile();
@@ -836,6 +918,13 @@ public class VIAController implements Initializable, Serializable {
 				.bind(Bindings.isEmpty(tableViewLecturer.getSelectionModel().getSelectedItems()));
 	}
 
+	/**
+	 * addMember() - Defines and Instantiates a new Member, passing in the values
+	 * entered in each of the text fields of AddMember.fxml.
+	 * 
+	 * @param ActionEvent
+	 * @return void
+	 */
 	public void addMember(ActionEvent event) {
 		Member newMember = new Member(txtFieldAddMemberName.getText(), txtFieldAddMemberAge.getText(),
 				txtFieldAddMemberAddress.getText(), txtFieldAddMemberTel.getText(), txtFieldAddMemberEmail.getText(),
@@ -844,12 +933,31 @@ public class VIAController implements Initializable, Serializable {
 		JOptionPane.showMessageDialog(null, "Member added sucessfully!");
 	}
 
+	/**
+	 * deleteMember() - Defines and Instantiates two ObservableList. One is assigned
+	 * the selected row from the TableView, the other is assigned each of the
+	 * elements within this row. The elements of the row are then removed from the
+	 * selected row.
+	 * 
+	 * @param ActionEvent
+	 * @return void
+	 */
 	public void deleteMember(ActionEvent event) {
 		ObservableList<Member> selectedMember = tableMemberView.getSelectionModel().getSelectedItems();
 		ObservableList<Member> allMembers = tableMemberView.getItems();
 		selectedMember.forEach(allMembers::remove);
 	}
 
+	/**
+	 * addLect() - Defaults the RadioButton selectedRadioButton to a value. Defines
+	 * and Instantiates a new Lecturer taking the information entered into the
+	 * TextFields of AddLecturer.fxml and adds this to the local ObservableList
+	 * dataInLecturerTable. Displays a JOptionPane.
+	 * 
+	 * @param ActionEvent
+	 * @return void
+	 * @see javafx.collections.ObservableList, javax.swing.JOptionPane
+	 */
 	public void addLect(ActionEvent event) {
 		if (!(selectedRadioButton.equals("Yes")))
 			selectedRadioButton = "No";
@@ -859,6 +967,15 @@ public class VIAController implements Initializable, Serializable {
 		JOptionPane.showMessageDialog(null, "Lecturer added sucessfully!");
 	}
 
+	/**
+	 * deleteLecturer() - Defines and Instantiates two ObservableList. One is
+	 * assigned the selected row from the TableView, the other is assigned each of
+	 * the elements within this row. The elements of the row are then removed from
+	 * the selected row.
+	 * 
+	 * @param ActionEvent
+	 * @return void
+	 */
 	public void deleteLecturer(ActionEvent event) {
 		ObservableList<Lecturer> selectedLecturer = tableViewLecturer.getSelectionModel().getSelectedItems();
 		ObservableList<Lecturer> allLecturers = tableViewLecturer.getItems();
@@ -866,15 +983,31 @@ public class VIAController implements Initializable, Serializable {
 
 	}
 
+	/**
+	 * addEvent() - Defines and Instantiates a new Event, passing in the values
+	 * entered in each of the text fields of addNewEvent.fxml.
+	 * 
+	 * @param ActionEvent
+	 * @return void
+	 */
 	public void addEvent(ActionEvent event) {
 		Events event1 = new Events(addEventName.getText(), addEventDate.getText(), addEventDuration.getText(),
 				addEventType.getText(), addEventLocation.getText(), addEventCategory.getText(), nameOfTheChosenLecturer,
 				addEventPrice.getText(), addEventMinPartic.getText(), addEventMaxPartic.getText(), "false");
-		data.add(event1);
+		dataInEventObserableList.add(event1);
 		JOptionPane.showMessageDialog(null, "Event added sucessfully!");
 
 	}
 
+	/**
+	 * deleteEvent() - Defines and Instantiates two ObservableList. One is assigned
+	 * the selected row from the TableView, the other is assigned each of the
+	 * elements within this row. The elements of the row are then removed from the
+	 * selected row.
+	 * 
+	 * @param ActionEvent
+	 * @return void
+	 */
 	public void deleteEvent(ActionEvent event) {
 		ObservableList<Events> selectedEvent = eventsMainTable.getSelectionModel().getSelectedItems();
 		ObservableList<Events> allEvents = eventsMainTable.getItems();
@@ -882,48 +1015,85 @@ public class VIAController implements Initializable, Serializable {
 
 	}
 
+	/**
+	 * finalizeEvent() - Gets the currently selected row of the Observable list and
+	 * sets isFinalized to equal the String "true". Displays a JOptionPane.
+	 * 
+	 * @param ActionEvent
+	 * @throws IOException
+	 * @see javax.swing.JOptionPane
+	 */
 	public void finalizeEvent(ActionEvent event) throws IOException {
-		data.get(eventsMainTable.getSelectionModel().getSelectedIndex()).setisFinalized("true");
-		if (data.get(eventsMainTable.getSelectionModel().getSelectedIndex()) != null) {
+		dataInEventObserableList.get(eventsMainTable.getSelectionModel().getSelectedIndex()).setisFinalized("true");
+		if (dataInEventObserableList.get(eventsMainTable.getSelectionModel().getSelectedIndex()) != null) {
 			JOptionPane.showMessageDialog(null, "Event Finalized.");
 			toEventsScene();
 		}
 
 	}
 
+	/**
+	 * getVIAMod() - returns the VIAModel local to VIAController.
+	 * 
+	 * @return VIAModel
+	 */
 	public VIAModel getVIAMod() {
 		return viaModel;
 	}
 
-	public void saveToFile() {
-		EventsList eventsList1 = new EventsList();
-		if (data.size() != 0) {
-			for (int j = 0; j < data.size(); j++) {
-				eventsList1.addEvent(data.get(j));
-			}
-		}
-		viaModel.setEventList(eventsList1);
-	}
-
+	/**
+	 * deletetheTextInsideOfTheSearchEventTextField() - Sets the text of
+	 * txtFieldSearchEvent to "".
+	 * 
+	 * @return void
+	 */
 	public void deletetheTextInsideOfTheSearchEventTextField() {
 		txtFieldSearchEvent.setText("");
 	}
 
+	/**
+	 * deletetheTextInsideOfTheSearchLecturerTextField() - Sets the text of
+	 * txtFieldSearchLecturer to "".
+	 * 
+	 * @return void
+	 */
 	public void deletetheTextInsideOfTheSearchLecturerTextField() {
 		txtFieldSearchLecturer.setText("");
 	}
 
+	/**
+	 * deletetheTextInsideOfTheSearchMemberTextField() - Sets the text of
+	 * txtFieldSearchMember to "".
+	 * 
+	 * @return void
+	 */
 	public void deletetheTextInsideOfTheSearchMemberTextField() {
 		txtFieldSearchMember.setText("");
 	}
 
+	/**
+	 * addLecturerToEvent() - Sets nameOfTheChosenLecturer to the currently selected
+	 * TableView row name. Defines and Instantiates a new AnchorPane of
+	 * addNewEvent.fxml and sets this to the main AnchorPane.
+	 * 
+	 * @return void
+	 * @throws IOException
+	 * @see javafx.scene.control.TableView, javafx.scene.layout.AnchorPane
+	 */
 	public void addLecturerToEvent() throws IOException {
 		nameOfTheChosenLecturer = tableViewLecturer.getSelectionModel().getSelectedItem().getName();
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("addNewEvent.fxml"));
 		mainAnchor.getChildren().setAll(pane);
-
 	}
 
+	/**
+	 * addMemberToEvent() - Displays a JOption pane for now. Functionality may be
+	 * added in future.
+	 * 
+	 * @return void
+	 * @throws IOException
+	 * @see javax.swing.JOptionPane
+	 */
 	public void addMemberToEvent() throws IOException {
 		JOptionPane.showMessageDialog(null, "No functionality added at this time. Check back later");
 	}

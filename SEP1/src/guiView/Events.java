@@ -2,10 +2,14 @@ package guiView;
 
 import java.io.Serializable;
 
+/**
+ * Events - This class represents an Event.
+ * 
+ * @author Kevin
+ * @version 1.0, 14/12/2017
+ */
 public class Events implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 5596571541918537611L;
 	private String name;
 	private String date;
@@ -20,6 +24,11 @@ public class Events implements Serializable {
 	private String isFinalized = "false";
 	// ArrayList<Members> eventMembList = new ArrayList<>();
 
+	/**
+	 * 11 argument constructor. Sets all of the Events variables to the arguments
+	 * entered.
+	 * 
+	 */
 	public Events(String name, String date, String duration, String type, String location, String category,
 			String conductor, String price, String minPartic, String maxPartic, String isFinalized) {
 		this.name = name;
@@ -28,15 +37,19 @@ public class Events implements Serializable {
 		this.type = type;
 		this.location = location;
 		this.category = category;
-		this.conductor=conductor;
+		this.conductor = conductor;
 		this.price = price;
 		this.minPartic = minPartic;
 		this.maxPartic = maxPartic;
 		this.isFinalized = isFinalized;
 	}
 
+	/**
+	 * 0 argument constructor. Sets all of the Events variables to default empty
+	 * Strings.
+	 */
 	public Events() {
-		this("", "", "", "", "","", "", "", "", "", "false");
+		this("", "", "", "", "", "", "", "", "", "", "false");
 	}
 
 	public String getName() {
@@ -130,17 +143,14 @@ public class Events implements Serializable {
 	public String getIsFinalized() {
 		return isFinalized;
 	}
+
 	public void finalizeEvent() {
 		this.isFinalized = "true";
 	}
-
-	// public void addMemToEvent(Members member) {
-	// eventMembList.add(member);
-	// }
 	public String toString() {
 		return this.name + "\n" + this.date + "\n" + this.duration + "\n" + this.type + "\n" + this.location + "\n"
-				+ this.category + "\n" + this.conductor + "\n" + this.price + "\n" + this.minPartic + "\n" + this.maxPartic + "\n"
-				+ this.isFinalized;
+				+ this.category + "\n" + this.conductor + "\n" + this.price + "\n" + this.minPartic + "\n"
+				+ this.maxPartic + "\n" + this.isFinalized;
 	}
 
 }

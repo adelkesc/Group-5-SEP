@@ -3,9 +3,24 @@ package guiView;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * MemberList - This class stores Member in a List.
+ * 
+ * @author Nadeem
+ * @see ArrayList
+ */
 public class MemberList implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7507153324124992745L;
 	private ArrayList<Member> members;
 
+	/**
+	 * 0 argument constructor. Instantiates a new ArrayList
+	 * 
+	 * @see ArrayList
+	 */
 	public MemberList() {
 		this.members = new ArrayList<Member>();
 	}
@@ -17,37 +32,13 @@ public class MemberList implements Serializable {
 	public void removeMember(Member member) {
 		members.remove(member);
 	}
+
 	public void editMember(Member member) {
-		
-	}
-	public ArrayList<Member> getListOfMembers()
-	   {
-	      return members;
-	   }
 
-	/*public void editMember(Member member, String name, int age, String address, int tel, String email,
-			String coursePref) {
-		Member editMem = new Member(name, age, address, tel, email, coursePref);
-		members.add(editMem);
 	}
 
-	
-	 * public Member searchMemberByName(String name) { boolean exist = false; if
-	 * (members.isEmpty()) { return null; } for (int i = 0; i < members.size(); i++)
-	 * { if (members.get(i).getName() == name) { exist = true; }
-	 * 
-	 * } if (exist) { return members.get(name); } else { return members.get(name); }
-	 * 
-	 * }
-	 */
-	public Member searchMemberByName(String name) {
-		for (int i = 0; i < members.size(); i++) {
-			Member mem = members.get(i);
-			if (mem.getName().equals(name)) {
-				return mem;
-			}
-		}
-		return null;
+	public ArrayList<Member> getListOfMembers() {
+		return members;
 	}
 
 	public int countMembers() {
