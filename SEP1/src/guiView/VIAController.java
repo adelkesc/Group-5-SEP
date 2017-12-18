@@ -3,7 +3,6 @@ package guiView;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import javafx.beans.binding.Bindings;
@@ -1017,8 +1016,8 @@ public class VIAController implements Initializable, Serializable {
 	 */
 	public void deleteLecturer(ActionEvent event) {
 		ObservableList<Lecturer> selectedLecturer = tableViewLecturer.getSelectionModel().getSelectedItems();
-		ObservableList<Lecturer> allLecturers = tableViewLecturer.getItems();
-		selectedLecturer.forEach(allLecturers::remove);
+		//ObservableList<Lecturer> allLecturers = tableViewLecturer.getItems();
+		selectedLecturer.forEach(dataInLecturerTable::remove);
 
 	}
 
