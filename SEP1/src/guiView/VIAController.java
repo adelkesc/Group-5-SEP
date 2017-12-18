@@ -3,6 +3,7 @@ package guiView;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import javafx.beans.binding.Bindings;
@@ -96,6 +97,7 @@ public class VIAController implements Initializable, Serializable {
 
 	// Necessary intialisations for Event
 	private static EventsList eventsList1 = new EventsList();
+	private static Events event1 = new Events();
 	private static ObservableList<Events> dataInEventObserableList = FXCollections
 			.observableList(eventsList1.getListOfEvents());
 	private static ObservableList<String> searchEventChoices = FXCollections.observableArrayList();
@@ -158,6 +160,8 @@ public class VIAController implements Initializable, Serializable {
 	private Button btnFinalizeEvent = new Button();
 	@FXML
 	private Button btnAddMemberToEvent = new Button();
+	@FXML
+	private Button viewEventMemberList = new Button();
 
 	// main page FXML
 	@FXML
@@ -243,6 +247,7 @@ public class VIAController implements Initializable, Serializable {
 
 	private VIAModel viaModel = new VIAModel(eventsList1, list, init);
 	static Paint value0 = Paint.valueOf("F28697");
+	private static int tempInt1 = 0;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -266,6 +271,8 @@ public class VIAController implements Initializable, Serializable {
 				.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
 		btnFinalizeEvent.disableProperty()
 				.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
+		viewEventMemberList.disableProperty()
+		.bind(Bindings.isEmpty(eventsMainTable.getSelectionModel().getSelectedItems()));
 
 		eventTableCol1.setCellFactory(TextFieldTableCell.forTableColumn());
 		eventTableCol1.setOnEditCommit(new EventHandler<CellEditEvent<Events, String>>() {
@@ -815,6 +822,7 @@ public class VIAController implements Initializable, Serializable {
 		viaModel = viaView1.viaModFromFile();
 		list = viaModel.getMemberList();
 		memberObservableList = FXCollections.observableList(list.getListOfMembers());
+		tableMemberView.setItems(memberObservableList);
 		AnchorPane paneMembers = FXMLLoader.load(getClass().getResource("MemberView.fxml"));
 		mainAnchor.getChildren().setAll(paneMembers);
 	}
@@ -920,6 +928,33 @@ public class VIAController implements Initializable, Serializable {
 		mainAnchor.getChildren().setAll(pane);
 		btnAddLecturerToTheEvent.disableProperty()
 				.bind(Bindings.isEmpty(tableViewLecturer.getSelectionModel().getSelectedItems()));
+	}
+	/**
+	 * addMemberToEvent() - Displays a JOption pane for now. Functionality may be
+	 * added in future.
+	 * 
+	 * @return void
+	 * @throws IOException
+	 * @see javax.swing.JOptionPane
+	 */
+	public void addMemberToEvent() throws IOException {
+		VIAView viaView1 = new VIAView();
+		viaModel = viaView1.viaModFromFile();
+		list = viaModel.getMemberList();
+		memberObservableList = FXCollections.observableList(list.getListOfMembers());
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("AddMemberToEvent.fxml"));
+		mainAnchor.getChildren().setAll(pane);
+		event1 = eventsMainTable.getSelectionModel().getSelectedItem();
+		tempInt1 = eventsMainTable.getSelectionModel().getSelectedIndex();
+	}
+	public void attachMemberToEvent() {
+		event1.addMemberToEvent(tableMemberView.getSelectionModel().getSelectedItem());
+		dataInEventObserableList.set(tempInt1, event1);
+		VIAView viaView1 = new VIAView();
+		viaModel = viaView1.viaModFromFile();
+		list = viaModel.getMemberList();
+		memberObservableList = FXCollections.observableList(list.getListOfMembers());
+		JOptionPane.showMessageDialog(null, "Member added to Event.");
 	}
 
 	/**
@@ -1090,16 +1125,13 @@ public class VIAController implements Initializable, Serializable {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("addNewEvent.fxml"));
 		mainAnchor.getChildren().setAll(pane);
 	}
+	public void viewMembersOfEvent() throws IOException {
+		ObservableList<Member> addMemberToEventObservableList = FXCollections.observableList(eventsMainTable.getSelectionModel().getSelectedItem().getWholeMembArray());
+		memberObservableList = addMemberToEventObservableList;
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("viewMembersOfEvent.fxml"));
+		mainAnchor.getChildren().setAll(pane);
 
-	/**
-	 * addMemberToEvent() - Displays a JOption pane for now. Functionality may be
-	 * added in future.
-	 * 
-	 * @return void
-	 * @throws IOException
-	 * @see javax.swing.JOptionPane
-	 */
-	public void addMemberToEvent() throws IOException {
-		JOptionPane.showMessageDialog(null, "No functionality added at this time. Check back later");
 	}
+
+
 }

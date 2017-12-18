@@ -9,6 +9,10 @@ import java.io.Serializable;
  * @version 1.0, 14/12/2017
  */
 public class Member implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5432882348357605137l;
 	private String name;
 	private String age;
 	private String address;
@@ -93,5 +97,9 @@ public class Member implements Serializable {
 
 	public void setMembPay(String newMembPay) {
 		membPay = newMembPay;
+	}
+	public String toString() {
+		return name + age + address + tel + email + coursePref +  membPay;
+		
 	}
 }

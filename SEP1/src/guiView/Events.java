@@ -1,6 +1,7 @@
 package guiView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Events - This class represents an Event.
@@ -22,7 +23,7 @@ public class Events implements Serializable {
 	private String minPartic;
 	private String maxPartic;
 	private String isFinalized = "false";
-	// ArrayList<Members> eventMembList = new ArrayList<>();
+	private ArrayList<Member> eventMembList;
 
 	/**
 	 * 11 argument constructor. Sets all of the Events variables to the arguments
@@ -42,6 +43,7 @@ public class Events implements Serializable {
 		this.minPartic = minPartic;
 		this.maxPartic = maxPartic;
 		this.isFinalized = isFinalized;
+		this.eventMembList = new ArrayList<Member>();
 	}
 
 	/**
@@ -50,8 +52,15 @@ public class Events implements Serializable {
 	 */
 	public Events() {
 		this("", "", "", "", "", "", "", "", "", "", "false");
+		this.eventMembList = new ArrayList<Member>();
 	}
 
+	public void addMemberToEvent(Member member) {
+		eventMembList.add(member);
+	}
+	public ArrayList<Member> getWholeMembArray(){
+		return eventMembList;
+	}
 	public String getName() {
 		return name;
 	}
